@@ -21,7 +21,8 @@ class FlightPassengerController extends Controller
      */
     public function show(Flight $flight, CvFlight $passenger)
     {
-        return view('services::flights.show', compact('flight', 'passenger'));
+        $warehouses = auth()->user()->warehouses;
+        return view('services::flights.show', compact('flight', 'passenger', 'warehouses'));
     }
 
     /**
@@ -53,10 +54,12 @@ class FlightPassengerController extends Controller
                 break;
 
             case $passenger::STATUS_HOUSED:
-                $warehouse = Warehouse::firstOrCreate(['name' => 'First', 'address' => 'Main Address', 'phone' => '132456789']);
+                $warehouse = Warehouse::find($request->warehouse_id);
                 $warehouse->warehouseCv()->create([
+                    'warehouse_id' => $warehouse->id,
                     'cv_id' => $passenger->cv_id,
                     'entry_date' => now(),
+                    'entry_note' => $request->entry_note,
                 ]);
 
                 $passenger->status = $passenger::STATUS_HOUSED;
@@ -65,7 +68,7 @@ class FlightPassengerController extends Controller
             case $passenger::STATUS_RECIVED:
 
                 if ($passenger->status == $passenger::STATUS_HOUSED) {
-                    $warehouse = WarehouseCv::where('cv_id', $passenger->cv_id)->where('status', 0)->latest()->first();
+                    $warehouse  = WarehouseCv::find($request->warehouseCv_id);
                     $warehouse->update([
                         'exit_date' => now(),
                         'status' => 1
