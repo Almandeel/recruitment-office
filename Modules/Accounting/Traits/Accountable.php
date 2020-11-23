@@ -10,17 +10,17 @@ use Modules\Main\Models\Office;
 */
 trait Accountable
 {
-    
-    
+
+
     public function getِAccountName(){
         return $this->name;
     }
-    
+
     public function account()
     {
         return $this->morphOne(Account::class, 'accountable');
     }
-    
+
     public function createAccount($parent = null, $type = null, $side = null){
         if(is_null($parent)){
             $this_class = get_class($this);
@@ -28,15 +28,15 @@ trait Accountable
                 case Safe::class:
                     $parent = ($this->type == $this_class::TYPE_CASH) ? Account::cashes() : Account::banks();
                     break;
-                
+
                 case Customer::class:
                     $parent = Account::customers();
                     break;
-                
+
                 case Employee::class:
                     $parent = Account::employees();
                     break;
-                
+
                 case Office::class:
                     $parent = Account::externalOffices();
                     break;
@@ -75,8 +75,12 @@ public function entries($year_id = null, $side = null)
 
 public static function bootAccountable(){
     static::saved(function($model){
+        if (!auth()->check()) {
+            return;
+        }
+
         $dirty = $model->getDirty();
-        
+
         if (count($dirty) > 0)
         {
             if($model->wasRecentlyCreated){
@@ -102,13 +106,17 @@ public static function bootAccountable(){
             }
         }
     });
-    
+
     static::creating(function($model){
+        if (auth()->check()) {
+            return;
+        }
+
         if(is_null($model->id)){
             $model->createAccount();
         }
     });
-    
+
     // static::updated(function($model){
     //     $model->account->update(['name' => $model->name]);
     // });
