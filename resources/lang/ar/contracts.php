@@ -22,6 +22,8 @@ return [
         'waiting' => 'في الانتظار',
         'working' => 'جاري',
         'canceled' => 'ملغي',
+        'trail' => 'قيد التجربة',
+        'bailed' => 'تم نقل كفالته',
         'finished' => 'منتهي',
     ],
 

@@ -31,6 +31,7 @@ class CreateVouchersTable extends Migration
             $table->date('voucher_date')->nullable();
             $table->text('details')->nullable();
             $table->unsignedInteger('contract_id')->nullable();
+            $table->unsignedInteger('marketer_id')->nullable();
             $table->unsignedInteger('cv_id')->nullable();
             $table->unsignedInteger('user_id')->nullable();
             $table->timestamps();

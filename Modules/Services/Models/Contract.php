@@ -25,40 +25,42 @@ class Contract extends BaseModel
     public const STATUS_WAITING    = 0;
     public const STATUS_WORKING    = 1;
     public const STATUS_CANCELED   = 2;
-    public const STATUS_BAILED     = 3;
-    public const STATUS_FINISHED   = 4;
+    public const STATUS_TRAIL       = 4;
+    public const STATUS_BAILED     = 4;
+    public const STATUS_FINISHED   = 5;
     public const STATUSES = [
         self::STATUS_INITIAL => 'initial',
         self::STATUS_WAITING => 'waiting',
         self::STATUS_WORKING => 'working',
         self::STATUS_CANCELED => 'canceled',
+        self::STATUS_BAILED => 'trail',
         self::STATUS_BAILED => 'bailed',
         self::STATUS_FINISHED => 'finished',
     ];
 
     protected $fillable = [
-    'visa',
-    'profession_id',
-    'marketing_ratio',
-    'gender',
-    'details',
-    'marketer_id',
-    'country_id',
-    'cv_id',
-    'customer_id',
-    'amount',
-    'destination',
-    'arrival_airport',
-    'date_arrival',
-    'start_date',
-    'ex_date',
-    'user_id',
-    'status'
+        'visa',
+        'profession_id',
+        'marketing_ratio',
+        'gender',
+        'details',
+        'marketer_id',
+        'country_id',
+        'cv_id',
+        'customer_id',
+        'amount',
+        'status',
+        'destination',
+        'arrival_airport',
+        'date_arrival',
+        'start_date',
+        'ex_date',
+        'user_id',
     ];
     public function getStatus(){
-        $cv = $this->cv();
-        return is_null($cv) ? null : self::STATUSES[$this->cv()->pivot->status];
-        // return $this->status;
+        // $cv = $this->cv();
+        // return is_null($cv) ? null : self::STATUSES[$this->cv()->pivot->status];
+        return self::STATUSES[$this->status];
     }
 
     public function displayStatus(){

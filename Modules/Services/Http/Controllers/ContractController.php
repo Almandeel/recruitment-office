@@ -70,11 +70,11 @@ class ContractController extends Controller
             });
         }
         
-        // if ($status != 'all') {
-        //     $contracts = $contracts->filter(function($contract) use($status){
-        //         return $contract->checkStatus($status);
-        //     });
-        // }
+        if ($status != 'all') {
+            $contracts = $contracts->filter(function($contract) use($status){
+                return $contract->checkStatus($status);
+            });
+        }
         
         return view('services::contracts.index', compact('contracts', 'from_date', 'to_date', 'status', 'gender', 'office_id', 'country_id', 'profession_id', 'countries', 'offices', 'professions'));
     }
@@ -213,6 +213,9 @@ class ContractController extends Controller
             'marketing_ratio' => 'nullable|numeric',
             ]);
             $data = $request->except(['_token', 'marketer_id']);
+            if (!array_key_exists('status', $data)) {
+                $data['status'] = Contract::STATUS_WORKING;
+            }
             $cv = Cv::findOrFail($request->cv_id);
             if ($request->country_id == 'all' || $request->country_id != $cv->country_id) {
                 $data['country_id'] = $cv->country_id;

@@ -15,10 +15,9 @@ class CreateBailsTable extends Migration
     {
         Schema::create('bails', function (Blueprint $table) {
             $table->bigIncrements('id');
-            
+            $table->string('status', 10)->default('trail');
             $table->date('trail_date');
             $table->tinyInteger('trail_period');
-            
             $table->unsignedInteger('contract_id');
             $table->unsignedInteger('cv_id');
             $table->unsignedInteger('customer_id');

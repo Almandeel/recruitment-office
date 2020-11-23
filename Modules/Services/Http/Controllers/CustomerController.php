@@ -57,12 +57,16 @@ class CustomerController extends Controller
             'address'     => 'required | string',
             'id_number'   => 'string | unique:customers',
         ]);
+        // dd($request->all());
+        if (!$request->has(['user_id'])) {
+            $request['user_id'] = auth()->user()->id;
+        }
 
         $customer = Customer::create($request->all());
 
-        $customer->update([
-            'user_id' => $request->user()->id
-        ]);
+        // $customer->update([
+        //     'user_id' => $request->user()->id
+        // ]);
 
         return back()->with('success', 'تمت العملية بنجاح');
     }
