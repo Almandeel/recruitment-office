@@ -268,12 +268,12 @@ class Cv extends BaseModel
     {
         return $this->hasMany('Modules\ExternalOffice\Models\BillCv');
     }
-    
+
     public function voucher()
     {
         return $this->hasOne(Voucher::class, 'cv_id');
     }
-    
+
 
     public function office()
     {
@@ -343,5 +343,10 @@ class Cv extends BaseModel
     public function flgihts()
     {
         return $this->hasMany(CvFlight::class);
+    }
+
+    public function getLastFlightAttribute()
+    {
+        return $this->flgihts()->latest()->first();
     }
 }

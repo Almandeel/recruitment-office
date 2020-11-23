@@ -1,5 +1,5 @@
 @extends('layouts.master', [
-    'datatable' => true, 
+    'datatable' => true,
     'modals' => ['warehouse', 'warehouseUser', 'warehouseCv'],
     'crumbs' => [
         [route('warehouses.index'), 'الإيواء'],
@@ -124,7 +124,7 @@
                                             class="fa fa-edit"></i> تعديل</button>
                                         @endpermission
 
-                                        @if($warehouse_cv->exit_date == null)
+                                        @if($warehouse_cv->exit_date == null && !$warehouse_cv->cv->lastFlight)
                                             @permission('warehousecvs-update')
                                                 <button class="btn btn-danger btn-xs warehousecv update exit-button" data-toggle="modal"
                                                 data-status="{{ $warehouse_cv->status }}"
@@ -135,6 +135,14 @@
                                                 data-exit="{{ $warehouse_cv->exit_date }}" data-target="#warehouseCvModal"><i
                                                 class="fa fa-edit"></i> خروج نزيل</button>
                                             @endpermission
+                                        @elseif ($warehouse_cv->cv->lastFlight->status == $warehouse_cv->cv->lastFlight::STATUS_HOUSED)
+                                            <form class="d-inline-block" action="{{ route('services.flights.passengers.update', ['flight' => $warehouse_cv->cv->lastFlight->flight, 'passenger' => $warehouse_cv->cv->lastFlight]) }}" method="post" id="passenger-status-form">
+                                                @csrf @method('PUT')
+                                                <input type="hidden" name="passenger_id" id="status" value="{{ $warehouse_cv->cv->lastFlight->id }}">
+                                                <input type="hidden" name="warehouseCv_id" id="status" value="{{ $warehouse_cv->id }}">
+                                                <input type="hidden" name="status" id="status" value="{{ $warehouse_cv->cv->lastFlight::STATUS_RECIVED }}" @if ($warehouse_cv->cv->lastFlight->status) checked @endif>
+                                                <button class="btn btn-xs btn-info" type="submit">تسليم للعميل</button>
+                                            </form>
                                         @endif
                                     </td>
                                 </tr>
@@ -198,7 +206,7 @@
             @endslot
         @endcomponent
     </section>
-    <!-- /.content -->    
+    <!-- /.content -->
 @endsection
 
 

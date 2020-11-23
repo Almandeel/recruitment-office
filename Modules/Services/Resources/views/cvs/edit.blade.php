@@ -25,10 +25,10 @@
                                 <h5> البيانات الاساسية</h5>
                             </div>
                         </div>
-                            <br><br>  
+                            <br><br>
             <div class="col-md-9 row">
-            
-                    
+
+
                 <div class="col-md-12">
                             <div class="form-group">
                                 <label for="name">العامل \ العاملة</label>
@@ -50,7 +50,7 @@
                                 <input type="text" class="form-control" name="religion" placeholder="الديانة" required value="{{ $cv->religion }}">
                             </div>
                         </div>
-                
+
                 <div class="col-md-3">
                             <div class="form-group">
                                 <label for="profession_id">المهنة</label>
@@ -100,7 +100,7 @@
                                 <input type="number" class="form-control" name="children" placeholder="عدد الأطفال" required min="0" value="{{ $cv->children }}">
                             </div>
                         </div>
-                
+
                 <div class="col-md-3">
                             <div class="form-group">
                                 <label for="passport"> رقم   الاتصال</label>
@@ -128,9 +128,8 @@
                         </div>
             <div class="col-md-2 addphoto">
                     <div class="left-block">
-        
-                    
-    <div class="img"></div>
+
+    <div class="img" style="background-image: url('{{ asset('cvs_data/' . $cv->photo) }}')"></div>
     <div class="input-file">
         <input id="add-photo" type="file" name="photo">
         <label for="add-photo"> اضافه الصورة الشخصية</label>
@@ -143,14 +142,13 @@
         .addphoto .left-block {
         width: 154%;}
     </style>
-            
-                
+
                 </div>
                         <div class="col-md-12">
                             <h5>بيانات اضافية</h5>
-                            
+
                         </div>
-                        <br><br> 
+                        <br><br>
                             <div class="col-md-1">
                             <div class="form-group">
                                 <label for="passport"> الوزن</label>
@@ -170,43 +168,43 @@
                                     <option selected="" disabled="" value="">____ </option>
                                     <option @if($cv->sewing == true) selected @endif value="1">Yes</option>
                                     <option @if($cv->sewing == false) selected @endif value="0">No</option>
-                            
+
                                 </select>
                             </div>
                         </div>
                             <div class="col-md-1">
                             <div class="form-group">
                                 <label for="passport"> الديكور</label>
-                                    
+
                                 <select class="custom-select" name="decor" required="">
                                     <option selected="" disabled="" value="">____ </option>
                                     <option @if($cv->decor == true) selected @endif value="1">Yes</option>
                                     <option @if($cv->decor == false) selected @endif value="0">No</option>
-                            
+
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="form-group">
                                 <label for="passport"> التنظيف</label>
-                                    
+
                                 <select class="custom-select" name="cleaning" required="">
                                     <option selected="" disabled="" value="">____ </option>
                                     <option @if($cv->cleaning == true) selected @endif value="1">Yes</option>
                                     <option @if($cv->cleaning == false) selected @endif value="0">No</option>
-                            
+
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="form-group">
                                 <label for="passport"> الغسيل</label>
-                                    
+
                                 <select class="custom-select" name="washing" required="">
                                     <option selected="" disabled="" value="">____ </option>
                                     <option @if($cv->washing == true) selected @endif value="1">Yes</option>
                                     <option @if($cv->washing == false) selected @endif value="0">No</option>
-                            
+
                                 </select>
                             </div>
                         </div>
@@ -217,36 +215,36 @@
                                     <option selected="" disabled="" value="">____ </option>
                                     <option @if($cv->cooking == true) selected @endif value="1">Yes</option>
                                     <option @if($cv->cooking == false) selected @endif value="0">No</option>
-                            
+
                                 </select>
                             </div>
                         </div>
                             <div class="col-md-2">
                             <div class="form-group">
                                 <label for="passport"> تربية الاطفال </label>
-                                    
+
                                 <select class="custom-select" name="babysitting" required="">
                                     <option selected="" disabled="" value="">____ </option>
                                     <option @if($cv->babysitting == true) selected @endif value="1">Yes</option>
                                     <option @if($cv->babysitting == false) selected @endif value="0">No</option>
-                            
+
                                 </select>
                             </div>
                         </div>
-                        
-                                
+
+
                         <div class="col-md-12">
                             <br><br>
-                        <h5 
-    
-    > بيانات الجواز</h5>  
+                        <h5
+
+    > بيانات الجواز</h5>
                     </div>
-                    
-                    
+
+
                     <br><br>
-                    
+
                     <div class="col-md-12 row">
-                    
+
             <div class="col-md-9 row" style="
         padding-top: 50px;
     ">
@@ -277,38 +275,37 @@
                     </div>
                                 <div class="col-md-2 addphoto">
                     <div class="left-block">
-        
-                    
-                    <div class="img">
-                    </div>
+
+
+                    <div class="passport-img" style="background-image: url('{{ asset('cvs_data/' . $cv->passport_photo) }}')"></div>
                     <div class="input-file">
-                        <input type="file" name="passport_photo" >
+                        <input type="file" name="passport_photo" id="passport-photo">
                         <label> اضافة صورة الجواز</label>
                     </div>
-            
-                
-                </div>  
-                        
-                </div>        
 
-                    
-                
+
+                </div>
+
+                </div>
+
+
+
     <div  class="col-md-12">
         <h5>
-                        
+
                         تفاصيل العقد
                         </h5>
                     </div>
-                    
+
                     <div class="col-md-12 row">
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="amount">القيمة</label>                                
+                                <label for="amount">القيمة</label>
                                 <input type="number" class="form-control" name="amount" placeholder="القيمة" required value="{{ $cv->amount }}">
                             </div>
                         </div>
-                        
+
 
                         <div class="col-md-3">
                             <div class="form-group">
@@ -337,7 +334,7 @@
                             <textarea name="procedure" rows="3" cols="100"  >{{ $cv->procedure }}</textarea>
                         </div>
                     </div>
-                        
+
                         </div></div></div>
                             <div class="col-md-12">
                                 @component('components.widget')
@@ -363,10 +360,19 @@
 @push('foot')
 <script>
     $('.add-photo').change(function() {
-        readURL(this);
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                var templImg = e.target.result;
+                $('.passport-img').css("background-image", "url(" + e.target.result + ")");
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
     });
 
-    function readURL(input) {
+    $('#passport-photo').change(function() {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
@@ -377,6 +383,6 @@
 
             reader.readAsDataURL(input.files[0]);
         }
-    }
-</script>    
+    });
+</script>
 @endpush

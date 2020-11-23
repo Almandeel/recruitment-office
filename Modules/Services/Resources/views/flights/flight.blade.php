@@ -95,12 +95,8 @@
                                                         <input type="hidden" name="status" id="status" value="{{ $passenger::STATUS_RECIVED }}" @if ($passenger->status) checked @endif>
                                                         <button class="btn btn-xs btn-info" type="submit">تسليم للعميل</button>
                                                     </form>
-                                                    <form class="d-inline-block" action="{{ route('services.flights.passengers.update', ['flight' => $passenger->flight, 'passenger' => $passenger]) }}" method="post" id="passenger-status-form">
-                                                        @csrf @method('PUT')
-                                                        <input type="hidden" name="passenger_id" id="status" value="{{ $passenger->id }}">
-                                                        <input type="hidden" name="status" id="status" value="{{ $passenger::STATUS_HOUSED }}" @if ($passenger->status) checked @endif>
-                                                        <button class="btn btn-xs btn-info" type="submit">نقل إلى السكن</button>
-                                                    </form>
+
+                                                    <button class="btn btn-xs btn-info warehousecv" type="button">نقل إلى السكن</button>
                                                 @elseif ($passenger->status == $passenger::STATUS_HOUSED)
                                                     <form class="d-inline-block" action="{{ route('services.flights.passengers.update', ['flight' => $passenger->flight, 'passenger' => $passenger]) }}" method="post" id="passenger-status-form">
                                                         @csrf @method('PUT')
@@ -177,4 +173,3 @@
             @endslot
         @endcomponent
 </section>
-@endsection
