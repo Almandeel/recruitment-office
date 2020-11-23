@@ -32,8 +32,9 @@ class CreateContractsTable extends Migration
             $table->unsignedInteger('profession_id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('marketer_id')->nullable();
-            $table->unsignedInteger('country_id');
+            $table->unsignedInteger('country_id')->nullable();
             $table->unsignedInteger('customer_id');
+            $table->unsignedInteger('cv_id')->nullable();
             $table->double('amount')->nullable()->default('0');
             $table->integer('ex_date')->nullable()->default(90);
             $table->date('start_date')->nullable();

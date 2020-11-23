@@ -342,6 +342,26 @@
                     </li>
                 @endpermission
 
+                @permission('marketers-read')
+                    <li class="nav-item">
+                        {{--  <a href="{{ route('kafalat.index') }}" class="nav-link {{ (request()->segment(2) == 'servicesmarketers') ? 'active' : '' }}">  --}}
+                        <a href="{{ route('bails.index') }}" class="nav-link {{ (request()->segment(2) == 'bails') ? 'active' : '' }}">
+                            <i class="fa fa-user nav-icon"></i>
+                            <p>  الكفالات</p>
+                        </a>
+                    </li>
+                @endpermission
+
+
+                @permission('marketers-read')
+                    <li class="nav-item">
+                        <a href="{{ route('tafweed.index') }}" class="nav-link {{ (request()->segment(2) == 'servicesmarketers') ? 'active' : '' }}">
+                            <i class="fa fa-home nav-icon"></i>
+                            <p>الوكالات</p>
+                        </a>
+                    </li>
+                @endpermission
+
                 @permission('customers-read')
                     <li class="nav-item">
                         <a href="{{ route('customers.index') }}" class="nav-link {{ (request()->segment(2) == 'customers') ? 'active' : '' }}">

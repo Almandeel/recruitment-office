@@ -256,7 +256,7 @@ class ContractController extends Controller
             $contract = Contract::create($data);
             
             
-            // $cv->contracting($contract->id, $request->status);
+            $cv->contracting($contract->id, $request->status);
             
             if ($contract) {
                 $contract->attach();
