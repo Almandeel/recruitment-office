@@ -14,7 +14,7 @@ use Modules\ExternalOffice\Models\Cv;
 use Modules\Main\Models\Office;
 use Modules\ExternalOffice\Models\{Country, Profession, Bill};
 
-class ContractController extends Controller
+class BailController extends Controller
 {
     public function __construct()
     {
@@ -33,7 +33,7 @@ class ContractController extends Controller
         $professions = Profession::all();
         $offices = Office::all();
         
-        $contracts = Contract::orderBy('created_at');
+        $contracts = Contract::where('status', Contract::STATUS_BAILED)->orderBy('created_at');
         $first_contract = Contract::first();
         $from_date = is_null($request->from_date) ? (is_null($first_contract) ? date('Y-m-d') : $first_contract->created_at->format('Y-m-d')) : $request->from_date;
         $to_date = is_null($request->to_date) ? date('Y-m-d') : $request->to_date;

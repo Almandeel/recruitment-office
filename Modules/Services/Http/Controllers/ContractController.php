@@ -33,7 +33,7 @@ class ContractController extends Controller
         $professions = Profession::all();
         $offices = Office::all();
         
-        $contracts = Contract::orderBy('created_at');
+        $contracts = Contract::where('status', '!=', Contract::STATUS_BAILED)->orderBy('created_at');
         $first_contract = Contract::first();
         $from_date = is_null($request->from_date) ? (is_null($first_contract) ? date('Y-m-d') : $first_contract->created_at->format('Y-m-d')) : $request->from_date;
         $to_date = is_null($request->to_date) ? date('Y-m-d') : $request->to_date;
@@ -243,11 +243,11 @@ class ContractController extends Controller
             if ($request->marketer_id && $request->marketing_ratio) {
                 $marketer = Marketer::firstOrCreate(['name' => $request->marketer_id]);
                 $data['marketer_id'] = $marketer->id;
-
+                
                 $debt = $request->marketing_ratio;
-
+                
                 $marketer->update([
-                    'debt' => ($marketer->debt +  $debt)
+                'debt' => ($marketer->debt +  $debt)
                 ]);
             }else if($request->marketer_id) {
                 $marketer = Marketer::firstOrCreate(['name' => $request->marketer_id]);
@@ -255,7 +255,7 @@ class ContractController extends Controller
             }
             
             $data['user_id'] = auth()->user()->id;
-
+            
             $contract = Contract::create($data);
             
             
