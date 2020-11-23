@@ -102,14 +102,14 @@ class CvController extends Controller
 
         if ($request->has('photo')) {
             $fileName = time().'.'.$request->photo->extension();
-            
+
             $request->photo->move(public_path('cvs_data'), $fileName);
             $validatedData['photo'] = $fileName;
         }
 
         if ($request->has('passport_photo')) {
-            $fileName = time().'.'.$request->passport_photo->extension();
-            
+            $fileName = time().'1.'.$request->passport_photo->extension();
+
             $request->passport_photo->move(public_path('cvs_data'), $fileName);
             $validatedData['passport_photo'] = $fileName;
         }
@@ -205,14 +205,14 @@ class CvController extends Controller
 
             if ($request->has('photo')) {
                 $fileName = time().'.'.$request->photo->extension();
-                
+
                 $request->photo->move(public_path('cvs_data'), $fileName);
                 $validatedData['photo'] = $fileName;
             }
-    
+
             if ($request->has('passport_photo')) {
                 $fileName = time().'.'.$request->passport_photo->extension();
-                
+
                 $request->passport_photo->move(public_path('cvs_data'), $fileName);
                 $validatedData['passport_photo'] = $fileName;
             }
