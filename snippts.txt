@@ -1,0 +1,16 @@
+# Accounts & Users alter
+ALTER TABLE `accounts` ADD `accountable_type` VARCHAR(45) NULL DEFAULT NULL,
+ADD `accountable_id` BIGINT NULL DEFAULT NULL AFTER `accountable_type`;
+ALTER TABLE `users` ADD `userable_type` VARCHAR(45) NULL DEFAULT NULL,
+ADD `userable_id` BIGINT NULL DEFAULT NULL AFTER `userable_type`;
+
+
+# Years alter
+ALTER TABLE `years` 
+ADD `default_cash` INT UNSIGNED DEFAULT NULL,
+ADD `default_bank` INT UNSIGNED DEFAULT NULL,
+ADD `default_expenses` INT UNSIGNED DEFAULT NULL,
+ADD `default_revenues` INT UNSIGNED DEFAULT NULL,
+ADD `last_year` INT UNSIGNED DEFAULT NULL,
+ADD `taxes` TINYINT DEFAULT 0,
+;

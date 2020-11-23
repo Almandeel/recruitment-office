@@ -1,0 +1,25 @@
+{
+    "name": "recruitment-office/auth",
+    "description": "",
+    "authors": [
+        {
+            "name": "wip",
+            "email": "wip@example.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Auth\\Providers\\AuthServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Auth\\": ""
+        }
+    }
+}

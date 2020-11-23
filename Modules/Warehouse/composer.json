@@ -1,0 +1,25 @@
+{
+    "name": "recruitment-office/warehouse",
+    "description": "",
+    "authors": [
+        {
+            "name": "wip",
+            "email": "wip@example.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Warehouse\\Providers\\WarehouseServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Warehouse\\": ""
+        }
+    }
+}

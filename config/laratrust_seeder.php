@@ -1,0 +1,108 @@
+<?php
+
+return [
+    /**
+     * Control if the seeder should create a user per role while seeding the data.
+     */
+    'create_users' => true,
+
+    /**
+     * Control if all the laratrust tables should be truncated before running the seeder.
+     */
+    'truncate_tables' => true,
+
+    'roles_structure' => [
+        'super' => [
+            'accounts' => 'c-e,r-e,u-e,d-e,p-e,ds-e',
+            'years' => 'c-e,r-e,u-e,d-e,p-e',
+            'centers' => 'c-e,r-e,u-e,d-e,p-e',
+            'vouchers' => 'c-e,r-e,u-e,d-e,p-e',
+            'transfers' => 'c-e,r-e,u-e,d-e,p-e',
+            'advances' => 'c-ex,r-ex,u-ex,d-ex,p-ex',
+            'attachments' => 'c-ex,r-ex,u-ex,d-ex,p-ex',
+            'attendance' => 'c-e,r-e,u-e,d-e,p-e',
+            'bills' => 'c-ex,r-ex,u-ex,d-ex,p-ex',
+            'complaints' => 'c-ex,r-ex,u-ex,d-ex,p-ex',
+            'contracts' => 'c-ex,r-ex,u-ex,d-ex,p-ex',
+            'countries' => 'c-ex,r-ex,u-ex,d-ex,p-ex',
+            'customers' => 'c-e,r-e,u-e,d-e,p-e',
+            'cv' => 'c-ex,r-ex,u-ex,d-ex,p-ex',
+            'departments' => 'c-e,r-e,u-e,d-e,p-e',
+            'employees' => 'c-e,r-e,u-e,d-e,p-e,ds-e',
+            'entries' => 'c-e,r-e,u-e,d-e,p-e',
+            'expenses' => 'c-e,r-e,u-e,d-e,p-e',
+            'letters' => 'c-e,r-e,u-e,d-e,p-e,ds-e',
+            'lines' => 'c-e,r-e,u-e,d-e,p-e',
+            'logs' => 'c-e,r-e,u-e,d-e,p-e',
+            'marketers' => 'c-e,r-e,u-e,d-e,p-e',
+            'notes' => 'c-ex,r-ex,u-ex,d-ex,p-ex',
+            'offices' => 'c-e,r-ex,u-ex,d-e,p-e',
+            'services' => 'c-e,r-ex,u-ex,d-e,p-e,ds-e',
+            'permissions' => 'c-e,r-e,u-e,d-e,p-e',
+            'positions' => 'c-e,r-e,u-e,d-e,p-e',
+            'professions' => 'c-ex,r-ex,u-ex,d-ex,p-ex',
+            'pulls' => 'c-ex,r-ex,u-ex,d-ex,p-ex',
+            'return' => 'r-ex,p-ex',
+            'returns' => 'c-e,r-e,u-e,d-e,p-e',
+            'roles' => 'c-e,r-e,u-e,d-e,p-e',
+            'safes' => 'c-e,r-e,u-e,d-e,p-e',
+            'salaries' => 'c-e,r-e,u-e,d-e,p-e',
+            'suggestions' => 'c-e,r-e,u-e,d-e,p-e',
+            'tasks' => 'c-e,r-e,u-e,d-e,p-e',
+            'transactions' => 'c-e,r-e,u-e,d-e,p-e',
+            'custodies' => 'c-e,r-e,u-e,d-e,p-e',
+            'users' => 'c-e,r-e,u-e,d-e,p-e,ds-e',
+            'backups' => 'c-e,r-e,u-e,d-e,p-e',
+            'vacations' => 'c-e,r-e,u-e,d-e,p-e',
+            'warehouses' => 'c-e,r-e,u-e,d-e,p-e,ds-e',
+            'warehousecvs' => 'c-e,r-e,u-e,d-e,p-e',
+            'categories' => 'c-e,r-e,u-e,d-e,p-e',
+            'tutorials' => 'c-e,r-e,u-e,d-e,p-e',
+            'flights' => 'c-e,r-e,u-e,d-e,p-e',
+            'statements' => 'r-e',
+            'mail' => 'c-e,r-e,u-e,d-e,p-e',
+            'phones' => 'r-e',
+            'sms' => 's-e',
+        ],
+        'office' => [
+            'advances' => 'c-ex,r-ex,u-ex,d-ex,p-ex',
+            'flights' => 'c-e,r-e,u-e,d-e,p-e',
+            'attachments' => 'c-ex,r-ex,u-ex,d-ex,p-ex',
+            'bills' => 'c-ex,r-ex,u-ex,d-ex,p-ex',
+            'complaints' => 'c-ex,r-ex,u-ex,d-ex,p-ex',
+            'contracts' => 'c-ex,r-ex,u-ex,d-ex,p-ex',
+            'countries' => 'c-ex,r-ex,u-ex,d-ex,p-ex',
+            'cv' => 'c-ex,r-ex,u-ex,d-ex,p-ex',
+            'expenses' => 'c-e,r-e,u-e,d-e,p-e',
+            'notes' => 'c-ex,r-ex,u-ex,d-ex,p-ex',
+            'offices' => 'c-e,r-ex,u-ex,d-e,p-e',
+            'professions' => 'c-ex,r-ex,u-ex,d-ex,p-ex',
+            'pulls' => 'c-ex,r-ex,u-ex,d-ex,p-ex',
+            'return' => 'r-ex,p-ex',
+            'roles' => 'c-e,r-e,u-e,d-e,p-e',
+            'users' => 'c-e,r-e,u-e,d-e,p-e',
+            'phones' => 'r-e',
+        ],
+        'business' => [
+            'contracts' => 'c-ex',
+        ],
+    ],
+
+    'permissions_map' => [
+        'c' => 'create',
+        'r' => 'read',
+        'u' => 'update',
+        'd' => 'delete',
+        'p' => 'print',
+        's' => 'send',
+        'ds' => 'dashboard',
+
+        'hr' =>  'hr',
+        'mail' =>  'mail',
+        'accounting' =>  'accounting',
+        'tutorails' =>  'tutorails',
+        'warehouses' =>  'warehouses',
+        //'accounting' =>  'accounting',
+        'users' =>  'users',
+    ]
+];

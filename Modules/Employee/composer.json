@@ -1,0 +1,25 @@
+{
+    "name": "recruitment-office/employee",
+    "description": "",
+    "authors": [
+        {
+            "name": "wip",
+            "email": "wip@example.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Employee\\Providers\\EmployeeServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Employee\\": ""
+        }
+    }
+}

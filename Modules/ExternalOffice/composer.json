@@ -1,0 +1,25 @@
+{
+    "name": "recruitment-office/externaloffice",
+    "description": "",
+    "authors": [
+        {
+            "name": "wip",
+            "email": "wip@example.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\ExternalOffice\\Providers\\ExternalOfficeServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\ExternalOffice\\": ""
+        }
+    }
+}

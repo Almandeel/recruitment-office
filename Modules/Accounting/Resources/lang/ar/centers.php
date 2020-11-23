@@ -1,0 +1,26 @@
+<?php
+return [
+    'list' => 'قائمة المراكز',
+    'create' => 'اضافة مركز',
+    'show' => 'عرض مركز',
+    'edit' => 'تعديل مركز',
+    'delete' => 'حذف مركز',
+    'costs' => 'مراكز التكلفة',
+    'profits' => 'مراكز الربح',
+    'choose' => 'اختر مركز',
+    'details' => 'تفاصيل مركز',
+    'confirm_delete' => 'تأكيد حذف المركز',
+    'create_success' => 'تمت اضافة المركز بنجاح',
+    'add_account_success' => 'تمت اضافة الحساب للمركز بنجاح',
+    'remove_account_success' => 'تم حذف الحساب من المركز بنجاح',
+    'create_fail' => 'فشلت عملية الاضافة',
+    'delete_success' => 'تمت حذف المركز بنجاح',
+    'delete_fail' => 'فشلت عملية الحذف',
+    'update_success' => 'تمت تعديل المركز بنجاح',
+    'update_fail' => 'فشلت عملية التعديل',
+    'exists' => 'المركز موجود في القائمة',
+    'types' => [
+        Modules\Accounting\Models\Center::TYPE_COST => 'مركز تكلفة',
+        Modules\Accounting\Models\Center::TYPE_PROFIT => 'مركز ربح',
+    ],
+];

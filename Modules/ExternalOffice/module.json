@@ -1,0 +1,15 @@
+{
+    "name": "ExternalOffice",
+    "alias": "externaloffice",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\ExternalOffice\\Providers\\ExternalOfficeServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "Helpers//helpers.php"
+    ],
+    "requires": []
+}

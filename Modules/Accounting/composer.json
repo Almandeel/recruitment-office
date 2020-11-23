@@ -1,0 +1,25 @@
+{
+    "name": "recruitment-office/accounting",
+    "description": "",
+    "authors": [
+        {
+            "name": "wip",
+            "email": "wip@example.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Accounting\\Providers\\AccountingServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Accounting\\": ""
+        }
+    }
+}

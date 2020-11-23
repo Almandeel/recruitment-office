@@ -1,0 +1,13 @@
+{
+    "ExternalOffice": true,
+    "Auth": true,
+    "Accounting": true,
+    "Employee": true,
+    "Mail": true,
+    "Main": true,
+    "Customer": true,
+    "Tutorial": true,
+    "Warehouse": true,
+    "Services": true,
+    "Report": true
+}

@@ -1,0 +1,25 @@
+{
+    "name": "recruitment-office/tutorial",
+    "description": "",
+    "authors": [
+        {
+            "name": "wip",
+            "email": "wip@example.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Tutorial\\Providers\\TutorialServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Tutorial\\": ""
+        }
+    }
+}
