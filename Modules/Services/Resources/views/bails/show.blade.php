@@ -216,7 +216,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <strong>المسوق</strong>
-                                        <span>{{ $contract->marketer->name }}</span>
+                                        <span>{{ $contract->marketer ? $contract->marketer->name : '' }}</span>
                                     </div>
                                     <div class="col">
                                         <strong>نسبة المسوق</strong>
@@ -327,7 +327,7 @@
                                         @else
                                             <form action="{{ route('vouchers.store') }}" method="post" class="form-inline">
                                                 @csrf
-                                                <input type="hidden" name="marketer_id" value="{{ $marketer->id }}">
+                                                <input type="hidden" name="marketer_id" value="{{ $marketer->id ?? '' }}">
                                                 <input type="hidden" name="voucherable_id" value="{{ $contract->id }}">
                                                 <input type="hidden" name="voucherable_type" value="{{ get_class($contract) }}">
                                                 <input type="hidden" name="currency" value="ريال">

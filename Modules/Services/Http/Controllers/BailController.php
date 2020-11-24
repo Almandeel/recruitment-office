@@ -115,20 +115,21 @@ class BailController extends Controller
     */
     public function store(Request $request)
     {
-        $request->validate([
-            'phones' => 'unique:customers',
-            'visa' => 'nullable|numeric',
-            'details' => 'nullable|string',
-            'cv_id' => 'required|numeric',
-            'x_contract_id' => 'required',
-            'x_customer_id' => 'required',
-            'amount' => 'required|numeric|min:0',
-            'marketer_id' => 'nullable',
-            'marketing_ratio' => 'nullable|numeric',
-            'customer_id_number'   => 'string|nullable|unique:customers.id_number',
-        ]);
+        // $request->validate([
+        //     'customer_phones' => 'unique:customers.phones',
+        //     'visa' => 'nullable|numeric',
+        //     'details' => 'nullable|string',
+        //     'cv_id' => 'required|numeric',
+        //     'x_contract_id' => 'required',
+        //     'x_customer_id' => 'required',
+        //     'amount' => 'required|numeric|min:0',
+        //     'marketer_id' => 'nullable',
+        //     'marketing_ratio' => 'nullable|numeric',
+        //     'customer_id_number'   => 'string|nullable|unique:customers.id_number',
+        // ]);
+        // dd($request->all());
 
-        $data = $request->except(['_token']);
+        $data = $request->except(['_token', 'marketer_id']);
         $cv = Cv::findOrFail($request->cv_id);
         if ($request->country_id == 'all' || $request->country_id != $cv->country_id) {
             $data['country_id'] = $cv->country_id;
@@ -145,8 +146,14 @@ class BailController extends Controller
             if (!is_null($request->customer_id_number)) {
                 $customer_data['id_number'] = $request->customer_id_number;
             }
+            if (!is_null($request->customer_phones)) {
+                $customer_data['phones'] = $request->customer_phones;
+            }
+            if (!is_null($request->customer_address)) {
+                $customer_data['address'] = $request->customer_address;
+            }
             if (count($customer_data)) {
-                $customer = Customer::create($customer_data);
+                $customer = Customer::firstOrCreate($customer_data);
                 if ($customer) {
                     $data['customer_id'] = $customer->id;
                 }
@@ -171,6 +178,7 @@ class BailController extends Controller
             $bail = Bail::create($data);
             if ($bail) {
                 $x_contract = $bail->x_contract;
+                if($cv) $cv->update(['status' => Cv::STATUS_CONTRACTED, 'contract_id' => $bail->contract_id]);
                 $x_contract->update(['status' => Contract::STATUS_BAILED]);
             }
             $contract->attach();
@@ -191,6 +199,7 @@ class BailController extends Controller
         $x_contract = $bail->x_contract;
         $customer = $bail->customer;
         $x_customer = $bail->x_customer;
+        // dd($customer->name);
         return view('services::bails.show', compact('bail', 'cv', 'contract', 'x_contract', 'customer', 'x_customer'));
     }
     
@@ -226,9 +235,9 @@ class BailController extends Controller
         'notes' => 'nullable|string',
         'amount' => 'numeric|min:0',
         ]);
-        
+        $cv = Cv::find($request->cv_id);
         $data = $request->except(['_token', '_method', 'marketer_id']);
-        $contract_data = $request->except(['_token', '_method', 'status']);
+        $contract_data = $request->except(['_token', '_method', 'status', 'marketer_id']);
         
         if (is_null($request->customer_id)) {
             $customer_data = [];
@@ -261,6 +270,7 @@ class BailController extends Controller
         
         $bail->contract->update($contract_data);
         $bail->update($data);
+        if($cv) $cv->update(['status' => Cv::STATUS_CONTRACTED, 'contract_id' => $bail->contract_id]);
         
         return back()->with('success', __('global.operation_success'));
     }

@@ -18,7 +18,7 @@
                 <table class="table table-bordered mb-2">
                     <thead>
                         <tr>
-                            <td colspan="3">
+                            <td colspan="4">
                                 <div class="form-inlinee">
                                     <div class="input-group">
                                         <label class="input-group-append">
@@ -36,21 +36,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <td style="padding: 0px;"><input class="form-control" type="text" value="{{ $x_customer->name }}" style="border-radius: 0;" disabled></td>
+                        <td style="padding: 0px;"><input class="form-control" type="text" value="{{ $x_customer->name }}" style="border-radius: 0;" readonly></td>
                         <td style="padding: 0px;">
-                            <input type="text" style="border-radius: 0;" class="form-control" disabled value="{{ $x_customer->id_number }}">
+                            <input type="text" style="border-radius: 0;" class="form-control" readonly value="{{ $x_customer->id_number }}">
                             <input type="hidden" name="x_customer_id" value="{{ $x_customer->id }}">
                             <input type="hidden" name="x_contract_id" value="{{ $x_contract->id }}">
                             <input type="hidden" name="cv_id" value="{{ $cv->id }}">
                         </td>
-                        <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" disabled value="{{ $x_customer->phones }}"></td>
-                        <td style="padding: 0px;"><input type="number" style="border-radius: 0;" class="form-control" name="visa" placeholder="التأشيرة"></td>
+                        <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" readonly value="{{ $x_customer->phones }}"></td>
+                        <td style="padding: 0px;"><input type="number" style="border-radius: 0;" class="form-control" name="visa" value="{{ $x_contract->visa }}" readonly placeholder="التأشيرة"></td>
                     </tbody>
                 </table>
                 <table class="table table-bordered mb-2">
                     <thead>
                         <tr>
-                            <td colspan="3">
+                            <td colspan="4">
                                 <div class="form-inlinee">
                                     <div class="input-group">
                                         <label for="customers" class="input-group-append">
@@ -59,7 +59,7 @@
                                         <select class="form-control select2 custom-select" id="customers">
                                             <option value="create">إنشاء عميل</option>
                                             @foreach($customers as $customer)
-                                            <option value="{{ $customer->id }}" data-id="{{ $customer->id }}" data-name="{{ $customer->name }}" data-id-number="{{ $customer->id_number }}">{{ $customer->name }}</option>
+                                                <option value="{{ $customer->id }}" data-id="{{ $customer->id }}" data-name="{{ $customer->name }}" data-id-number="{{ $customer->id_number }}" data-phones="{{ $customer->phones }}" data-address="{{ $customer->address }}">{{ $customer->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -69,7 +69,8 @@
                         <tr>
                             <th>الإسم</th>
                             <th>رقم الهوية</th>
-                            <th>رقم التأشيرة</th>
+                            <th>رقم الهاتف</th>
+                            <th>العنوان</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -78,7 +79,8 @@
                             <input type="text" style="border-radius: 0;" class="form-control" name="customer_id_number" placeholder="رقم الهوية">
                             <input type="hidden" name="customer_id">
                         </td>
-                        <td style="padding: 0px;"><input type="number" style="border-radius: 0;" class="form-control" name="visa" placeholder="التأشيرة"></td>
+                        <td style="padding: 0px;"><input type="number" style="border-radius: 0;" class="form-control" name="customer_phones" placeholder="رقم الهاتف"></td>
+                        <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" name="customer_address" placeholder="العنوان"></td>
                     </tbody>
                 </table>
                 <table class="table table-bordered mb-2">
@@ -103,11 +105,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" disabled value="{{ $cv->office ? $cv->office->name : '' }}"></td>
-                        <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" disabled value="{{ $cv->name }}"></td>
-                        <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" disabled value="{{ $cv->profession ? $cv->profession->name : '' }}"></td>
-                        <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" disabled value="{{ $cv->displayGender() }}"></td>
-                        <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" disabled value="{{ $cv->passport }}"></td>
+                        <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" readonly value="{{ $cv->office ? $cv->office->name : '' }}"></td>
+                        <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" readonly value="{{ $cv->name }}"></td>
+                        <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" readonly value="{{ $cv->profession ? $cv->profession->name : '' }}"></td>
+                        <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" readonly value="{{ $cv->displayGender() }}"></td>
+                        <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" readonly value="{{ $cv->passport }}"></td>
                     </tbody>
                 </table>
                 <div class="row">
@@ -127,7 +129,7 @@
                         <label for="marketer_id">المسوق</label>
                         <div class="input-group">
                             <select class="form-control editable" name="marketer_id">
-                                {{--  <option selected disabled value="">المسوق</option>  --}}
+                                {{--  <option selected readonly value="">المسوق</option>  --}}
                                 @foreach($marketers as $marketer)
                                 <option value="{{ $marketer->id }}">{{ $marketer->name }}</option>
                                 @endforeach
@@ -211,23 +213,44 @@
             let field_customer_name = $('input[name=customer_name]');
             let field_customer_id_number = $('input[name=customer_id_number]');
             let field_customer_id = $('input[name=customer_id]');
+            let field_customer_phones = $('input[name=customer_phones]');
+            let field_customer_address = $('input[name=customer_address]');
             if(selected_option.val() == 'create'){
+                field_customer_phones.val('')
+                field_customer_address.val('')
                 field_customer_name.val('')
                 field_customer_id_number.val('')
+
                 field_customer_id.removeAttr('value')
-                field_customer_name.removeAttr('disabled')
-                field_customer_id_number.removeAttr('disabled')
+                field_customer_name.removeAttr('readonly')
+                field_customer_id_number.removeAttr('readonly')
+                field_customer_phones.removeAttr('readonly')
+                field_customer_address.removeAttr('readonly')
+
                 field_customer_name.attr('required', true)
-                field_customer_id.attr('disabled', true)
+                field_customer_id_number.attr('required', true)
+                field_customer_phones.attr('required', true)
+                field_customer_address.attr('required', true)
+                field_customer_id.attr('readonly', true)
             }else{
                 field_customer_name.val(selected_option.data('name'))
                 field_customer_id.val(selected_option.data('id'))
+                field_customer_phones.val(selected_option.data('phones'))
+                field_customer_address.val(selected_option.data('address'))
                 field_customer_id.attr('value', selected_option.data('id'))
                 field_customer_id_number.val(selected_option.data('id-number'))
-                field_customer_name.attr('disabled', true)
-                field_customer_id_number.attr('disabled', true)
-                field_customer_id.removeAttr('disabled')
+
+                field_customer_name.attr('readonly', true)
+                field_customer_id_number.attr('readonly', true)
+                field_customer_phones.attr('readonly', true)
+                field_customer_address.attr('readonly', true)
+                
+                field_customer_id.removeAttr('readonly')
                 field_customer_name.removeAttr('required')
+                field_customer_id_number.removeAttr('required')
+                field_customer_phones.removeAttr('required')
+                field_customer_address.removeAttr('required')
+
                 $('input.parsley-error[name="customer_name"]')
                     .siblings('ul.parsley-errors-list').remove()
                 $('input[name="customer_name"]').removeClass('parsley-error')

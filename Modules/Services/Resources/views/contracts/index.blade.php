@@ -181,10 +181,10 @@
                                                     @endpermission
                                                     @if (!$contract->isCanceled())
                                                         @permission('contracts-delete')
-                                                        <form id="cancel-form-{{ $contract->id }}" style="display: none" action="{{ route('contracts.destroy', $contract->id) }}" method="post">
+                                                        <form id="cancel-form-{{ $contract->id }}" style="display: none" action="{{ route('contracts.update', $contract->id) }}" method="post">
                                                             @csrf 
-                                                            @method('DELETE')
-                                                            <input type="hidden" name="operation" value="cancel"/>
+                                                            @method('PUT')
+                                                            <input type="hidden" name="status" value="cancel"/>
                                                         </form>
                                                         @endpermission
                                                     @endif

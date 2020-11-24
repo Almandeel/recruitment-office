@@ -188,8 +188,8 @@ class Cv extends BaseModel
     }
     public function cancel(){
         return $this->update([
-        'contract_id' => null,
-        'status' => self::STATUS_ACCEPTED,
+            'contract_id' => null,
+            'status' => self::STATUS_ACCEPTED,
         ]);
     }
 

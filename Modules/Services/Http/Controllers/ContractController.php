@@ -34,7 +34,7 @@ class ContractController extends Controller
         $professions = Profession::all();
         $offices = Office::all();
 
-        $contracts = Contract::where('status', '!=', Contract::STATUS_BAILED)->orderBy('created_at');
+        $contracts = Contract::orderBy('created_at');
         $first_contract = Contract::first();
         $from_date = is_null($request->from_date) ? (is_null($first_contract) ? date('Y-m-d') : $first_contract->created_at->format('Y-m-d')) : $request->from_date;
         $to_date = is_null($request->to_date) ? date('Y-m-d') : $request->to_date;
@@ -76,6 +76,9 @@ class ContractController extends Controller
                 return $contract->checkStatus($status);
             });
         }
+        $contracts = $contracts->filter(function($contract){
+            return is_null($contract->x_bail);
+        });
         // dd($contracts, $status);
 
         return view('services::contracts.index', compact('contracts', 'from_date', 'to_date', 'status', 'gender', 'office_id', 'country_id', 'profession_id', 'countries', 'offices', 'professions'));
@@ -350,77 +353,62 @@ class ContractController extends Controller
     */
     public function update(Request $request, Contract $contract)
     {
-        // dd($contract->cvs->where('pivot.cv_id', $request->cv_id)->first()->pivot->status);
-        $request->validate([
-        'visa' => 'nullable|numeric',
-        // 'details' => 'nullable|string',
-        'profession_id' => 'required',
-        'country_id' => 'required',
-        'amount' => 'required|numeric|min:0',
-        ]);
-
-        $data = $request->except(['_token', '_method', 'marketer_id']);
-        $cv = Cv::findOrFail($request->cv_id);
-        if ($request->country_id == 'all' || $request->country_id != $cv->country_id) {
-            $data['country_id'] = $cv->country_id;
-        }
-        if ($request->profession_id == 'all' || $request->profession_id != $cv->profession_id) {
-            $data['profession_id'] = $cv->profession_id;
-        }
-
-        if (is_null($request->customer_id)) {
-            $customer_data = [];
-            if (!is_null($request->customer_name)) {
-                $customer_data['name'] = $request->customer_name;
+        if ($request->status == 'cancel') {
+            $contract->cancel();
+            return back()->with('success', __('contracts.cancel_success'));
+        } else {
+            $request->validate([
+                'visa' => 'nullable|numeric',
+                // 'details' => 'nullable|string',
+                'profession_id' => 'required',
+                'country_id' => 'required',
+                'amount' => 'required|numeric|min:0',
+            ]);
+    
+            $data = $request->except(['_token', '_method', 'marketer_id']);
+            $cv = Cv::findOrFail($request->cv_id);
+            if ($request->country_id == 'all' || $request->country_id != $cv->country_id) {
+                $data['country_id'] = $cv->country_id;
             }
-            if (!is_null($request->customer_id_number)) {
-                $customer_data['id_number'] = $request->customer_id_number;
+            if ($request->profession_id == 'all' || $request->profession_id != $cv->profession_id) {
+                $data['profession_id'] = $cv->profession_id;
             }
-            if (count($customer_data)) {
-                $customer = Customer::firstOrCreate($customer_data);
-                if ($customer) {
-                    $data['customer_id'] = $customer->id;
+    
+            if (is_null($request->customer_id)) {
+                $customer_data = [];
+                if (!is_null($request->customer_name)) {
+                    $customer_data['name'] = $request->customer_name;
+                }
+                if (!is_null($request->customer_id_number)) {
+                    $customer_data['id_number'] = $request->customer_id_number;
+                }
+                if (count($customer_data)) {
+                    $customer = Customer::firstOrCreate($customer_data);
+                    if ($customer) {
+                        $data['customer_id'] = $customer->id;
+                    }
                 }
             }
-        }
-
-        if ($contract->cvs->count()) {
-            if (!$contract->cvs->contains($request->cv_id)) {
-                foreach($contract->cvs->where('pivot.status', Contract::STATUS_WORKING) as $c){
-                    $contract->cvs()->updateExistingPivot($c, array('status' => Contract::STATUS_CANCELED), false);
-                    $c->update(['status' => Cv::STATUS_ACCEPTED]);
+    
+            if ($request->marketer_id) {
+                $marketer = Marketer::firstOrCreate(['name' => $request->marketer_id]);
+                $data['marketer_id'] = $marketer->id;
+                $debt = $request->marketing_ratio;
+                if ($contract->marketer_id) {
+                    $contract->marketer->update([
+                    'debt' => ($contract->marketer->debt -  $contract->marketing_ratio)
+                    ]);
                 }
-
-
-                $cv->contracting($contract->id, $request->status);
-            }else{
-                $contract_cv = $contract->cvs->where('pivot.cv_id', $request->cv_id)->last();
-                if ($contract_cv->pivot->status != $request->status) {
-                    $contract->cvs()->updateExistingPivot($cv, array('status' => $request->status), false);
-                }
-            }
-        }else{
-            $cv->contracting($contract->id, $request->status);
-        }
-
-        if ($request->marketer_id) {
-            $marketer = Marketer::firstOrCreate(['name' => $request->marketer_id]);
-            $data['marketer_id'] = $marketer->id;
-            $debt = $request->marketing_ratio;
-            if ($contract->marketer_id) {
-                $contract->marketer->update([
-                'debt' => ($contract->marketer->debt -  $contract->marketing_ratio)
+    
+                $marketer->update([
+                'debt' => ($marketer->debt +  $debt)
                 ]);
             }
-
-            $marketer->update([
-            'debt' => ($marketer->debt +  $debt)
-            ]);
+    
+            $contract->update($data);
+            return back()->with('success', __('global.operation_success'));
         }
 
-        $contract->update($data);
-
-        return back()->with('success', __('global.operation_success'));
     }
 
     /**

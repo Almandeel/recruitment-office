@@ -92,7 +92,17 @@ class Contract extends BaseModel
     public function getCurrency(){
         return 'ريال';
     }
-
+    
+    public function x_bail()
+    {
+        return $this->hasOne(Bail::class, 'x_contract_id');
+    }
+    
+    public function bail()
+    {
+        return $this->hasOne(Bail::class, 'contract_id');
+    }
+    
     public function getMarketerMoney(){
         return $this->marketing_ratio;// * ($this->amount / 100);
     }
@@ -314,9 +324,9 @@ class Contract extends BaseModel
     }
 
     public function cancel(){
-        $succeeded = false;
-        if($this->cv){
-            $this->cv->cancel();
+        $succeeded = $this->update(['status' => self::STATUS_CANCELED]);
+        if($this->cv && $succeeded){
+            $succeeded = $this->cv->cancel();
         }
 
         return $succeeded;
