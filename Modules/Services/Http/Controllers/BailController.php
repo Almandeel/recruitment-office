@@ -199,7 +199,7 @@ class BailController extends Controller
         $x_contract = $bail->x_contract;
         $customer = $bail->customer;
         $x_customer = $bail->x_customer;
-        // dd($customer->name);
+        // dd($contract->all_vouchers, \Modules\Accounting\Models\Voucher::orderBy('created_at', 'DESC')->limit(3)->get()->pluck('voucherable_id'));
         return view('services::bails.show', compact('bail', 'cv', 'contract', 'x_contract', 'customer', 'x_customer'));
     }
     

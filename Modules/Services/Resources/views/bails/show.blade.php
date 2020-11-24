@@ -391,7 +391,7 @@
                         @component('accounting::components.vouchers')
                             @slot('voucherable', $contract)
                             @slot('currency', 'ريال')
-                            @slot('vouchers', $contract->all_vouchers->merge($contract->cv_vouchers))
+                            @slot('vouchers', $contract->all_vouchers)
                         @endcomponent
                     @endslot
                 @endcomponent

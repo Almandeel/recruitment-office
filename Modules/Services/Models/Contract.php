@@ -222,7 +222,8 @@ class Contract extends BaseModel
 
     public function getAllVouchersAttribute()
     {
-        $vouchers = Voucher::where('contract_id', $this->id)->where('voucherable_type', get_class($this))->where('voucherable_id', $this->id)->get();
+        $vouchers = Voucher::where('contract_id', $this->id)->get()
+        ->merge(Voucher::where('voucherable_type', get_class($this))->where('voucherable_id', $this->id)->get());
         return $vouchers->unique();
     }
 
@@ -238,10 +239,10 @@ class Contract extends BaseModel
         return $vouchers;
     }
 
-    public function getVouchersAttribute()
-    {
-        return $this->hasMany(Voucher::class);
-    }
+    // public function getVouchersAttribute()
+    // {
+    //     return $this->hasMany(Voucher::class);
+    // }
 
     public function getBillsAttribute()
     {
