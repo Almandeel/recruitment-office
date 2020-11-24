@@ -118,7 +118,7 @@ return [
                             [
                                 'id' => 124,
                                 'number' => 124,
-                                'name' => 'الموظفين',
+                                'name' => 'المكاتب الخارجية',
                                 'type' => $type_primary,
                                 'side' => $side_debt,
                             ],

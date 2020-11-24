@@ -23,7 +23,7 @@
                                     <label for="country_id">الدولة</label>
                                      <select name="country_id" id="country_id" class="form-control">
                                      <option value="all" selected="">الكل</option>
-                                     @foreach(App\Country::all() as $country) 
+                                     @foreach(Modules\ExternalOffice\Models\Country::all() as $country) 
                                      <option value="{{$country->id}}">{{$country->name}}</option>
                                      @endforeach
                                     </select> 
