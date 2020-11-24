@@ -18,8 +18,7 @@ class CreateBailsTable extends Migration
             $table->string('status', 10)->default('trail');
             $table->date('trail_date');
             $table->float('amount')->default(0);
-            $table->date('bail_date')->nullable()->default(now());
-            $table->text('notes')->nullable();
+            $table->date('bail_date')->nullable();
             $table->tinyInteger('trail_period');
             $table->unsignedInteger('contract_id');
             $table->unsignedInteger('cv_id');
