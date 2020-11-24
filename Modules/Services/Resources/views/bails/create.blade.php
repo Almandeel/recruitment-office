@@ -32,6 +32,7 @@
                             <th>الإسم</th>
                             <th>رقم الهوية</th>
                             <th>رقم الهاتف</th>
+                            <th>رقم التأشيرة</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,6 +44,7 @@
                             <input type="hidden" name="cv_id" value="{{ $cv->id }}">
                         </td>
                         <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" disabled value="{{ $x_customer->phones }}"></td>
+                        <td style="padding: 0px;"><input type="number" style="border-radius: 0;" class="form-control" name="visa" placeholder="التأشيرة"></td>
                     </tbody>
                 </table>
                 <table class="table table-bordered mb-2">
