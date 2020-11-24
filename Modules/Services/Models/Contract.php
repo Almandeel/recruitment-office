@@ -33,7 +33,7 @@ class Contract extends BaseModel
         self::STATUS_WAITING => 'waiting',
         self::STATUS_WORKING => 'working',
         self::STATUS_CANCELED => 'canceled',
-        self::STATUS_BAILED => 'trail',
+        self::STATUS_TRAIL => 'trail',
         self::STATUS_BAILED => 'bailed',
         self::STATUS_FINISHED => 'finished',
     ];

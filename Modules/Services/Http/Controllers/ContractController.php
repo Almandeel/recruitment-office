@@ -278,7 +278,7 @@ class ContractController extends Controller
     */
     public function show(Contract $contract)
     {
-        // dd($contract->all_vouchers, $contract->cvs_vouchers);
+        // dd($contract->vouchers->count());
         return view('services::contracts.show', compact('contract'));
     }
     
