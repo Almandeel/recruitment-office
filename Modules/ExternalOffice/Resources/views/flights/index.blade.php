@@ -10,7 +10,9 @@
 <section class="content">
     <div class="card">
         <div class="card-header">
+            @permission('flights-create')
             <a href="{{ route('office.flights.create') }}" class="btn btn-primary float-right">New</a>
+            @endpermission
         </div>
         <div class="card-body">
             <table class="table table-bordered table-striped text-center datatable">
@@ -40,8 +42,12 @@
                                     <span class="badge badge-info badge-bill">{{ $passenger->displayStatus() }}</span>
                                 </td>
                                 <td>
+                                    @permission('flights-read')
                                     <a href="{{ route('office.flights.passengers.show', ['flight' => $flight, 'passenger' => $passenger]) }}" class="btn btn-xs btn-info"> <i class="fa fa-eye"></i> Show</a>
+                                    @endpermission
+                                    @permission('flights-update')
                                     <a href="{{ route('office.flights.edit', $flight) }}" class="btn btn-xs btn-warning"> <i class="fa fa-edit"></i> Edit</a>
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach

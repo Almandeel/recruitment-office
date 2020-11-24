@@ -16,6 +16,14 @@ use Illuminate\Support\Facades\Notification;
 
 class FlightController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:flights-create')->only(['create', 'store']);
+        $this->middleware('permission:flights-read')->only(['index', 'show']);
+        $this->middleware('permission:flights-update')->only(['edit', 'update']);
+        $this->middleware('permission:flights-delete')->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response

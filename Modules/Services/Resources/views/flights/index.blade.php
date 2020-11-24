@@ -10,7 +10,9 @@
 <section class="content">
     <div class="card">
         <div class="card-header">
+            @permission('flights-create')
             <a href="{{ route('services.flights.create') }}" class="btn btn-primary float-right">إضافة</a>
+            @endpermission
         </div>
         <div class="card-body">
             <table class="table table-bordered table-striped text-center datatable">
@@ -46,9 +48,15 @@
                                     <span class="badge badge-info badge-bill">{{ $passenger->displayCustomerStatus() }}</span>
                                 </td>
                                 <td>
+                                    @permission('flights-read')
                                     <a href="{{ route('services.flights.passengers.show', ['flight' => $flight, 'passenger' => $passenger]) }}" class="btn btn-xs btn-info"> <i class="fa fa-eye"></i> عرض</a>
+                                    @endpermission
+                                    @permission('flights-update')
                                     <a href="{{ route('services.flights.edit', $flight) }}" class="btn btn-xs btn-warning"> <i class="fa fa-edit"></i> تعديل</a>
+                                    @endpermission
+                                    @permission('flights-read')
                                     <a href="{{ route('services.flights.show', $flight) }}" class="btn btn-xs btn-default"> <i class="fa fa-plane"></i> تفاصيل الرحلة</a>
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach
