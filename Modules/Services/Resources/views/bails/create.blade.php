@@ -101,9 +101,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" disabled value="{{ $cv->office->name }}"></td>
+                        <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" disabled value="{{ $cv->office ? $cv->office->name : '' }}"></td>
                         <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" disabled value="{{ $cv->name }}"></td>
-                        <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" disabled value="{{ $cv->profession->name }}"></td>
+                        <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" disabled value="{{ $cv->profession ? $cv->profession->name : '' }}"></td>
                         <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" disabled value="{{ $cv->displayGender() }}"></td>
                         <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" disabled value="{{ $cv->passport }}"></td>
                     </tbody>
