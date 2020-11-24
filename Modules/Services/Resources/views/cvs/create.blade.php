@@ -352,30 +352,30 @@
 
 @push('foot')
 <script>
-    $('.add-photo').change(function() {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
+    // $('.add-photo').change(function() {
+    //     if (input.files && input.files[0]) {
+    //         var reader = new FileReader();
 
-            reader.onload = function(e) {
-                var templImg = e.target.result;
-                $('.passport-img').css("background-image", "url(" + e.target.result + ")");
-            };
+    //         reader.onload = function(e) {
+    //             var templImg = e.target.result;
+    //             $('.passport-img').css("background-image", "url(" + e.target.result + ")");
+    //         };
 
-            reader.readAsDataURL(input.files[0]);
-        }
-    });
+    //         reader.readAsDataURL(input.files[0]);
+    //     }
+    // });
 
-    $('#passport-photo').change(function() {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
+    // $('#passport-photo').change(function() {
+    //     if (input.files && input.files[0]) {
+    //         var reader = new FileReader();
 
-            reader.onload = function(e) {
-                var templImg = e.target.result;
-                $('.img').css("background-image", "url(" + e.target.result + ")");
-            };
+    //         reader.onload = function(e) {
+    //             var templImg = e.target.result;
+    //             $('.img').css("background-image", "url(" + e.target.result + ")");
+    //         };
 
-            reader.readAsDataURL(input.files[0]);
-        }
-    });
+    //         reader.readAsDataURL(input.files[0]);
+    //     }
+    // });
 </script>
 @endpush
