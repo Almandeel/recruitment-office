@@ -205,42 +205,42 @@
                     </div>
                 </fieldset>
                 <fieldset>
-                    <legend>بيانات العامل{{ $contract->cv()->displayGender() == 'ذكر' ? '' : 'ة' }}</legend>
+                    <legend>بيانات العامل{{ $contract->cv->displayGender() == 'ذكر' ? '' : 'ة' }}</legend>
                     <div class="row">
                         <div class="col">
-                            <p><strong>الدولة</strong> : <span>{{ $contract->cv()->country->name }}</span></p>
+                            <p><strong>الدولة</strong> : <span>{{ $contract->cv->country->name }}</span></p>
                         </div>
                         <div class="col">
-                            <p><strong>المهنة</strong> : <span>{{ $contract->cv()->profession->name }}</span></p>
+                            <p><strong>المهنة</strong> : <span>{{ $contract->cv->profession->name }}</span></p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <p><strong>الرقم</strong> : <span>{{ $contract->cv()->id }}</span></p>
+                            <p><strong>الرقم</strong> : <span>{{ $contract->cv->id }}</span></p>
                         </div>
                         <div class="col">
-                            <p><strong>الإسم</strong> : <span>{{ $contract->cv()->name }}</span></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <p><strong>الجنس</strong> : <span>{{ $contract->cv()->displayGender() }}</span></p>
-                        </div>
-                        <div class="col">
-                            <p><strong>العمر</strong> : <span>{{ $contract->cv()->age() }}</span></p>
+                            <p><strong>الإسم</strong> : <span>{{ $contract->cv->name }}</span></p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <p><strong>الديانة</strong> : <span>{{ $contract->cv()->religion }}</span></p>
+                            <p><strong>الجنس</strong> : <span>{{ $contract->cv->displayGender() }}</span></p>
                         </div>
                         <div class="col">
-                            <p><strong>الجنسية</strong> : <span>{{ $contract->cv()->nationality }}</span></p>
+                            <p><strong>العمر</strong> : <span>{{ $contract->cv->age() }}</span></p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <p><strong>عدد الاطفال</strong> : <span>{{ $contract->cv()->children }}</span></p>
+                            <p><strong>الديانة</strong> : <span>{{ $contract->cv->religion }}</span></p>
+                        </div>
+                        <div class="col">
+                            <p><strong>الجنسية</strong> : <span>{{ $contract->cv->nationality }}</span></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p><strong>عدد الاطفال</strong> : <span>{{ $contract->cv->children }}</span></p>
                         </div>
                     </div>
                 </fieldset>

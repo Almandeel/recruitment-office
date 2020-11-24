@@ -97,7 +97,7 @@
                                     </th>
                                     <td>
                                         <a href="#" data-toggle="modal" data-target="#showCvModal">
-                                            {{ $contract->cv()->name ?? '-' }}
+                                            {{ $contract->cv->name ?? '-' }}
                                         </a>
                                     </td>
                                 </tr>
@@ -109,7 +109,7 @@
                                     <th>
                                         الحالة الإجتماعية 
                                     </th>
-                                    <td>{{ $contract->cv()->nationality ?? '-' }}</td>
+                                    <td>{{ $contract->cv->nationality ?? '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th>
@@ -138,7 +138,7 @@
                                     <th>
                                      الديانة
                                     </th>
-                                    <td>{{ $contract->cv()->religion ?? '-' }}</td>
+                                    <td>{{ $contract->cv->religion ?? '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th>
@@ -234,7 +234,7 @@
                                     </tr>
                                     <tr>
                                         <th>العامل \ العاملة</th>
-                                        <td>{{ $contract->cv()->name ?? '-' }}</td>
+                                        <td>{{ $contract->cv->name ?? '-' }}</td>
                                     </tr>
                                     <tr>
                                         <th>رقم التأشيرة</th>

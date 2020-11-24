@@ -124,7 +124,7 @@ class OfficeController extends Controller
             $contracts = $contracts->whereBetween('created_at', [$from_date_time, $to_date_time]);
             if ($profession_id != 'all') {
                 $contracts = $contracts->filter(function ($contract) use ($profession_id) {
-                    return $contract->cv()->profession_id == $profession_id;
+                    return $contract->cv->profession_id == $profession_id;
                 });
             }
             $compact['contracts'] = $contracts;

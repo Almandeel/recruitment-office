@@ -59,6 +59,7 @@ return [
             'categories' => 'c-e,r-e,u-e,d-e,p-e',
             'tutorials' => 'c-e,r-e,u-e,d-e,p-e',
             'flights' => 'c-e,r-e,u-e,d-e,p-e',
+            'bails' => 'c-e,r-e,u-e,d-e,p-e',
             'statements' => 'r-e',
             'mail' => 'c-e,r-e,u-e,d-e,p-e',
             'phones' => 'r-e',

@@ -166,10 +166,10 @@ class ContractController extends Controller
     {
         if ($request->type == 'initial') {
             $request->validate([
-            'customer_name' => 'required|string',
-            'customer_phones' => 'required|string',
-            'customer_id_number' => 'numeric',
-            'visa' => 'nullable|numeric',
+                'customer_name' => 'required|string',
+                'customer_phones' => 'required|string',
+                'customer_id_number' => 'numeric',
+                'visa' => 'nullable|numeric',
             ]);
             $data = $request->only(['cv_id', 'visa']);
             $cv = Cv::findOrFail($request->cv_id);
