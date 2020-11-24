@@ -27,7 +27,7 @@ Route::middleware('auth')->prefix('services')->group(function () {
     Route::resource('/contracts', 'ContractController');
 
     Route::get('flights/{flight}/passengers/{passenger}', 'FlightPassengerController@show')->name('services.flights.passengers.show');
-    Route::put('flights/{flight}/passengers/{passenger}', 'FlightPassengerController@update')->name('services.flights.passengers.update');
+    Route::put('flights/{flight}/passengers/{passenger?}', 'FlightPassengerController@update')->name('services.flights.passengers.update');
     Route::put('flights/{flight}/passengers/{passenger}/customer', 'FlightPassengerController@updateCustomerStatus')->name('services.flights.passengers.customer.update');
     Route::as('services')->resource('flights', 'FlightController');
 

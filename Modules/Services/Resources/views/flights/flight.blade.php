@@ -96,14 +96,8 @@
                                                         <button class="btn btn-xs btn-info" type="submit">تسليم للعميل</button>
                                                     </form>
 
-                                                    <button class="btn btn-xs btn-info warehousecv" type="button">نقل إلى السكن</button>
-                                                @elseif ($passenger->status == $passenger::STATUS_HOUSED)
-                                                    <form class="d-inline-block" action="{{ route('services.flights.passengers.update', ['flight' => $passenger->flight, 'passenger' => $passenger]) }}" method="post" id="passenger-status-form">
-                                                        @csrf @method('PUT')
-                                                        <input type="hidden" name="passenger_id" id="status" value="{{ $passenger->id }}">
-                                                        <input type="hidden" name="status" id="status" value="{{ $passenger::STATUS_RECIVED }}" @if ($passenger->status) checked @endif>
-                                                        <button class="btn btn-xs btn-info" type="submit">تسليم للعميل</button>
-                                                    </form>
+                                                    <button type="button" class="btn btn-xs btn-info warehousecv12" data-toggle="modal" data-target="#warehouseCvModal">نقل إلى السكن</button>
+
                                                 @else
                                                     <span class="badge badge-info">
                                                         {{ $passenger->displayStatus() }}
@@ -173,4 +167,53 @@
             @endslot
         @endcomponent
 </section>
+
+<div class="modal fade" id="warehouseCvModal" tabindex="-1" role="dialog" aria-labelledby="taskLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title pull-left" id="taskLabel">نقل إلى السكن</h5>
+          <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form class="form" action="{{ route('services.flights.passengers.update', ['flight' => $passenger->flight]) }}" method="POST">
+            @csrf @method('PUT')
+            <div class="modal-body">
+
+				<div class="form-group">
+					<label>العامل</label>
+					<select id="warehouses_passenger" required  class="form-control name" name="passenger_id" required>
+						@foreach ($flight->passengers()->where('status', '!=', 3)->get() as $value)
+							<option value="{{ $value->id }}">{{ $value->cv->name }}</option>
+						@endforeach
+					</select>
+				</div>
+				<div class="form-group">
+					<label>السكن</label>
+					<select id="warehouses" required  class="form-control name" name="warehouse_id" required>
+						@foreach ($warehouses as $warehouse)
+							<option value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>
+						@endforeach
+					</select>
+				</div>
+
+				<div class="enter">
+					<div class="form-group">
+						<label>ملاحظات الدخول</label>
+						<textarea class="form-control" name="entry_note" placeholder="ملاحظات الدخول"></textarea>
+					</div>
+                </div>
+
+                <input type="hidden" name="status" value="3">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">إغلاق</button>
+                <button type="submit" class="btn btn-primary">حفظ</button>
+            </div>
+		</form>
+      </div>
+    </div>
+</div>
+
 @endsection

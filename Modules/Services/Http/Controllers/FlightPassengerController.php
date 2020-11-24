@@ -31,7 +31,7 @@ class FlightPassengerController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, Flight $flight)
+    public function update(Request $request, Flight $flight, CvFlight $passenger = null)
     {
         $passenger = $flight->passengers()->find($request->passenger_id);
 
@@ -55,6 +55,9 @@ class FlightPassengerController extends Controller
 
             case $passenger::STATUS_HOUSED:
                 $warehouse = Warehouse::find($request->warehouse_id);
+                if ($passenger == null) {
+                    $passenger = CvFlight::find($request->passenger_id);
+                }
                 $warehouse->warehouseCv()->create([
                     'warehouse_id' => $warehouse->id,
                     'cv_id' => $passenger->cv_id,

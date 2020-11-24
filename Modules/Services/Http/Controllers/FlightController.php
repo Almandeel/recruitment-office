@@ -85,7 +85,9 @@ class FlightController extends Controller
      */
     public function show(Flight $flight)
     {
-        return view('services::flights.flight', compact('flight'));
+        $warehouses = auth()->user()->warehouses;
+
+        return view('services::flights.flight', compact('flight', 'warehouses'));
     }
 
     /**
