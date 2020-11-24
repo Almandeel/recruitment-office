@@ -266,6 +266,7 @@ class ContractController extends Controller
             // $cv->contracting($contract->id, $request->status);
             
             if ($contract) {
+                $cv->update(['status' => Cv::STATUS_CONTRACTED]);
                 $contract->attach();
             }
             return redirect()->route('contracts.show', $contract->id)->with('success', __('global.operation_success'));
