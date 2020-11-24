@@ -204,7 +204,7 @@ class ContractController extends Controller
         }else {
             $request->validate([
             'phones' => 'unique:customers',
-            'customer_id_number' => [ 'required',Rule::unique('customers', 'id_number')],
+            'customer_id_number' => [Rule::unique('customers', 'id_number')],
             'visa' => 'nullable|numeric',
             'details' => 'nullable|string',
             'cv_id' => 'required|numeric',
