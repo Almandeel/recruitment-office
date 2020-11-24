@@ -238,7 +238,7 @@
                         <div class="col-md-2 addphoto">
                             <div class="left-block">
                                 <div class="img"></div>
-                                <div class="input-file">
+                                <div class="">
                                     <input id="" type="file" name="passport_photo" />
                                     <label for="add-photo"> Passport Photo </label>
                                 </div>
@@ -306,21 +306,21 @@
 
 @push('foot')
 <script>
-    $('.add-photo').change(function() {
-        readURL(this);
-    });
+    // $('.add-photo').change(function() {
+    //     readURL(this);
+    // });
 
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
+    // function readURL(input) {
+    //     if (input.files && input.files[0]) {
+    //         var reader = new FileReader();
 
-            reader.onload = function(e) {
-                var templImg = e.target.result;
-                $('.img').css("background-image", "url(" + e.target.result + ")");
-            };
+    //         reader.onload = function(e) {
+    //             var templImg = e.target.result;
+    //             $('.img').css("background-image", "url(" + e.target.result + ")");
+    //         };
 
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
+    //         reader.readAsDataURL(input.files[0]);
+    //     }
+    // }
 </script>    
 @endpush

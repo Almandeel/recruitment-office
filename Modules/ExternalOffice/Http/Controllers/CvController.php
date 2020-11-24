@@ -64,6 +64,7 @@ class CvController extends BaseController
 	 */
 	public function store(Request $request)
 	{
+		// dd($request->all());
 		$request_data = $request->validate([
 			'name' => 'required | string | max:140',
 			'passport' => 'required | string | max:140',
@@ -113,8 +114,10 @@ class CvController extends BaseController
 		// 	array_merge($request_data, ['photo' => $newFileName]);
 		// }
 
+
+
 		if ($request->has('photo')) {
-			$fileName = time().'.'.$request->photo->extension();
+			$fileName =  Str::random(16).'.'.$request->photo->extension();
 			
 			$request->photo->move(public_path('cvs_data'), $fileName);
 			$request_data['photo'] = $fileName;
@@ -130,10 +133,10 @@ class CvController extends BaseController
 		// }
 
 		if ($request->has('passport_photo')) {
-			$fileName = time().'.'.$request->passport_photo->extension();
+			$filePassport = time().'.'.$request->passport_photo->extension();
 			
-			$request->passport_photo->move(public_path('cvs_data'), $fileName);
-			$request_data['passport_photo'] = $fileName;
+			$request->passport_photo->move(public_path('cvs_data'), $filePassport);
+			$request_data['passport_photo'] = $filePassport;
 		}
 
 		$cv = Cv::create($request_data);
