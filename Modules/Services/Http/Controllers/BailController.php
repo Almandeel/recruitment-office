@@ -125,8 +125,9 @@ class BailController extends Controller
             'amount' => 'required|numeric|min:0',
             'marketer_id' => 'nullable',
             'marketing_ratio' => 'nullable|numeric',
-            'id_number'   => 'string|nullable| unique:customers',
+            'customer_id_number'   => 'string|nullable|unique:customers',
         ]);
+
         $data = $request->except(['_token']);
         $cv = Cv::findOrFail($request->cv_id);
         if ($request->country_id == 'all' || $request->country_id != $cv->country_id) {
