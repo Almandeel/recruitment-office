@@ -212,7 +212,7 @@ class ContractController extends Controller
             $request->validate([
                 'phones' => 'unique:customers',
                 'customer_id_number' => [Rule::unique('customers', 'id_number')],
-                'visa' => 'nullable|numeric|max:100',
+                'visa' => 'nullable|numeric|digits_between:8,15',
                 'details' => 'nullable|string',
                 'cv_id' => 'required|numeric',
                 'profession_id' => 'required',
@@ -364,7 +364,7 @@ class ContractController extends Controller
                 'country_id' => 'required',
                 'amount' => 'required|numeric|min:0',
             ]);
-    
+
             $data = $request->except(['_token', '_method', 'marketer_id']);
             $cv = Cv::findOrFail($request->cv_id);
             if ($request->country_id == 'all' || $request->country_id != $cv->country_id) {
@@ -373,7 +373,7 @@ class ContractController extends Controller
             if ($request->profession_id == 'all' || $request->profession_id != $cv->profession_id) {
                 $data['profession_id'] = $cv->profession_id;
             }
-    
+
             if (is_null($request->customer_id)) {
                 $customer_data = [];
                 if (!is_null($request->customer_name)) {
@@ -389,7 +389,7 @@ class ContractController extends Controller
                     }
                 }
             }
-    
+
             if ($request->marketer_id) {
                 $marketer = Marketer::firstOrCreate(['name' => $request->marketer_id]);
                 $data['marketer_id'] = $marketer->id;
@@ -399,12 +399,12 @@ class ContractController extends Controller
                     'debt' => ($contract->marketer->debt -  $contract->marketing_ratio)
                     ]);
                 }
-    
+
                 $marketer->update([
                 'debt' => ($marketer->debt +  $debt)
                 ]);
             }
-    
+
             $contract->update($data);
             return back()->with('success', __('global.operation_success'));
         }
