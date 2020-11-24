@@ -23,7 +23,7 @@ class CreateContractsTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('visa')->nullable();
+            $table->string('visa')->nullable();
             $table->integer('marketing_ratio')->nullable();
             $table->text('details')->nullable();
             $table->string('destination')->nullable();

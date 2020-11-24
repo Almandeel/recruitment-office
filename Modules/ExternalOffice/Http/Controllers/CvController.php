@@ -35,7 +35,7 @@ class CvController extends BaseController
 		]);
 
 		$status = $request->has('status') ? $request->status : 'all';
-		if ($status != 'all') {		
+		if ($status != 'all') {
 			$cvs = $cvs->where('status', array_search($status, Cv::STATUSES));
 		}
 
@@ -112,13 +112,11 @@ class CvController extends BaseController
 		// 	$file->move(public_path("/cvs_data"), $newFileName);
 
 		// 	array_merge($request_data, ['photo' => $newFileName]);
-		// }
-
-
+        // }
 
 		if ($request->has('photo')) {
-			$fileName =  Str::random(16).'.'.$request->photo->extension();
-			
+			$fileName =  Str::random(16).'_photo.'.$request->photo->extension();
+
 			$request->photo->move(public_path('cvs_data'), $fileName);
 			$request_data['photo'] = $fileName;
 		}
@@ -133,8 +131,8 @@ class CvController extends BaseController
 		// }
 
 		if ($request->has('passport_photo')) {
-			$filePassport = time().'.'.$request->passport_photo->extension();
-			
+			$filePassport = time().'_passport.'.$request->passport_photo->extension();
+
 			$request->passport_photo->move(public_path('cvs_data'), $filePassport);
 			$request_data['passport_photo'] = $filePassport;
 		}
@@ -253,7 +251,7 @@ class CvController extends BaseController
 		if (!$cv->isAccepted()) {
 			return back()->with('error', 'error');
 		}
-		
+
 		$pull = $cv->pulling();
 		$pull->attach();
 

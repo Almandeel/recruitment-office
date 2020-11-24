@@ -17,6 +17,7 @@ class Contract extends BaseModel
     protected $casts = [
         'amount' => FloatNumber::class,
         'marketing_ratio' => FloatNumber::class,
+        'visa' => 'int'
     ];
 
     use Attachable;
@@ -92,17 +93,17 @@ class Contract extends BaseModel
     public function getCurrency(){
         return 'ريال';
     }
-    
+
     public function x_bail()
     {
         return $this->hasOne(Bail::class, 'x_contract_id');
     }
-    
+
     public function bail()
     {
         return $this->hasOne(Bail::class, 'contract_id');
     }
-    
+
     public function getMarketerMoney(){
         return $this->marketing_ratio;// * ($this->amount / 100);
     }
@@ -209,7 +210,7 @@ class Contract extends BaseModel
     {
         return $this->cv->belongsTo(Profession::class);
     }
-    
+
     public function cv()
     {
         return $this->belongsTo(Cv::class, 'cv_id');
