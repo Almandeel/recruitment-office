@@ -4,7 +4,7 @@
     'title' => '  عرض  بيانات نقل كفالة  : ' . $kafalat->id, 
     'modals' => [ 'attachment'],
     'crumbs' => [
-        [route('kafalat.index'), 'الكفالات'],
+        [route('kafalat.index'), 'نقل الكفالة'],
         ['#', '   قل كفالة   : ' . $kafalat->id],
     ],
 ])

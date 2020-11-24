@@ -1,5 +1,5 @@
 @extends('layouts.master' ,   
-  [  'title' => ' نقل الكفالات  ',
+  [  'title' => ' نقل نقل الكفالة  ',
     'datatable' => true,  ]) 
 @section('content')   
         <!-- /.content-header -->
@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header"> <br>
-                        <h3 class="card-title">قائمة نقل الكفالات</h3>
+                        <h3 class="card-title">قائمة نقل نقل الكفالة</h3>
                         <a class="card-title float-right btn btn-primary" href="{{url('services/kafalat/create')}}"><i class="fa fa-plus"></i> اضافة </a>
                     </div>
                     <!-- /.card-header -->

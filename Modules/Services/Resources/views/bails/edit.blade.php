@@ -3,7 +3,7 @@
     'datatable' => true,
     'modals' => ['customer', 'marketer'],
     'crumbs' => [
-        [route('bails.index'), 'الكفالات'],
+        [route('bails.index'), 'نقل الكفالة'],
         [route('bails.show', $bail), 'كفالة رقم: ' . $bail->id],
         ['#', 'تعديل'],
     ]

@@ -347,7 +347,7 @@
                         {{--  <a href="{{ route('kafalat.index') }}" class="nav-link {{ (request()->segment(2) == 'servicesmarketers') ? 'active' : '' }}">  --}}
                         <a href="{{ route('bails.index') }}" class="nav-link {{ (request()->segment(2) == 'bails') ? 'active' : '' }}">
                             <i class="fa fa-user nav-icon"></i>
-                            <p>  الكفالات</p>
+                            <p>  نقل الكفالة</p>
                         </a>
                     </li>
                 @endpermission

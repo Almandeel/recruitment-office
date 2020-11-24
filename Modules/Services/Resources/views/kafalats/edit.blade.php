@@ -2,7 +2,7 @@
     'title' => 'تعديل  بيانات   نقل  كفالة : ' . $kafalat->id,
     'datatable' => true,  
     'crumbs' => [
-        [route('kafalat.index'), ' الكفالات'], 
+        [route('kafalat.index'), ' نقل الكفالة'], 
         ['#', 'تعديل'],
     ]
 ])

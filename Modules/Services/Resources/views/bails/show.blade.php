@@ -5,7 +5,7 @@
     'title' => 'كفالة رقم: ' . $bail->id, 
     'modals' => ['position', 'employee', 'attachment', 'show_customer', 'show_cv'],
     'crumbs' => [
-        [route('bails.index'), 'الكفالات'],
+        [route('bails.index'), 'نقل الكفالة'],
         ['#', 'كفالة رقم: ' . $bail->id],
     ],
 ])

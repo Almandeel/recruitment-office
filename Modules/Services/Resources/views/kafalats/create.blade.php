@@ -2,7 +2,7 @@
     'title' => 'اضافة   نقل كفالة',
     'datatable' => true, 
     'crumbs' => [
-        [route('kafalat.index'), 'الكفالات'],
+        [route('kafalat.index'), 'نقل الكفالة'],
         ['#', 'اضافة   نقل كفالة'],
     ]
 ]) 
