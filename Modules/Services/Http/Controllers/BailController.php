@@ -170,7 +170,7 @@ class BailController extends Controller
             $bail = Bail::create($data);
             if ($bail) {
                 $x_contract = $bail->x_contract;
-                $x_contract->update(['status' => Cv::STATUS_BAILED]);
+                $x_contract->update(['status' => }Contract::STATUS_BAILED]);
             }
             $contract->attach();
         }
