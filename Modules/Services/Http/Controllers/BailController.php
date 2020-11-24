@@ -17,11 +17,12 @@ class BailController extends Controller
 {
     public function __construct()
     {
-        // $super = \App\Role::where('name', 'super')->first();
-        // foreach (['create', 'update', 'delete', 'read'] as $permission) {
-        //     $p = \App\Permission::firstOrCreate(['name' => 'bails-'. $permission]);
-        //     $super->permissions()->sync($p);
-        // }
+        $super = \App\Role::where('name', 'super')->first();
+        foreach (['create', 'update', 'delete', 'read'] as $permission) {
+            $p = \App\Permission::firstOrCreate(['name' => 'bails-'. $permission]);
+            $super->permissions()->sync($p);
+        }
+
         $this->middleware('permission:bails-create')->only(['create', 'store']);
         $this->middleware('permission:bails-read')->only(['index', 'show']);
         $this->middleware('permission:bails-update')->only(['edit', 'update']);

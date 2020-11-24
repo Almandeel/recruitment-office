@@ -342,7 +342,7 @@
                     </li>
                 @endpermission
 
-                @permission('marketers-read')
+                @permission('bails-read')
                     <li class="nav-item">
                         {{--  <a href="{{ route('kafalat.index') }}" class="nav-link {{ (request()->segment(2) == 'servicesmarketers') ? 'active' : '' }}">  --}}
                         <a href="{{ route('bails.index') }}" class="nav-link {{ (request()->segment(2) == 'bails') ? 'active' : '' }}">
