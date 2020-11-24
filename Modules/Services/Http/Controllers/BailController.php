@@ -93,7 +93,7 @@ class BailController extends Controller
         'title' => $title,
         'datatable' => true,
         'crumbs' => [
-        [route('bails.index'), 'الكفالات'],
+        [route('bails.index'), 'نقل الكفالة'],
         ['#', $title],
         ]
         ];

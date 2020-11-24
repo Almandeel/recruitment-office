@@ -1,9 +1,9 @@
 @extends('layouts.master', [
-    'title' => 'نقل الكفالات',
+    'title' => 'نقل الكفالة',
     'modals' => ['customer'],
     'datatable' => true,
     'crumbs' => [
-        ['#', 'نقل الكفالات'],
+        ['#', 'نقل الكفالة'],
     ]
 ])
 
@@ -13,7 +13,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">قائمة نقل الكفالات</h3>
+                        <h3 class="card-title">نقل الكفالة</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-extra clearfix">
