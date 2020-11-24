@@ -134,7 +134,7 @@
                                         <td> {{ $kafalat->recruitment_cv_name }} </td> 
                                         <td> {{ $kafalat->recruitment_cv_passport }} </td> 
                                         
-                                                        <td> @foreach(Modules\ExternalOffice\Models\Office::all() as $office)
+                                                        <td> @foreach(Modules\Main\Models\Office::all() as $office)
                                                         @if($office->id==$kafalat->office_id )
                                                              {{$office->name}}
                                                         @endif
