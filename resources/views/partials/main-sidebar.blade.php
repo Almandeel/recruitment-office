@@ -379,12 +379,14 @@
                         </a>
                     </li>
                 @endpermission
+                @permission('flights-read')
                     <li class="nav-item">
                         <a href="{{ route('services.flights.index') }}" class="nav-link">
                             <i class="fa fa-plane-arrival nav-icon"></i>
                             <p>الرحلات</p>
                         </a>
                     </li>
+                @endpermission
                 @elseif ((request()->segment(1) == 'office'))
                     @permission('cv-read')
                     <li class="nav-item"> <a href="{{ route('cvs.index') }}" class="nav-link"> <i class="fa fa-circle-o nav-icon"></i> <p> Cvs </p> </a> </li>
@@ -395,7 +397,9 @@
                     @permission('pulls-read')
                     <li class="nav-item {{ (request()->segment(2) == 'pulls') ? 'active' : ''}}"><a href="{{ route('office.pulls.index') }}" class="nav-link"> <i class="fa fa-circle-o nav-icon"></i> <p>Pulled Cvs </p> </a></li>
                     @endpermission
+                    @permission('flights-read')
                     <li class="nav-item {{ (request()->segment(2) == 'flights') ? 'active' : ''}}"><a href="{{ route('office.flights.index') }}" class="nav-link"> <i class="fa fa-circle-o nav-icon"></i> <p>Flights </p> </a></li>
+                    @endpermission
                     @if (auth()->user()->isAbleTo('advances-read|bills-read'))
                     <li class="nav-item has-treeview @if (request()->segment(3) == 'bills'  || request()->segment(2) == 'advances') menu-open @endif">
                         <a href="#" class="nav-link"> <i class="nav-icon fa fa-dashboard"></i> <p> Finance Section <i class="fa fa-angle-right"></i> </p> </a>

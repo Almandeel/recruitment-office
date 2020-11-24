@@ -48,18 +48,24 @@
                                         <td>{{ $passenger->cv->passport_issuing_date }}</td>
                                         <td>{{ $passenger->cv->passport_expiration_date }}</td>
                                         <td>
-                                            @if ($passenger->status == $passenger::STATUS_WAITING)
-                                                <form action="{{ route('office.flights.passengers.update', ['flight' => $passenger->flight, 'passenger' => $passenger]) }}" method="post" id="passenger-status-form">
-                                                    @csrf @method('PUT')
-                                                    <input type="hidden" name="status" id="status" value="{{ $passenger::STATUS_ARRIVING }}">
-                                                    <input type="hidden" name="passenger_id" id="passenger_id"  value="{{ $passenger->id }}">
-                                                    <button class="btn btn-xs btn-primary" type="submit">Confirm</button>
-                                                </form>
+                                            @permission('flights-update')
+                                                @if ($passenger->status == $passenger::STATUS_WAITING)
+                                                    <form action="{{ route('office.flights.passengers.update', ['flight' => $passenger->flight, 'passenger' => $passenger]) }}" method="post" id="passenger-status-form">
+                                                        @csrf @method('PUT')
+                                                        <input type="hidden" name="status" id="status" value="{{ $passenger::STATUS_ARRIVING }}">
+                                                        <input type="hidden" name="passenger_id" id="passenger_id"  value="{{ $passenger->id }}">
+                                                        <button class="btn btn-xs btn-primary" type="submit">Confirm</button>
+                                                    </form>
+                                                @else
+                                                    <span class="badge badge-info">
+                                                        {{ $passenger->displayStatus() }}
+                                                    </span>
+                                                @endif
                                             @else
                                                 <span class="badge badge-info">
                                                     {{ $passenger->displayStatus() }}
                                                 </span>
-                                            @endif
+                                            @endpermission
                                         </td>
                                 </tbody>
                             </table>

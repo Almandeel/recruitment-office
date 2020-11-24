@@ -67,40 +67,46 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if ($passenger->status == $passenger::STATUS_WAITING && $flight->office_id == null)
-                                                <form action="{{ route('services.flights.passengers.update', ['flight' => $passenger->flight, 'passenger' => $passenger]) }}" method="post" id="passenger-status-form">
-                                                    @csrf @method('PUT')
-                                                    <input type="hidden" name="status" id="status" value="{{ $passenger::STATUS_ARRIVING }}">
-                                                    <input type="hidden" name="passenger_id" id="passenger_id"  value="{{ $passenger->id }}">
-                                                    <button class="btn btn-xs btn-primary" type="submit">تأكيد المغادرة</button>
-                                                </form>
-                                            @elseif ($passenger->status == $passenger::STATUS_ARRIVING)
-                                                <form class="d-inline-block" action="{{ route('services.flights.passengers.update', ['flight' => $passenger->flight, 'passenger' => $passenger]) }}" method="post" id="passenger-status-form">
-                                                    @csrf @method('PUT')
-                                                    <input type="hidden" name="passenger_id" id="status" value="{{ $passenger->id }}">
-                                                    <input type="hidden" name="status" id="status" value="{{ $passenger::STATUS_ARRIVED }}" @if ($passenger->status) checked @endif>
-                                                    <button class="btn btn-xs btn-info" type="submit">تم الوصول</button>
-                                                </form>
-                                                <form class="d-inline-block" action="{{ route('services.flights.passengers.update', ['flight' => $passenger->flight, 'passenger' => $passenger]) }}" method="post" id="passenger-status-form">
-                                                    @csrf @method('PUT')
-                                                    <input type="hidden" name="passenger_id" id="status" value="{{ $passenger->id }}">
-                                                    <input type="hidden" name="status" id="status" value="{{ $passenger::STATUS_NOT_ARRIVED }}" @if ($passenger->status) checked @endif>
-                                                    <button class="btn btn-xs btn-danger" type="submit">لم يتم الوصول</button>
-                                                </form>
-                                            @elseif ($passenger->status == $passenger::STATUS_ARRIVED)
-                                                <form class="d-inline-block" action="{{ route('services.flights.passengers.update', ['flight' => $passenger->flight, 'passenger' => $passenger]) }}" method="post" id="passenger-status-form">
-                                                    @csrf @method('PUT')
-                                                    <input type="hidden" name="passenger_id" id="status" value="{{ $passenger->id }}">
-                                                    <input type="hidden" name="status" id="status" value="{{ $passenger::STATUS_RECIVED }}" @if ($passenger->status) checked @endif>
-                                                    <button class="btn btn-xs btn-info" type="submit">تسليم للعميل</button>
-                                                </form>
+                                            @permission('flights-update')
+                                                @if ($passenger->status == $passenger::STATUS_WAITING && $flight->office_id == null)
+                                                    <form action="{{ route('services.flights.passengers.update', ['flight' => $passenger->flight, 'passenger' => $passenger]) }}" method="post" id="passenger-status-form">
+                                                        @csrf @method('PUT')
+                                                        <input type="hidden" name="status" id="status" value="{{ $passenger::STATUS_ARRIVING }}">
+                                                        <input type="hidden" name="passenger_id" id="passenger_id"  value="{{ $passenger->id }}">
+                                                        <button class="btn btn-xs btn-primary" type="submit">تأكيد المغادرة</button>
+                                                    </form>
+                                                @elseif ($passenger->status == $passenger::STATUS_ARRIVING)
+                                                    <form class="d-inline-block" action="{{ route('services.flights.passengers.update', ['flight' => $passenger->flight, 'passenger' => $passenger]) }}" method="post" id="passenger-status-form">
+                                                        @csrf @method('PUT')
+                                                        <input type="hidden" name="passenger_id" id="status" value="{{ $passenger->id }}">
+                                                        <input type="hidden" name="status" id="status" value="{{ $passenger::STATUS_ARRIVED }}" @if ($passenger->status) checked @endif>
+                                                        <button class="btn btn-xs btn-info" type="submit">تم الوصول</button>
+                                                    </form>
+                                                    <form class="d-inline-block" action="{{ route('services.flights.passengers.update', ['flight' => $passenger->flight, 'passenger' => $passenger]) }}" method="post" id="passenger-status-form">
+                                                        @csrf @method('PUT')
+                                                        <input type="hidden" name="passenger_id" id="status" value="{{ $passenger->id }}">
+                                                        <input type="hidden" name="status" id="status" value="{{ $passenger::STATUS_NOT_ARRIVED }}" @if ($passenger->status) checked @endif>
+                                                        <button class="btn btn-xs btn-danger" type="submit">لم يتم الوصول</button>
+                                                    </form>
+                                                @elseif ($passenger->status == $passenger::STATUS_ARRIVED)
+                                                    <form class="d-inline-block" action="{{ route('services.flights.passengers.update', ['flight' => $passenger->flight, 'passenger' => $passenger]) }}" method="post" id="passenger-status-form">
+                                                        @csrf @method('PUT')
+                                                        <input type="hidden" name="passenger_id" id="status" value="{{ $passenger->id }}">
+                                                        <input type="hidden" name="status" id="status" value="{{ $passenger::STATUS_RECIVED }}" @if ($passenger->status) checked @endif>
+                                                        <button class="btn btn-xs btn-info" type="submit">تسليم للعميل</button>
+                                                    </form>
 
-                                                <button class="btn btn-xs btn-info warehousecv" type="button">نقل إلى السكن</button>
+                                                    <button class="btn btn-xs btn-info warehousecv" type="button">نقل إلى السكن</button>
+                                                @else
+                                                    <span class="badge badge-info">
+                                                        {{ $passenger->displayStatus() }}
+                                                    </span>
+                                                @endif
                                             @else
                                                 <span class="badge badge-info">
                                                     {{ $passenger->displayStatus() }}
                                                 </span>
-                                            @endif
+                                            @endpermission
                                         </td>
                                 </tbody>
                             </table>
