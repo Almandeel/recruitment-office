@@ -61,18 +61,6 @@
                                 </div>
                             </div>
                             <div class="form-inline">
-                                {{--  <div class="form-group mr-2">
-                                    <label for="status">@lang('global.status')</label>
-                                    <select class="form-control status" name="status" id="status">
-                                        <option value="all" {{ ($status == 'all') ? 'selected' : '' }}>@lang('global.all')
-                                        </option>
-                                        @foreach (__('bails.statuses') as $value => $key)
-                                        <option value="{{ $value }}" {{ $value == $status ? 'selected' : '' }}>
-                                            {{ $key }}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                </div>  --}}
                                 <div class="form-group mr-2">
                                     <label for="status">@lang('global.status')</label>
                                     <select name="status" id="status" class="form-control">
@@ -125,11 +113,11 @@
                                         <td>{{ $bail->trail_date }}</td>
                                         <td>{{ $bail->x_customer->name }}</td>
                                         <td>{{ $bail->customer->name }}</td>
-                                        <td>{{ $bail->cv->office->name }}</td>
+                                        <td>{{ $bail->cv->office ? $bail->cv->office->name : '' }}</td>
                                         <td>{{ $bail->cv->name }}</td>
                                         <td>{{ $bail->cv->passport }}</td>
                                         <td>{{ $bail->contract->visa }}</td>
-                                        <td>{{ $bail->cv->profession->name }}</td>
+                                        <td>{{ $bail->cv->profession ? $bail->cv->profession->name : '' }}</td>
                                         <td>{{ $bail->display_remain_period_in_days }}</td>
                                         <td>{{ $bail->bail_date }}</td>
                                         <td>{{ $bail->display_status }}</td>
