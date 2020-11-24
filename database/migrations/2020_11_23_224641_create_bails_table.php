@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use DB;
 
 class CreateBailsTable extends Migration
 {
@@ -19,7 +20,7 @@ class CreateBailsTable extends Migration
             $table->date('trail_date');
             $table->string('notes')->nullable();
             $table->float('amount')->default(0);
-            $table->date('bail_date')->nullable()->default(new DateTime());
+            $table->date('bail_date')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->text('notes')->nullable();
             $table->tinyInteger('trail_period');
             $table->unsignedInteger('contract_id');
