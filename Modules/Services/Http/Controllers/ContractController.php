@@ -5,13 +5,14 @@ namespace Modules\Services\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
+use Modules\Main\Models\Office;
 use Illuminate\Routing\Controller;
+use Modules\ExternalOffice\Models\Cv;
 use Modules\Services\Models\Contract;
 use Modules\Services\Models\Customer;
 use Modules\Services\Models\Marketer;
 use Modules\Services\Models\ContractCustomer;
-use Modules\ExternalOffice\Models\Cv;
-use Modules\Main\Models\Office;
 use Modules\ExternalOffice\Models\{Country, Profession, Bill};
 
 class ContractController extends Controller
@@ -166,10 +167,10 @@ class ContractController extends Controller
     {
         if ($request->type == 'initial') {
             $request->validate([
-            'customer_name' => 'required|string',
-            'customer_phones' => 'required|string',
-            'customer_id_number' => 'numeric',
-            'visa' => 'nullable|numeric',
+                'customer_name' => 'required|string',
+                'customer_phones' => 'required|string',
+                'customer_id_number' => 'numeric',
+                'visa' => 'nullable|numeric',
             ]);
             $data = $request->only(['cv_id', 'visa']);
             $cv = Cv::findOrFail($request->cv_id);
@@ -203,6 +204,7 @@ class ContractController extends Controller
         }else {
             $request->validate([
             'phones' => 'unique:customers',
+            'customer_id_number' => [ 'required',Rule::unique('customers', 'id_number')],
             'visa' => 'nullable|numeric',
             'details' => 'nullable|string',
             'cv_id' => 'required|numeric',

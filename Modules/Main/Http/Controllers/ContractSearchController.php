@@ -63,7 +63,7 @@ class ContractSearchController extends Controller
 				'profession_name' => $cv->profession->name,
 			];
 		});
-		$cv = $contract->cv();
+		$cv = $contract->cv;
 		if (is_null($cv)) {
 			$country_id = !is_null($request->country_id) ? $request->country_id : 'all';
 			$office_id = !is_null($request->office_id) ? $request->office_id : 'all';

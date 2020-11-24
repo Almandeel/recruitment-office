@@ -173,7 +173,7 @@
                                 <tr>
                                     <td>{{ $contract->id }}</td>
                                     <td>{{ $contract->customer->name }}</td>
-                                    <td>{{ $contract->cv()->name }}</td>
+                                    <td>{{ $contract->cv->name }}</td>
                                     <td>{{ $contract->visa }}</td>
                                     <td>{{ $contract->profession->name }}</td>
                                     {{--  <td>{{ $contract->displayStatys() }}</td>  --}}

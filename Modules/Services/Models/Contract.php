@@ -58,8 +58,8 @@ class Contract extends BaseModel
         'user_id',
     ];
     public function getStatus(){
-        // $cv = $this->cv();
-        // return is_null($cv) ? null : self::STATUSES[$this->cv()->pivot->status];
+        // $cv = $this->cv;
+        // return is_null($cv) ? null : self::STATUSES[$this->cv->pivot->status];
         return self::STATUSES[$this->status];
     }
 
@@ -104,32 +104,32 @@ class Contract extends BaseModel
         return $this->customer->name;
     }
     public function getCvName(){
-        if (is_null($this->cv())) {
+        if (is_null($this->cv)) {
             return 'لا يوجد';
         }
 
-        return $this->cv()->name;
+        return $this->cv->name;
     }
     public function getCvPassport(){
-        if (is_null($this->cv())) {
+        if (is_null($this->cv)) {
             return 'لا يوجد';
         }
 
-        return $this->cv()->passport;
+        return $this->cv->passport;
     }
     public function getOfficeName(){
-        if (is_null($this->cv())) {
+        if (is_null($this->cv)) {
             return 'لا يوجد';
         }
 
-        return $this->cv()->office->name  ?? '';
+        return $this->cv->office->name  ?? '';
     }
     public function getProfessionName(){
-        if (is_null($this->cv())) {
+        if (is_null($this->cv)) {
             return 'لا يوجد';
         }
 
-        return $this->cv()->profession->name;
+        return $this->cv->profession->name;
     }
     public function getApplicationDays($display = true, $remain_only = false){
         if ($remain_only) {
@@ -180,11 +180,6 @@ class Contract extends BaseModel
         throw new \Exception("Unsupported status data type", 1);
     }
 
-    public function cvs()
-    {
-        return $this->belongsToMany(Cv::class)->withPivot(['status', 'created_at', 'updated_at']);
-    }
-
     public function marketer()
     {
         return $this->belongsTo('Modules\ExternalOffice\Models\Marketer');
@@ -192,38 +187,23 @@ class Contract extends BaseModel
 
     public function office()
     {
-        return $this->cv()->belongsTo(Office::class);
+        return $this->cv->belongsTo(Office::class);
     }
 
     public function country()
     {
-        return $this->cv()->belongsTo(Country::class);
+        return $this->cv->belongsTo(Country::class);
     }
 
     public function profession()
     {
-        return $this->cv()->belongsTo(Profession::class);
+        return $this->cv->belongsTo(Profession::class);
     }
     
     public function cv()
     {
         return $this->belongsTo(Cv::class, 'cv_id');
     }
-    
-    // public function cv($only_working = false) {
-    //     $last_working_cv = $this->cvs->where('pivot.status', self::STATUS_WORKING)->sortByDesc('pivot.updated_at')->first();
-    //     if ($only_working) {
-    //         return $only_working;
-    //     }
-    //     if ($last_working_cv) {
-    //         return $last_working_cv;
-    //     }
-    //     return  $this->cvs->sortByDesc('pivot.updated_at')->first();
-    // }
-
-    // public function customer() {
-    //     return $this->customers->sortBy('pivot.updated_at')->last();
-    // }
 
     public function getMarketerVoucherAttribute()
     {
@@ -236,15 +216,13 @@ class Contract extends BaseModel
         return $vouchers->unique();
     }
 
-    public function getCvsVouchersAttribute()
+    public function getCvVouchersAttribute()
     {
-        $cvs = $this->cvs;
+        $cv = $this->cv;
+        $voucher = $cv->voucher;
         $vouchers = new Collection();
-        foreach ($cvs as $cv) {
-            $voucher = $cv->voucher;
-            if ($voucher) {
-                $vouchers->push($voucher);
-            }
+        if ($voucher) {
+            $vouchers->push($voucher);
         }
 
         return $vouchers;
@@ -257,13 +235,9 @@ class Contract extends BaseModel
 
     public function getBillsAttribute()
     {
-        $cvs = $this->cvs;
         $bills = new Collection();
-        foreach ($cvs as $cv) {
-            // $bills = $bills->merge($cv->cv_bills);
-            foreach ($cv->cv_bills as $bill) {
-                $bills->push($bill);
-            }
+        foreach ($cv->cv_bills as $bill) {
+            $bills->push($bill);
         }
 
         return $bills;
@@ -271,21 +245,15 @@ class Contract extends BaseModel
 
     public function getPayedBillsAttribute()
     {
-        $cvs = $this->cvs;
+        $cv = $this->cv;
         $bills = new Collection();
-        foreach ($cvs as $cv) {
-            // $bills = $bills->merge($cv->cv_bills);
-            foreach ($cv->cv_bills as $bill) {
-                if ($bill->bill->isPayed()) {
-                    $bills->push($bill);
-                }
+        foreach ($cv->cv_bills as $bill) {
+            if ($bill->bill->isPayed()) {
+                $bills->push($bill);
             }
         }
 
         return $bills;
-        // return $this->bills->filter(function($bill){
-        //     return $bill->bill->isPayed();
-        // });
     }
 
     public function getCvsExpensesAttribute()
@@ -293,7 +261,7 @@ class Contract extends BaseModel
         // return $this->payed_bills->sum('amount_in_riyal');
         // return $this->bills->sum('amount_in_riyal');
 
-        $checked_payment_vouchers = $this->cvs_vouchers->filter(function($voucher){
+        $checked_payment_vouchers = $this->cv_vouchers->filter(function($voucher){
             return $voucher->statusIs('approved');
         });
         return $checked_payment_vouchers->sum('entry.amount');
@@ -341,32 +309,20 @@ class Contract extends BaseModel
         return $this->belongsTo(Customer::class);
     }
 
-
-    public function customers()
-    {
-        return $this->belongsToMany(Customer::class)->withPivot(['id', 'created_at', 'updated_at']);
-    }
-
     public function contractCustomer() {
         return $this->hasMany('Modules\Services\Models\ContractCustomer');
     }
 
     public function cancel(){
         $succeeded = false;
-        if($this->cv()){
-            $this->cvs()->updateExistingPivot($this->cv(), array('status' => Contract::STATUS_CANCELED), false);
-            $this->cv()->cancel();
+        if($this->cv){
+            $this->cv->cancel();
         }
 
         return $succeeded;
     }
 
     public function delete(){
-        // $cvs_ids = $this->cvs->pluck('id')->toArray();
-        // if (count($cvs_ids)) {
-        //     $this->cvs()->detach($cvs_ids);
-        // }
-        $this->cvs()->detach();
         $result = parent::delete();
         return $result;
     }
@@ -387,9 +343,7 @@ class Contract extends BaseModel
         $to_date = is_null($to_date) ? date('Y-m-d') : $to_date;
         $from_date_time = $from_date . ' 00:00:00';
         $to_date_time = $to_date . ' 23:59:59';
-        $builder = static::with(['cvs'=> function($query) use ($status_in_string){
-            $query->wherePivot('status', $status_in_string);
-        }]);
+        $builder = static::where('status', $status_in_string);
         $builder->whereBetween('created_at', [$from_date_time, $to_date_time]);
         return $builder->get();
     }

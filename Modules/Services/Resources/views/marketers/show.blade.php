@@ -83,7 +83,7 @@
                                 @foreach ($marketer->contracts as $index=>$contract)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
-                                    <td>{{ $contract->cv()->name }}</td>
+                                    <td>{{ $contract->cv->name }}</td>
                                     <td>{{ $contract->visa }}</td>
                                     <td>{{ $contract->profession->name }}</td>
                                     <td>{{ $contract->country->name }}</td>
