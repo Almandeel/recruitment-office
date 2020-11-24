@@ -76,6 +76,7 @@ class ContractController extends Controller
                 return $contract->checkStatus($status);
             });
         }
+        // dd($contracts, $status);
         
         return view('services::contracts.index', compact('contracts', 'from_date', 'to_date', 'status', 'gender', 'office_id', 'country_id', 'profession_id', 'countries', 'offices', 'professions'));
     }
