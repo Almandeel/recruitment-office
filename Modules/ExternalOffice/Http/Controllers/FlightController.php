@@ -30,9 +30,10 @@ class FlightController extends Controller
      */
     public function index()
     {
-        $flights = Flight::with('passengers', 'passengers.cv', 'passengers.cv.contracts')->get();
+        $flights = Flight::where('status', '<', Flight::STATUS_ARRIVED)->with('passengers', 'passengers.cv', 'passengers.cv.contracts')->get();
+        $finshedFlights = Flight::where('status', '>=', Flight::STATUS_ARRIVED)->with('passengers', 'passengers.cv', 'passengers.cv.contracts')->get();
 
-        return view('externaloffice::flights.index', compact('flights'));
+        return view('externaloffice::flights.index', compact('flights', 'finshedFlights'));
     }
 
     /**
