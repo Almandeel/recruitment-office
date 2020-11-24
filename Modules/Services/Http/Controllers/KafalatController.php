@@ -80,7 +80,7 @@ class KafalatController extends Controller
         }
 
 
-        return view('kafalats.index', compact('kafalats', 'from_date', 'to_date', 'gender', 'office_id', 'country_id', 'profession_id', 'countries', 'offices', 'professions', 'cvs'));
+        return view('services::kafalats.index', compact('kafalats', 'from_date', 'to_date', 'gender', 'office_id', 'country_id', 'profession_id', 'countries', 'offices', 'professions', 'cvs'));
     }
 
     public function create()
@@ -97,7 +97,7 @@ class KafalatController extends Controller
 
         $users =  Contract::distinct()->get(['customer_id']);
 
-        return view('kafalats.create')->withkafalat($kafalat)->withcustomers($customers)->withcountries($countries)->withcontracts($contracts)->withprofessions($professions)->withoffices($offices)->withmarketers($marketers)->withusers($users);
+        return view('services::kafalats.create')->withkafalat($kafalat)->withcustomers($customers)->withcountries($countries)->withcontracts($contracts)->withprofessions($professions)->withoffices($offices)->withmarketers($marketers)->withusers($users);
     }
 
     public function store(Request $request)
@@ -197,7 +197,7 @@ class KafalatController extends Controller
         $professions = Profession::all();
         $offices = Office::all();
         $marketers = Marketer::all();
-        return view('kafalats.kcontract')->withkafalat($kafalat)->withcontract($contract)->withcustomers($customers)->withcountries($countries)->withprofessions($professions)->withoffices($offices)->withmarketers($marketers);
+        return view('services::kafalats.kcontract')->withkafalat($kafalat)->withcontract($contract)->withcustomers($customers)->withcountries($countries)->withprofessions($professions)->withoffices($offices)->withmarketers($marketers);
     }
 
     public function show($id)
@@ -210,7 +210,7 @@ class KafalatController extends Controller
         $cv_id = $c->cv_id;
         $cv = Cv::find($cv_id);
         $voucher = Voucher::where('voucherable_id', $vid)->get();
-        return view('kafalats.show')->withkafalat($kafalat)->withcontract($contract)->withcv($cv)->withvoucher($voucher);
+        return view('services::kafalats.show')->withkafalat($kafalat)->withcontract($contract)->withcv($cv)->withvoucher($voucher);
     }
 
     public function edit($id)
@@ -222,7 +222,7 @@ class KafalatController extends Controller
         $countries = Country::all();
         $professions = Profession::all();
         $offices = Office::all();
-        return view('kafalats.edit')->withkafalat($kafalat)->withcustomers($customers)->withcountries($countries)->withcontract($contract)->withprofessions($professions)->withoffices($offices);
+        return view('services::kafalats.edit')->withkafalat($kafalat)->withcustomers($customers)->withcountries($countries)->withcontract($contract)->withprofessions($professions)->withoffices($offices);
     }
 
     public function update(Request $request, $id)

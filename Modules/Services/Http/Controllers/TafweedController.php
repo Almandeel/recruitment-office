@@ -72,13 +72,13 @@ class TafweedController extends Controller
             }
         }
 
-        return view('tafweeds.index', compact('tafweeds', 'from_date', 'to_date', 'gender', 'country_id', 'profession_id', 'countries',  'professions', 'cvs'));
+        return view('services::tafweeds.index', compact('tafweeds', 'from_date', 'to_date', 'gender', 'country_id', 'profession_id', 'countries',  'professions', 'cvs'));
     }
 
     public function print()
     {
         $tafweeds = Tafweed::orderBy('id', 'desc')->paginate(10);
-        return view('tafweeds.print')->withtafweeds($tafweeds);
+        return view('services::tafweeds.print')->withtafweeds($tafweeds);
     }
 
     public function create()
@@ -88,7 +88,7 @@ class TafweedController extends Controller
         $countries = Country::all();
         $offices = Office::all();
         $professions = Profession::all();
-        return view('tafweeds.create')->withtafweed($tafweed)->withcustomers($customers)->withcountries($countries)->withoffices($offices)->withprofessions($professions);
+        return view('services::tafweeds.create')->withtafweed($tafweed)->withcustomers($customers)->withcountries($countries)->withoffices($offices)->withprofessions($professions);
     }
 
     public function store(Request $request)
@@ -147,7 +147,7 @@ class TafweedController extends Controller
         $tafweed = Tafweed::find($id);
         $vid = $tafweed->customer_id;
         $voucher = Voucher::where('voucherable_id', $vid)->get();
-        return view('tafweeds.show')->withtafweed($tafweed)->withvoucher($voucher);
+        return view('services::tafweeds.show')->withtafweed($tafweed)->withvoucher($voucher);
     }
 
     public function edit($id)
@@ -158,7 +158,7 @@ class TafweedController extends Controller
         $offices = Office::all();
         $professions = Profession::all();
         $marketers = Marketer::all();
-        return view('tafweeds.edit')->withtafweed($tafweed)->withcustomers($customers)->withcountries($countries)->withoffices($offices)->withprofessions($professions)->withmarketers($marketers);
+        return view('services::tafweeds.edit')->withtafweed($tafweed)->withcustomers($customers)->withcountries($countries)->withoffices($offices)->withprofessions($professions)->withmarketers($marketers);
     }
 
     public function update(Request $request, $id)
