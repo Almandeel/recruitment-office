@@ -168,6 +168,10 @@ class BailController extends Controller
         $data['contract_id'] = $contract->id;
         if ($contract) {
             $bail = Bail::create($data);
+            if ($bail) {
+                $x_contract = $bail->x_contract;
+                $x_contract->update(['status' => Cv::STATUS_BAILED]);
+            }
             $contract->attach();
         }
         return redirect()->route('bails.show', $bail->id)->with('success', __('global.operation_success'));

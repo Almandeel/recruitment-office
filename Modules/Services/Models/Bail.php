@@ -9,6 +9,7 @@ class Bail extends Model
 {
     public const STATUS_TRAIL = 'trail';
     public const STATUS_CONFIRMED = 'confirmed';
+    public const STATUS_PENDING = 'pending';
     public const STATUS_CANCELED = 'canceled';
     public const STATUSES = [
     self::STATUS_TRAIL, self::STATUS_CONFIRMED, self::STATUS_CANCELED
@@ -25,7 +26,7 @@ class Bail extends Model
         $period = $this->remain_period_in_days;
         if ($status == self::STATUS_TRAIL) {
             if ($period < 1) {
-                $status = self::STATUS_CANCELED;
+                $status = self::STATUS_PENDING;
             }
         }
         

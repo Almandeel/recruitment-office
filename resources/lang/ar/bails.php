@@ -20,6 +20,7 @@ return [
     'statuses' => [
         'trail' => 'قيد التجربة',
         'confirmed' => 'تم النقل',
+        'pending' => 'لم يتم النقل النقل',
         'canceled' => 'تم الإلغاء',
     ],
 
