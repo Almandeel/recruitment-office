@@ -12,6 +12,14 @@ use Modules\ExternalOffice\Models\Flight;
 
 class FlightPassengerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:flights-create')->only(['create', 'store']);
+        $this->middleware('permission:flights-read')->only(['index', 'show']);
+        $this->middleware('permission:flights-update')->only(['edit', 'update']);
+        $this->middleware('permission:flights-delete')->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -19,7 +27,7 @@ class FlightPassengerController extends Controller
     public function index()
     {
         $flights = Flight::all();
-        // dd($flights[0]->passengers[0]->cv);
+
         return view('externaloffice::flights.index', compact('flights'));
     }
 
