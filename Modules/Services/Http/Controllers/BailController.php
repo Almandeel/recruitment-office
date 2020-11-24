@@ -125,7 +125,7 @@ class BailController extends Controller
             'amount' => 'required|numeric|min:0',
             'marketer_id' => 'nullable',
             'marketing_ratio' => 'nullable|numeric',
-            'customer_id_number'   => 'string|nullable|unique:customers',
+            'customer_id_number'   => 'string|nullable|unique:customers.id_number',
         ]);
 
         $data = $request->except(['_token']);
