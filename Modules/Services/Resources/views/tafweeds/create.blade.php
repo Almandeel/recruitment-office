@@ -40,7 +40,7 @@
                                                 <label for="country_id">الدولة</label>
                                                 <select name="country_id" class="form-control option" style="padding: 0px;">  
                                                 
-                                                           @foreach(App\Country::all() as $country) 
+                                                           @foreach(Modules\ExternalOffice\Models\Country::all() as $country) 
                                                 <option value="{{ $country->id }}"> {{ $country->name }}</option>
                                                          @endforeach
                                             </select> 
@@ -125,7 +125,7 @@
                                             <label for="marketer">المسوق</label>
                                             <select name="marketer" class="form-control option" style="padding-top:0px;"> 
                                                 <option>    المسوق      </option>
-                                                          @foreach(App\Marketer::all() as $marketer) 
+                                                          @foreach(Modules\Services\Models\Marketer::all() as $marketer) 
                                                 <option value="{{ $marketer->name }}"> {{ $marketer->name }}</option>
                                                          @endforeach
                                             </select>  
