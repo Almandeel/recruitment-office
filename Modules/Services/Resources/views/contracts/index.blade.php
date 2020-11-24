@@ -46,6 +46,15 @@
                                     </select>
                                 </div>
                                 <div class="form-group mr-2">
+                                    <label for="status">@lang('global.status')</label>
+                                    <select name="status" id="status" class="form-control">
+                                        <option value="all" {{ $status == 'all' ? 'selected' : ''}}>@lang('global.all')</option>
+                                        @foreach (__('contracts.statuses') as $key => $value)
+                                            <option value="{{ $key }}" {{ $status == $key ? 'selected' : ''}}>{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group mr-2">
                                     <label for="profession_id">@lang('global.profession')</label>
                                     <select name="profession_id" id="profession_id" class="form-control">
                                         <option value="all" {{ $profession_id == 'all' ? 'selected' : ''}}>@lang('global.all')</option>
