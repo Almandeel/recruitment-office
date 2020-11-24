@@ -173,3 +173,4 @@
             @endslot
         @endcomponent
 </section>
+@endsection
