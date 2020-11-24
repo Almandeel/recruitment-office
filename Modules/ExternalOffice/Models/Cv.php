@@ -2,12 +2,13 @@
 
 namespace Modules\ExternalOffice\Models;
 
+use Exception;
+use Carbon\Carbon;
 use App\Traits\Attachable;
-use Illuminate\Database\Eloquent\Model;
-use Modules\ExternalOffice\Scopes\OfficeScope;
 use Modules\Services\Models\Contract;
 use Modules\Accounting\Models\Voucher;
-use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
+use Modules\ExternalOffice\Scopes\OfficeScope;
 
 class Cv extends BaseModel
 {
@@ -17,19 +18,24 @@ class Cv extends BaseModel
     public const STATUS_CONTRACTED = 2;
     public const STATUS_PULLED = 3;
     public const STATUS_RETURNED = 4;
+    public const STATUS_CANCELED = 4;
+
     public const STATUSES = [
     self::STATUS_WAITING => 'waiting',
     self::STATUS_ACCEPTED => 'accepted',
     self::STATUS_CONTRACTED => 'contracted',
     self::STATUS_PULLED => 'pulled',
     self::STATUS_RETURNED => 'returned',
+    self::STATUS_CANCELED => 'canceled',
     ];
+
     public const STATUSES_CLASSES = [
     self::STATUS_WAITING => 'secondary',
     self::STATUS_ACCEPTED => 'info',
     self::STATUS_CONTRACTED => 'success',
     self::STATUS_PULLED => 'warning',
     self::STATUS_RETURNED => 'danger',
+    self::STATUS_CANCELED => 'danger',
     ];
 
     public const GENDER_MALE = 1;
