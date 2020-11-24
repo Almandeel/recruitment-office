@@ -170,19 +170,14 @@ class Contract extends BaseModel
     }
 
     public function checkStatus($status){
-        if ($this->cvs->count()) {
-            $cv = is_null($this->cv()) ? $this->cvs->last() : $this->cv();
-            if (gettype($status) == 'string') {
-                return $status == self::STATUSES[$cv->pivot->status];
-            }
-            elseif (gettype($status) == 'integer') {
-                return $status == $cv->pivot->status;
-            }
-
-            throw new \Exception("Unsupported status data type", 1);
+        if (gettype($status) == 'string') {
+            return $status == self::STATUSES[$this->status];
+        }
+        elseif (gettype($status) == 'integer') {
+            return $status == $this->status;
         }
 
-        return false;
+        throw new \Exception("Unsupported status data type", 1);
     }
 
     public function cvs()
