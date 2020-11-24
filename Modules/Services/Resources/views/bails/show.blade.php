@@ -2,11 +2,11 @@
 [
     'datatable' => true, 
     'confirm_status' => true, 
-    'title' => 'عقد رقم: ' . $contract->id, 
+    'title' => 'كفالة رقم: ' . $bail->id, 
     'modals' => ['position', 'employee', 'attachment', 'show_customer', 'show_cv'],
     'crumbs' => [
-        [route('contracts.index'), 'العقود'],
-        ['#', 'عقد رقم: ' . $contract->id],
+        [route('bails.index'), 'الكفالات'],
+        ['#', 'كفالة رقم: ' . $bail->id],
     ],
 ])
 
@@ -35,6 +35,10 @@
                         @slot('active', true)
                     @endif
                     @slot('id', 'details')
+                    @slot('title', 'بيانات الكفالة')
+                @endcomponent
+                @component('components.tab-item')
+                    @slot('id', 'contract')
                     @slot('title', 'بيانات العقد')
                 @endcomponent
                 @component('components.tab-item')
@@ -62,27 +66,180 @@
                     @endif
                     @slot('id', 'details')
                     @slot('content')
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="text-center">بيانات العميل الاول</h4>
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>تاريخ العقد: </strong>
+                                        <span>{{ $x_contract->created_at->format('Y-m-d') }}</span>
+                                    </div>
+                                    <div class="col">
+                                        <strong>المهنة: </strong>
+                                        <span>{{ $x_contract->cv->profession->name }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>رقم العقد: </strong>
+                                        <span>{{ $x_contract->id }}</span>
+                                    </div>
+                                    <div class="col">
+                                        <strong>العاملة: </strong>
+                                        <span>{{ $x_contract->cv->name }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>قيمة العقد: </strong>
+                                        <span>{{ number_format($x_contract->amount, 2) }}</span>
+                                    </div>
+                                    <div class="col">
+                                        <strong>الديانة: </strong>
+                                        <span>{{ $x_contract->cv->religion }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>اسم العميل: </strong>
+                                        <span>{{ $x_customer->name }}</span>
+                                    </div>
+                                    <div class="col">
+                                        <strong>الحالة الاجتماعية: </strong>
+                                        <span>{{ $x_contract->cv->marital_status }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>المسوق: </strong>
+                                        <span>{{ $x_contract->marketer->name }}</span>
+                                    </div>
+                                    <div class="col">
+                                        <strong>نسبة المسوق: </strong>
+                                        <span>{{ number_format($x_contract->marketing_ratio, 2) }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>جهة القدوم: </strong>
+                                        <span>{{ $x_contract->destination }}</span>
+                                    </div>
+                                    <div class="col">
+                                        <strong>مطار القدوم: </strong>
+                                        <span>{{ $x_contract->arrival_airport }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>الدولة: </strong>
+                                        <span>{{ $x_contract->country->name }}</span>
+                                    </div>
+                                    <div class="col">
+                                        <strong>تاريخ الوصول: </strong>
+                                        <span>{{ $x_contract->date_arrival }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>تاريخ التقديم: </strong>
+                                        <span>{{ $x_contract->start_date }}</span>
+                                    </div>
+                                    <div class="col">
+                                        <strong>مدة التقديم: </strong>
+                                        <span>{{ $x_contract->rem_trial }}  يوم</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col" style="border-right: 1px dotted;">
+                                <h4 class="text-center">بيانات العميل الثاني</h4>
+                                @if ($bail->isTrail())
+                                    <form action="{{ route('bails.update', $bail) }}" method="post" class="form-inline">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="form-group mr-2">
+                                            <label for="status">
+                                                <input type="checkbox" name="status" id="status" value="confirmed" required>
+                                                <span>تأكيد نقل الكفالة</span>
+                                            </label>
+                                        </div>
+                                        <div class="form-group mr-2">
+                                            <button class="btn btn-primary">
+                                                <span>حفظ</span>
+                                            </button>
+                                        </div>
+                                        <div class="form-group">
+                                            <span>قيد النقل</span>
+                                        </div>
+                                    </form>
+                                @else
+                                    <div>
+                                        <strong>الحالة: </strong>
+                                        <span>{{ $bail->display_status }}</span>
+                                    </div>
+                                @endif
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>تاريخ بداية التجربة</strong>
+                                        <span>{{ $bail->trail_date }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>فترة التجربة</strong>
+                                        <span>{{ $bail->display_period_in_days }}</span>
+                                    </div>
+                                    <div class="col">
+                                        <strong>المتبقي</strong>
+                                        <span>{{ $bail->display_remain_period_in_days }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>اسم العميل</strong>
+                                        <span>{{ $customer->name }}</span>
+                                    </div>
+                                    <div class="col">
+                                        <strong>رقم الهوية</strong>
+                                        <span>{{ $customer->id_number }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>تاريخ نقل الكفالة</strong>
+                                        <span>{{ $bail->trail_date }}</span>
+                                    </div>
+                                    <div class="col">
+                                        <strong>قيمة نقل الكفالة</strong>
+                                        <span>{{ number_format($bail->amount, 2) }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>المسوق</strong>
+                                        <span>{{ $contract->marketer->name }}</span>
+                                    </div>
+                                    <div class="col">
+                                        <strong>نسبة المسوق</strong>
+                                        <span>{{ number_format($contract->marketing_ratio, 2) }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>ملاحظة</strong>
+                                        <span>{{ $bail->notes }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endslot
+                @endcomponent
+                @component('components.tab-content')
+                    @slot('id', 'contract')
+                    @slot('content')
                         <table class="table table-bordered table-striped text-center">
                             <thead>
-                                @if ($contract->getApplicationDays(false, true) > 0)
-                                    <tr>
-                                        <th colspan="4">
-                                            <span>مدة التقديم {{ $contract->getApplicationDays(true) }}</span>
-                                            <span>-</span>
-                                            <span>المتبقي {{ $contract->getApplicationDays(true, true) }}</span>
-                                        </th>
-                                    </tr>
-                                @elseif ($contract->getApplicationDays(false, true) < 0)
-                                    <tr>
-                                        <th colspan="4">
-                                            <span>مدة التقديم {{ $contract->getApplicationDays(true) }}</span>
-                                            <span>-</span>
-                                            <span>{{ $contract->getApplicationDays(true, true) }}</span>
-                                        </th>
-                                    </tr>
-                                @endif
                                 <tr>
-                                    <th>تاريخ العقد</th>
+                                    <th>تاريخ الكفالة</th>
                                     <td>{{ $contract->created_at->format('Y-m-d') }}</td>
                                     <th>المهنة</th>
                                     <td>{{ $contract->profession->name }}</td>
@@ -132,7 +289,7 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        قيمة العقد
+                                        قيمة الكفالة
                                     </th>
                                     <td>{{ $contract->amount }}</td>
                                     <th>
@@ -211,70 +368,6 @@
                                     </th>
                                     <td>{{ $contract->getApplicationDays(true)  }}</td>
                                 </tr>
-                                {{--  <tr>
-                                    <th>
-                                        ملاحظات العقد
-                                    </th>
-                                    <td colspan="3">{{ $contract->details  }}</td>
-                                </tr>  --}}
-                                {{-- 
-                                    <tr>
-                                        <tr>
-                                            <th>تاريخ العقد</th>
-                                            <td>{{ $contract->created_at->format('Y-m-d') }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>العميل</th>
-                                            <td>{{ $contract->customer->name }}</td>
-                                        </tr>
-                                    </tr>
-                                    <tr>
-                                        <th>المكتب الخارجي</th>
-                                        <td>{{ $contract->office->name ?? '' }}  {{ $contract->country->name }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>العامل \ العاملة</th>
-                                        <td>{{ $contract->cv->name ?? '-' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>رقم التأشيرة</th>
-                                        <td>{{ $contract->visa }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>المهنة</th>
-                                        <td>{{ $contract->profession->name }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>قيمة العقد</th>
-                                        <td>{{ $contract->amount }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>المسوق</th>
-                                        <td>{{ $contract->marketer->name ?? '' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>نسبة المسوق</th>
-                                        <td>{{ $contract->marketing_ratio  }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>جهة الوصول</th>
-                                        <td>{{ $contract->destination  }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>مطار الوصول</th>
-                                        <td>{{ $contract->arrival_airport  }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>تاريخ الوصول</th>
-                                        <td>{{ $contract->date_arrival  }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>خيارات</th>
-                                        <td>
-                                            <a class="btn btn-warning btn-sm contracts update"
-                                                href="{{ route('contracts.edit', $contract->id) }}"><i class="fa fa-edit"></i> تعديل</a>
-                                        </td>
-                                    </tr> --}}
                             </thead>
                         </table>
                     @endslot
@@ -298,7 +391,7 @@
                         @component('accounting::components.vouchers')
                             @slot('voucherable', $contract)
                             @slot('currency', 'ريال')
-                            @slot('vouchers', $contract->all_vouchers->merge($contract->cvs_vouchers))
+                            @slot('vouchers', $contract->all_vouchers->merge($contract->cv_vouchers))
                         @endcomponent
                     @endslot
                 @endcomponent
@@ -311,7 +404,7 @@
                                     <table class="table table-bordered table-striped text-center datatable">
                                         <thead>
                                             <tr>
-                                                <th>رقم العقد</th>
+                                                <th>رقم الكفالة</th>
                                                 <th>القيمة</th>
                                                 <th>نسبة المسوق</th>
                                                 <th>مصروفات العمالة</th>

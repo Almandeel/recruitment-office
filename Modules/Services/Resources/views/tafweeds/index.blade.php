@@ -113,7 +113,7 @@
                                                         <td> {{ $tafweed->visa }}</td>
                                                         <td> {{ $tafweed->identification_num }}</td>
 
-                                                        <td> @foreach(\Modules\Services\Models\Country::all() as $country)
+                                                        <td> @foreach(\Modules\ExternalOffice\Models\Country::all() as $country)
                                                         @if($country->id==$tafweed->country_id )
                                                              {{$country->name}}
                                                         @endif

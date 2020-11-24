@@ -36,7 +36,7 @@
                                            <select class="form-control select2 custom-select" name="contract_id" id="contracts" style="height: 38px;">                                         
                                             @foreach($contracts as $contract)
                                             <option value="{{ $contract->id }}" data-contract_id="{{ $contract->id }}"
-                                             data-customer_id="@foreach(App\Customer::all() as $customer)  @if($customer->id== $contract->customer_id )  {{ $customer->name }} @endif @endforeach" data-country_id="@foreach(App\Country::all() as $country)  @if($country->id== $contract->country_id) {{ $country->name }} @endif @endforeach"  data-profession_id="@foreach(App\Profession::all() as $profession) @if($profession->id== $contract->profession_id ) {{ $profession->name }} @endif  @endforeach">{{ $contract->id }}</option>
+                                             data-customer_id="@foreach(Modules\Services\Models\Customer::all() as $customer)  @if($customer->id== $contract->customer_id )  {{ $customer->name }} @endif @endforeach" data-country_id="@foreach(Modules\ExternalOffice\Models\Country::all() as $country)  @if($country->id== $contract->country_id) {{ $country->name }} @endif @endforeach"  data-profession_id="@foreach(Modules\ExternalOffice\Models\Profession::all() as $profession) @if($profession->id== $contract->profession_id ) {{ $profession->name }} @endif  @endforeach">{{ $contract->id }}</option>
                                             @endforeach
                                         </select> 
                                             </div> 
@@ -197,7 +197,7 @@
                                                 <label for="name">  المسوق</label>
                                         <select name="marketer" class="form-control option" style="padding-top:0px;"> 
                                           <option>    المسوق      </option>
-                                      @foreach(App\Marketer::all() as $marketer) 
+                                      @foreach(Modules\Services\Models\Marketer::all() as $marketer) 
                                                 <option value="{{ $marketer->name }}"> {{ $marketer->name }}</option>
                                                          @endforeach
                                             </select>  

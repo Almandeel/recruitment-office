@@ -58,7 +58,7 @@
                      </div>
                              <div class="col-md-6">
                        
-                              <span> <b>  اسم العميل   :  </b>  @foreach(App\Customer::all() as $customer)
+                              <span> <b>  اسم العميل   :  </b>  @foreach(Modules\Services\Models\Customer::all() as $customer)
                                                         @if($customer->id==$kafalat->f_customer_id )
                                                              {{$customer->name}}
                                                         @endif
@@ -78,7 +78,7 @@
                      </div>
                              <div class="col-md-6">
                        
-                              <span>  <b>  المسوق :  </b> @foreach(App\Marketer::all() as $marketer)
+                              <span>  <b>  المسوق :  </b> @foreach(Modules\Services\Models\Marketer::all() as $marketer)
                                                         @if($marketer->id==$contract->marketer_id )
                                                              {{$marketer->name}}
                                                         @endif
@@ -98,7 +98,7 @@
                      </div>
                              <div class="col-md-6">
                        
-                              <span> <b>الدولة  : </b>  @foreach(App\Country::all() as $country)
+                              <span> <b>الدولة  : </b>  @foreach(Modules\ExternalOffice\Models\Country::all() as $country)
                                                         @if($country->id==$contract->country_id )
                                                              {{$country->name}}
                                                         @endif
@@ -130,11 +130,7 @@
                             
                         
                     </div></div>
-            <div class="col-md-6 data"  accesskey=""
-                               style="
-    border-right: 1px dotted;
-"
-                               >
+            <div class="col-md-6 data"  accesskey="" style="border-right: 1px dotted;">
                               
                               
   <center> <h5 div class="text-center">  بيانات العميل الثاني</h5></center>
@@ -149,7 +145,8 @@
     <input type="hidden" name="id" value="{{$kafalat->id}}"> 
       <?php  if($kafalat->status==2) { echo "تم النقل" ; } else echo "قيد النقل" ; ?> 
 </form> 
-</div></div>
+</div>
+</div>
 
 
                 <br>
@@ -172,7 +169,7 @@
                      </div>
                                                 <div class="col-md-12">
                        
-                              <span>  <b> اسم العميل : </b> @foreach(App\Customer::all() as $customer)
+                              <span>  <b> اسم العميل : </b> @foreach(Modules\Services\Models\Customer::all() as $customer)
                                                         @if($customer->id==$kafalat->s_customer_id )
                                                              {{$customer->name}}
                                                         @endif
@@ -377,7 +374,7 @@
         @csrf
                 <input type="hidden" name="_method" value="POST">        
                 <input type="hidden" name="voucherable_id" value="{{$kafalat->f_customer_id}}">
-        <input type="hidden" name="voucherable_type" value="<?php foreach(App\Customer::all() as $customer){ 
+        <input type="hidden" name="voucherable_type" value="<?php foreach(Modules\Services\Models\Customer::all() as $customer){ 
                                                         if($customer->id_number==$kafalat->f_customer_id ) {
                                                            echo $customer->name ; } }
                                                           ?>">

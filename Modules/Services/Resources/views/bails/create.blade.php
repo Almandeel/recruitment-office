@@ -1,182 +1,58 @@
 @extends('layouts.master', [
-    'title' => 'اضافة عقد',
+    'title' => 'نقل كفالة',
     'datatable' => true,
     'modals' => ['customer', 'marketer'],
     'crumbs' => [
-        [route('contracts.index'), 'العقود'],
-        ['#', 'اضافة عقد'],
+        [route('bails.index'), 'الكفالات'],
+        ['#', 'نقل كفالة'],
     ]
 ])
 @section('content')
-    <form action="{{ route('contracts.store') }}" method="post">
+    <form action="{{ route('bails.store') }}" method="post">
         @csrf
         @component('components.widget')
             @slot('noPadding', null)
             @slot('extra')
-                <div class="form-inline">
-                    <div class="form-group mr-2">
-                        <label>
-                            <i class="fa fa-search"></i>
-                            <span>فرز</span>
-                        </label>
-                    </div>
-                    <div class="form-group mr-2">
-                        <label for="country_id">الدولة</label>
-                        <select name="country_id" id="country_id" class="form-control">
-                            <option value="all" {{ $country_id == 'all' ? 'selected' : '' }}>الكل</option>
-                            @foreach ($countries as $country)
-                                <option value="{{ $country->id }}" {{ $country->id == $country_id ? 'selected' : '' }}>{{ $country->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group mr-2">
-                        <label for="office_id">المكتب</label>
-                        <select name="office_id" id="office_id" class="form-control">
-                            <option value="all" {{ $office_id == 'all' ? 'selected' : '' }}>الكل</option>
-                            @foreach ($offices as $office)
-                                <option value="{{ $office->id }}" {{ $office->id == $office_id ? 'selected' : '' }}>{{ $office->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group mr-2">
-                        <label for="profession_id">المهنة</label>
-                        <select name="profession_id" id="profession_id" class="form-control">
-                            <option value="all" {{ $profession_id == 'all' ? 'selected' : '' }}>الكل</option>
-                            @foreach ($professions as $profession)
-                                <option value="{{ $profession->id }}" {{ $profession->id == $profession_id ? 'selected' : '' }}>{{ $profession->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>متوسط العمر</label>
-                    </div>
-                    <div class="form-group mr-2">
-                        <label for="age_min">من</label>
-                        <input type="number" name="age_min" id="age_min" class="form-control" value="0">
-                    </div>
-                    <div class="form-group mr-2">
-                        <label for="age_max">الى</label>
-                        <input type="number" name="age_max" id="age_max" class="form-control" value="0">
-                    </div>
-                    {{--  <div class="form-group">
-                        <label for="cv_id">cv</label>
-                        <select name="cv_id" id="cv_id" class="form-control" required>
-                            <option>إختر cv</option>
-                            @foreach ($cvs as $cv)
-                                <option value="{{ $cv['id'] }}">{{ $cv['passport'] . '-' . $cv['name'] }}</option>
-                            @endforeach
-                        </select>
-                    </div>  --}}
-                    <button type="button" class="btn btn-primary btn-filter">
-                        <i class="fa fa-refresh"></i>
-                        <span>تحديث</span>
-                    </button>
-                </div>
             @endslot
             @slot('body')
-                <div class="table-container">
-                    <table id="table-cvs" class="table {{ is_null($cv) ? 'table-striped' : '' }}">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>الدولة</th>
-                                {{--  <th>
+                <table class="table table-bordered mb-2">
+                    <thead>
+                        <tr>
+                            <td colspan="3">
+                                <div class="form-inlinee">
                                     <div class="input-group">
-                                        <div class="input-group-append">الدولة</div>
-                                        <select name="country_id" id="country_id" class="form-control">
-                                            <option value="all">الكل</option>
-                                            @foreach ($countries as $country)
-                                            <option value="{{ $country->id }}">{{ $country->name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <label class="input-group-append">
+                                            <span>بيانات العميل الاول</span>
+                                        </label>
                                     </div>
-                                </th>  --}}
-                                <th>المكتب</th>
-                                {{--  <th>
-                                    <div class="input-group">
-                                        <div class="input-group-append">المكتب</div>
-                                        <select name="office_id" id="office_id" class="form-control">
-                                            <option value="all">الكل</option>
-                                            @foreach ($offices as $office)
-                                            <option value="{{ $office->id }}">{{ $office->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </th>  --}}
-                                <th>المهنة</th>
-                                {{--  <th>
-                                    <div class="input-group">
-                                        <div class="input-group-append">المهنة</div>
-                                        <select name="profession_id" id="profession_id" class="form-control">
-                                            <option value="all">الكل</option>
-                                            @foreach ($professions as $profession)
-                                            <option value="{{ $profession->id }}">{{ $profession->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </th>  --}}
-                                <th>CV</th>
-                                <th>Age</th>
-                                {{--  <th class="text-center"><input type="radio" disabled checked></th>  --}}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (is_null($cv))
-                                @foreach ($cvs as $c)
-                                <tr class="row-cv">
-                                    <td>{{ $loop->index + 1 }}</td>
-                                    <td>{{ $c['country_name'] }}</td>
-                                    <td>{{ $c['office_name'] }}</td>
-                                    <td>{{ $c['profession_name'] }}</td>
-                                    <td>{{ $c['name'] }}
-                                    <input type="hidden" name="cv_id" data-payed="{{ $c['payed'] }}" data-age="{{ $c['age'] }}" data-gender="{{ $c['gender'] }}" data-passport="{{ $c['passport'] }}" value="{{ $c['id'] }}"
-                                    data-country-id="{{ $c['country_id'] }}" data-office-id="{{ $c['office_id'] }}" data-profession-id="{{ $c['profession_id'] }}"></td>
-                                    <td>{{ $c['age'] }}</td>
-                                </tr>
-                                @endforeach
-                            @else
-                                <tr class="bg-warning">
-                                    <td>{{ 1 }}</td>
-                                    <td>{{ $cv->country->name }}</td>
-                                    <td>{{ $cv->office->name }}</td>
-                                    <td>{{ $cv->profession->name }}</td>
-                                    <td>{{ $cv->name }}
-                                        <input type="hidden" name="cv_id" data-payed="{{ $cv->payed() }}" value="{{ $cv->id }}"></td>
-                                    <td>{{ $c->age() }}</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="6" style="padding: 0;">
-                                        <table class="table table-bordered" style="margin: 0;">
-                                            <thead>
-                                                <tr>
-                                                    <th>الجنس</th>
-                                                    <th>الجواز</th>
-                                                    <th>العمر</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>{{ $c->displayGender() }}</td>
-                                                    <td>{{ $c->passport }}</td>
-                                                    <td>{{ $c->age() }}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            @endif
-
-                        </tbody>
-                    </table>
-                </div>
-                <table class="table table-bordered">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>الإسم</th>
+                            <th>رقم الهوية</th>
+                            <th>رقم الهاتف</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <td style="padding: 0px;"><input class="form-control" type="text" value="{{ $x_customer->name }}" style="border-radius: 0;" disabled></td>
+                        <td style="padding: 0px;">
+                            <input type="text" style="border-radius: 0;" class="form-control" disabled value="{{ $x_customer->id_number }}">
+                            <input type="hidden" name="x_customer_id" value="{{ $x_customer->id }}">
+                            <input type="hidden" name="x_contract_id" value="{{ $x_contract->id }}">
+                            <input type="hidden" name="cv_id" value="{{ $cv->id }}">
+                        </td>
+                        <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" disabled value="{{ $x_customer->phones }}"></td>
+                    </tbody>
+                </table>
+                <table class="table table-bordered mb-2">
                     <thead>
                         <tr>
                             <td colspan="3">
                                 <div class="form-inlinee">
                                     <div class="input-group">
                                         <label for="customers" class="input-group-append">
-                                            <span>العملاء</span>
+                                            <span>بيانات العميل الثاني</span>
                                         </label>
                                         <select class="form-control select2 custom-select" id="customers">
                                             <option value="create">إنشاء عميل</option>
@@ -203,17 +79,46 @@
                         <td style="padding: 0px;"><input type="number" style="border-radius: 0;" class="form-control" name="visa" placeholder="التأشيرة"></td>
                     </tbody>
                 </table>
+                <table class="table table-bordered mb-2">
+                    <thead>
+                        <tr>
+                            <td colspan="5">
+                                <div class="form-inlinee">
+                                    <div class="input-group">
+                                        <label class="input-group-append">
+                                            <span>بيانات العامل{{ $cv->gender == 2 ? 'ة' : '' }}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>المكتب</th>
+                            <th>الإسم</th>
+                            <th>المهنة</th>
+                            <th>الجنس</th>
+                            <th>رقم الجواز</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" disabled value="{{ $cv->office->name }}"></td>
+                        <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" disabled value="{{ $cv->name }}"></td>
+                        <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" disabled value="{{ $cv->profession->name }}"></td>
+                        <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" disabled value="{{ $cv->displayGender() }}"></td>
+                        <td style="padding: 0px;"><input type="text" style="border-radius: 0;" class="form-control" disabled value="{{ $cv->passport }}"></td>
+                    </tbody>
+                </table>
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="amount">قيمة العقد</label>
-                            <input required type="number" class="form-control" name="amount" placeholder="Amount" step="0.01" value="0">
+                            <label for="bail_date">تاريخ نقل الكفالة</label>
+                            <input required type="date" class="form-control" name="bail_date" placeholder="تاريخ نقل الكفالة" step="0.01" value="0">
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label for="marketing_ratio">نسبة المسوق</label>
-                            <input type="number" class="form-control" name="marketing_ratio" placeholder="نسبة المسوق">
+                            <label for="amount">قيمة نقل الكفالة</label>
+                            <input required type="number" class="form-control" name="amount" placeholder="قيمة نقل الكفالة" step="0.01" value="0">
                         </div>
                     </div>
                     <div class="col">
@@ -227,37 +132,20 @@
                             </select>
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="destination">جهة الوصول</label>
-                            <input type="text" class="form-control" name="destination" placeholder="جهة الوصول ">
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="date_arrival">تاريخ الوصول</label>
-                            <input type="date" class="form-control" name="date_arrival" placeholder="تاريخ الوصول ">
+                            <label for="marketing_ratio">نسبة المسوق</label>
+                            <input type="number" class="form-control" name="marketing_ratio" placeholder="نسبة المسوق">
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="arrival_airport">مطار الوصول</label>
-                            <input type="text" class="form-control" name="arrival_airport" placeholder="مطار الوصول ">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="status">حالة العقد</label>
+                            <label for="status">حالة الكفالة</label>
                             <select class="form-control" name="status">
-                                @foreach ($statuses as $value => $status)
-                                    <option value="{{ $value }}">@lang('contracts.statuses.' . $status)</option>
+                            @foreach (__('bails.statuses') as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -265,17 +153,21 @@
 
                     <div class="col">
                         <div class="form-group">
-                            <label for="start_date">بداية التقديم</label>
-                            <input type="date" class="form-control" name="start_date">
+                            <label for="trail_date">بداية التجربة</label>
+                            <input type="date" class="form-control" name="trail_date">
                         </div>
                     </div>
 
                     <div class="col">
                         <div class="form-group">
-                            <label for="ex_date">مدة التقديم</label>
-                            <input type="number" class="form-control" name="ex_date" placeholder="مدة التقديم">
+                            <label for="trail_period">مدة التجربة</label>
+                            <input type="number" class="form-control" name="trail_period" placeholder="مدة التجربة">
                         </div>
                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="notes">الملاحظات</label>
+                    <textarea name="notes" id="notes" rows="5" class="form-control" placeholder="الملاحظات"></textarea>
                 </div>
                 @component('components.attachments-uploader')
                 @endcomponent
@@ -306,69 +198,9 @@
 @endpush
 @push('foot')
     <script>
-        let cvs = @json($cvs);
         $(function(){
-            $(document).on('change, keyup', 'select#country_id, select#office_id, select#profession_id, #age_min, #age_max', function(){
-                filter();
-            })
-            $(document).on('click', '.btn-filter', function(){
-                filter();
-            })
             $(document).on('change', 'select#customers', function(){
                 selectCustomer()
-                /*
-                    let selected_option = $(this).find('option:selected');
-                    let field_customer_name = $('input[name=customer_name]');
-                    let field_customer_id_number = $('input[name=customer_id_number]');
-                    let field_customer_id = $('input[name=customer_id]');
-                    if(selected_option.val() == 'create'){
-                        field_customer_name.val('')
-                        field_customer_id_number.val('')
-                        field_customer_id.removeAttr('value')
-                    }else{
-                        field_customer_name.val(selected_option.data('name'))
-                        field_customer_id.val(selected_option.data('id'))
-                        field_customer_id.attr('value', selected_option.data('id'))
-                        field_customer_id_number.val(selected_option.data('id-number'))
-                    }
-                */
-            })
-            $(document).on('click', '#table-cvs > tbody > tr.row-cv', function(){
-                $(this).removeClass('row-cv')
-                $(this).addClass('bg-warning')
-                let field_cv_id = $(this).find('input[name=cv_id]')
-                if(field_cv_id.length) {
-                    field_cv_id.prop('checked', true)
-                }
-                let rows = '<tr>' + $(this).html() + '</tr>';
-                rows += `
-                    <tr>
-                        <td colspan="6" style="padding: 0;">
-                            <table class="table table-bordered" style="margin: 0;">
-                                <thead>
-                                    <tr>
-                                        <th>الجنس</th>
-                                        <th>الجواز</th>
-                                        <th>العمر</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>` + field_cv_id.data('gender') + `</td>
-                                        <td>` + field_cv_id.data('passport') + `</td>
-                                        <td>` + field_cv_id.data('age') + `</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                `;
-                $('#country_id').val(field_cv_id.data('country-id'))
-                $('#office_id').val(field_cv_id.data('office-id'))
-                $('#profession_id').val(field_cv_id.data('profession-id'))
-                $('#table-cvs').removeClass('table-striped')
-                $('#table-cvs').addClass('table-bordered')
-                $('#table-cvs tbody').html(rows)
             })
 
         })
@@ -398,57 +230,6 @@
                     .siblings('ul.parsley-errors-list').remove()
                 $('input[name="customer_name"]').removeClass('parsley-error')
             }
-        }
-        function filter(){
-            let country_id = $('select#country_id').val()
-            let office_id = $('select#office_id').val()
-            let profession_id = $('select#profession_id').val()
-            let min_age = $('input#age_min').val()
-            let max_age = $('input#age_max').val()
-            let filtered_cvs = cvs.filter(function(cv, index){
-                let condition = true;
-                if(country_id != 'all') condition = condition && (cv.country_id == country_id);
-                if(office_id != 'all') condition = condition && (cv.office_id == office_id);
-                if(profession_id != 'all') condition = condition && (cv.profession_id == profession_id);
-                var min = parseInt($('input#age_min').val(), 10);
-                var max = parseInt($('input#age_max').val(), 10);
-                var age = parseInt(cv.age);
-                if(!(min == 0 && max == 0)){
-                    condition = condition && ( ( isNaN( min ) && isNaN( max ) ) ||
-                        ( isNaN( min ) && age <= max ) ||
-                        ( min <= age   && isNaN( max ) ) ||
-                        ( min <= age   && age <= max )
-                    );
-                }
-                return condition;
-            });
-
-            // let cvs_options = (filtered_cvs.length > 0) ? `` : `<option>لا يوجد</option>`;
-            let cvs_rows = (filtered_cvs.length > 0) ? `` : `<tr><td colspan="6">لا يوجد</td></tr>`;
-            filtered_cvs.forEach(function(cv, index){
-                /*
-                cvs_options += `
-                    <option value="` + cv.id + `">` + cv.passport + `-` + cv.name + `</option>
-                `;
-                */
-
-                cvs_rows += `
-                    <tr class="row-cv">
-                        <td>` +  (index + 1) + `</td>
-                        <td>` +  cv.country_name + `</td>
-                        <td>` +  cv.office_name + `</td>
-                        <td>` +  cv.profession_name + `</td>
-                        <td>
-                            ` +  cv.name + `
-                            <input type="hidden" name="cv_id" data-age="` + cv.age + `" data-gender="` + cv.gender + `" data-passport="` + cv.passport + `" data-country-id="` + cv.country_id + `" data-office-id="` + cv.office_id + `" data-profession-id="` + cv.profession_id + `" data-payed="` + cv.payed + `" value="` + cv.id + `">
-                        </td>
-                        <td>` +  cv.age + `</td>
-                    </tr>
-                `;
-            })
-            $('#table-cvs').addClass('table-striped')
-            $('#table-cvs').removeClass('table-bordered')
-            $('table#table-cvs tbody').html(cvs_rows);
         }
     </script>
 @endpush

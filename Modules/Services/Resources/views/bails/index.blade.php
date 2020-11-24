@@ -1,9 +1,9 @@
 @extends('layouts.master', [
-    'title' => 'النقل كفالات',
+    'title' => 'نقل الكفالات',
     'modals' => ['customer'],
     'datatable' => true,
     'crumbs' => [
-        ['#', 'النقل كفالات'],
+        ['#', 'نقل الكفالات'],
     ]
 ])
 
@@ -13,7 +13,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">قائمة النقل كفالات</h3>
+                        <h3 class="card-title">قائمة نقل الكفالات</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-extra clearfix">
@@ -74,6 +74,15 @@
                                     </select>
                                 </div>  --}}
                                 <div class="form-group mr-2">
+                                    <label for="status">@lang('global.status')</label>
+                                    <select name="status" id="status" class="form-control">
+                                        <option value="all" {{ $status == 'all' ? 'selected' : ''}}>@lang('global.all')</option>
+                                        @foreach (__('bails.statuses') as $key => $value)
+                                            <option value="{{ $key }}" {{ $status == $key ? 'selected' : ''}}>{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group mr-2">
                                     <label for="from-date">@lang('global.from')</label>
                                     <input type="date" name="from_date" id="from-date" value="{{ $from_date }}"
                                         class="form-control">
@@ -94,7 +103,7 @@
                         <table id="datatable" class="table datatable table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>رقم الكفالة</th>
                                     <th>تاريخ فترة التجربة</th>
                                     <th>الكفيل الاول (العميل)</th>
                                     <th>الكفيل الثاني (العميل)</th>
@@ -112,22 +121,18 @@
                             <tbody>
                                 @foreach ($bails as $index=>$bail)
                                     <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $bail->updated_at->format('Y-m-d') }}</td>
-                                        <td>{{ $bail->getCustomerName() }}</td>
-                                        <td>{{ $bail->getOfficeName() }}</td>
-                                        <td>{{ $bail->getCvName() }}</td>
-                                        <td>{{ $bail->getCvPassport() }}</td>
-                                        <td>{{ $bail->visa }}</td>
-                                        <td>{{ $bail->getProfessionName() }}</td>
-                                        <td>
-                                            @if (!$bail->isCanceled())
-                                                {{ $bail->getApplicationDays(true, true) }}
-                                            @else 
-                                                
-                                            @endif
-                                        </td>
-                                        <td>{{ $bail->displayStatus() }}</td>
+                                        <td>{{ $bail->id }}</td>
+                                        <td>{{ $bail->trail_date }}</td>
+                                        <td>{{ $bail->x_customer->name }}</td>
+                                        <td>{{ $bail->customer->name }}</td>
+                                        <td>{{ $bail->cv->office->name }}</td>
+                                        <td>{{ $bail->cv->name }}</td>
+                                        <td>{{ $bail->cv->passport }}</td>
+                                        <td>{{ $bail->contract->visa }}</td>
+                                        <td>{{ $bail->cv->profession->name }}</td>
+                                        <td>{{ $bail->display_remain_period_in_days }}</td>
+                                        <td>{{ $bail->bail_date }}</td>
+                                        <td>{{ $bail->display_status }}</td>
                                         <td>
                                             <div class="dropdown d-inline-block">
                                                 <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
@@ -144,18 +149,6 @@
                                                     @permission('bails-update')
                                                     <a class="dropdown-item text-primary" href="{{ route('bails.edit', $bail->id) }}"><i class="fa fa-edit"></i> تعديل</a>
                                                     @endpermission
-                                                    @if (!$bail->isCanceled())
-                                                        @permission('bails-delete')
-                                                            <a href="#" class="dropdown-item text-warning"
-                                                                data-toggle="confirm" data-form="#cancel-form-{{ $bail->id }}"
-                                                                data-title="إلغاء الكفالة"
-                                                                data-text="سوف يتم إلغاء الكفالة وفسخ الارتباط مع ال cv إستمرار"
-                                                                >
-                                                                <i class="fa fa-times"></i>
-                                                                <span>إلغاء الكفالة</span>
-                                                            </a>
-                                                        @endpermission
-                                                    @endif
                                                     @permission('bails-delete')
                                                         <a href="#" class="dropdown-item text-danger"
                                                             data-toggle="confirm" data-form="#delete-form-{{ $bail->id }}"
@@ -166,17 +159,8 @@
                                                             <span>حذف</span>
                                                         </a>
                                                     @endpermission
-                                                    @if (!$bail->isCanceled())
-                                                        @permission('bails-delete')
-                                                        <form id="cancel-form-{{ $bail->id }}" style="display: none" action="{{ route('bails.destroy', $bail->id) }}" method="post">
-                                                            @csrf 
-                                                            @method('DELETE')
-                                                            <input type="hidden" name="operation" value="cancel"/>
-                                                        </form>
-                                                        @endpermission
-                                                    @endif
                                                     @permission('bails-delete')
-                                                    <form id="delete-form-{{ $bail->id }}" style="display: none" action="{{ route('bails.destroy', $bail->id) }}" method="post">
+                                                    <form id="delete-form-{{ $bail->id }}" style="display: none" action="{{ route('bails.destroy', $bail) }}" method="post">
                                                         @csrf 
                                                         @method('DELETE')
                                                         <input type="hidden" name="operation" value="delete"/>

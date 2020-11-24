@@ -17,12 +17,17 @@ class CreateBailsTable extends Migration
             $table->bigIncrements('id');
             $table->string('status', 10)->default('trail');
             $table->date('trail_date');
+            $table->string('notes')->nullable();
+            $table->float('amount')->default(0);
+            $table->date('bail_date')->nullable()->default(new DateTime());
+            $table->text('notes')->nullable();
             $table->tinyInteger('trail_period');
             $table->unsignedInteger('contract_id');
             $table->unsignedInteger('cv_id');
             $table->unsignedInteger('customer_id');
             $table->unsignedInteger('x_customer_id');
             $table->unsignedInteger('x_contract_id');
+            $table->unsignedInteger('user_id');
             
             $table->index('contract_id');
             $table->index('cv_id');
@@ -31,7 +36,7 @@ class CreateBailsTable extends Migration
             $table->index('x_customer_id');
 
             $table->foreign('contract_id')->references('id')->on('contracts')->onDelete('no action');
-            $table->foreign('cv_id')->references('id')->on('contracts')->onDelete('no action');
+            $table->foreign('cv_id')->references('id')->on('cvs')->onDelete('no action');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('no action');
             $table->foreign('x_contract_id')->references('id')->on('contracts')->onDelete('no action');
             $table->foreign('x_customer_id')->references('id')->on('customers')->onDelete('no action');

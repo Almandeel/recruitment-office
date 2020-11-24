@@ -154,6 +154,9 @@
                                                     @permission('contracts-update')
                                                     <a class="dropdown-item text-primary" href="{{ route('contracts.edit', $contract->id) }}"><i class="fa fa-edit"></i> تعديل</a>
                                                     @endpermission
+                                                    @permission('bails-create')
+                                                    <a class="dropdown-item text-primary" href="{{ route('bails.create', ['contract_id' => $contract->id]) }}"><i class="fa fa-user"></i> نقل كفالة</a>
+                                                    @endpermission
                                                     @if (!$contract->isCanceled())
                                                         @permission('contracts-delete')
                                                             <a href="#" class="dropdown-item text-warning"

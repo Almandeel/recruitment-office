@@ -204,16 +204,17 @@ class ContractController extends Controller
             return back()->withError('حدث خطأ اثناء إنشاء العقد');
         }else {
             $request->validate([
-            'phones' => 'unique:customers',
-            'customer_id_number' => [ 'required',Rule::unique('customers', 'id_number')],
-            'visa' => 'nullable|numeric',
-            'details' => 'nullable|string',
-            'cv_id' => 'required|numeric',
-            'profession_id' => 'required',
-            'country_id' => 'required',
-            'amount' => 'required|numeric|min:0',
-            'marketer_id' => 'nullable',
-            'marketing_ratio' => 'nullable|numeric',
+                'phones' => 'unique:customers',
+                'customer_id_number' => [ 'required',Rule::unique('customers', 'id_number')],
+                'visa' => 'nullable|numeric',
+                'details' => 'nullable|string',
+                'cv_id' => 'required|numeric',
+                'profession_id' => 'required',
+                'country_id' => 'required',
+                'amount' => 'required|numeric|min:0',
+                'marketer_id' => 'nullable',
+                'marketing_ratio' => 'nullable|numeric',
+                'id_number'   => 'string|nullable| unique:customers',
             ]);
             $data = $request->except(['_token', 'marketer_id']);
             if (!array_key_exists('status', $data)) {

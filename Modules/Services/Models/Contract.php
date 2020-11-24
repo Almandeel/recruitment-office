@@ -26,8 +26,8 @@ class Contract extends BaseModel
     public const STATUS_WORKING    = 1;
     public const STATUS_CANCELED   = 2;
     public const STATUS_TRAIL       = 4;
-    public const STATUS_BAILED     = 4;
-    public const STATUS_FINISHED   = 5;
+    public const STATUS_BAILED     = 5;
+    public const STATUS_FINISHED   = 6;
     public const STATUSES = [
         self::STATUS_INITIAL => 'initial',
         self::STATUS_WAITING => 'waiting',

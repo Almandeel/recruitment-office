@@ -144,9 +144,10 @@ class KafalatController extends Controller
 
 
 
-        $c = DB::table('contract_cv')->where('contract_id', $cid)->first();
-        $cv_id = $c->cv_id;
+        // $c = DB::table('contract_cv')->where('contract_id', $cid)->first();
+        $cv_id = $contract->cv_id;
         $cv = Cv::find($cv_id);
+        $kafalat->id = 35;
         if (!empty($contract)) {
             $kafalat->recruitment_cv_name = $cv->name;
             $kafalat->recruitment_cv_passport = $cv->passport;
@@ -180,7 +181,7 @@ class KafalatController extends Controller
         $contract_id =   $kafalat->contract_id;
 
 
-        DB::update('update recruitment_contracts set   status = ? where id = ?', [5, $contract_id]);
+        DB::update('update contracts set   status = ? where id = ?', [5, $contract_id]);
 
         Session::flash('success', 'تم الحفظ  ');
 
@@ -206,8 +207,7 @@ class KafalatController extends Controller
         $cid = $kafalat->contract_id;
         $vid = $kafalat->f_customer_id;
         $contract = Contract::find($cid);
-        $c = DB::table('contract_cv')->where('contract_id', $cid)->first();
-        $cv_id = $c->cv_id;
+        $cv_id = $contract->cv_id;
         $cv = Cv::find($cv_id);
         $voucher = Voucher::where('voucherable_id', $vid)->get();
         return view('services::kafalats.show')->withkafalat($kafalat)->withcontract($contract)->withcv($cv)->withvoucher($voucher);
@@ -284,7 +284,7 @@ class KafalatController extends Controller
         }
 
 
-        DB::update('update recruitment_contracts set   status = ? where id = ?', [5, $contract_id]);
+        DB::update('update contracts set   status = ? where id = ?', [5, $contract_id]);
 
         Session::flash('success', 'تم التعديل ');
 
