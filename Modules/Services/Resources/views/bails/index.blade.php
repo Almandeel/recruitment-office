@@ -1,9 +1,9 @@
 @extends('layouts.master', [
-    'title' => 'العقود',
+    'title' => 'النقل كفالات',
     'modals' => ['customer'],
     'datatable' => true,
     'crumbs' => [
-        ['#', 'العقود'],
+        ['#', 'النقل كفالات'],
     ]
 ])
 
@@ -13,10 +13,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">قائمة العقود</h3>
-                        @permission('contracts-create')
-                        <a class="card-title float-right btn btn-primary" href="{{ route('contracts.create') }}"><i class="fa fa-plus"></i>  اضافة </a>
-                        @endpermission
+                        <h3 class="card-title">قائمة النقل كفالات</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-extra clearfix">
@@ -46,15 +43,6 @@
                                     </select>
                                 </div>
                                 <div class="form-group mr-2">
-                                    <label for="status">@lang('global.status')</label>
-                                    <select name="status" id="status" class="form-control">
-                                        <option value="all" {{ $status == 'all' ? 'selected' : ''}}>@lang('global.all')</option>
-                                        @foreach (__('contracts.statuses') as $key => $value)
-                                            <option value="{{ $key }}" {{ $status == $key ? 'selected' : ''}}>{{ $value }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group mr-2">
                                     <label for="profession_id">@lang('global.profession')</label>
                                     <select name="profession_id" id="profession_id" class="form-control">
                                         <option value="all" {{ $profession_id == 'all' ? 'selected' : ''}}>@lang('global.all')</option>
@@ -78,7 +66,7 @@
                                     <select class="form-control status" name="status" id="status">
                                         <option value="all" {{ ($status == 'all') ? 'selected' : '' }}>@lang('global.all')
                                         </option>
-                                        @foreach (__('contracts.statuses') as $value => $key)
+                                        @foreach (__('bails.statuses') as $value => $key)
                                         <option value="{{ $value }}" {{ $value == $status ? 'selected' : '' }}>
                                             {{ $key }}
                                         </option>
@@ -107,37 +95,39 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>تاريخ اختيار العاملة</th>
-                                    <th>العميل</th>
+                                    <th>تاريخ فترة التجربة</th>
+                                    <th>الكفيل الاول (العميل)</th>
+                                    <th>الكفيل الثاني (العميل)</th>
                                     <th>المكتب الخارجي</th>
                                     <th>العامل \ العاملة</th>
                                     <th>رقم الجواز</th>
                                     <th>رقم التأشيرة</th>
                                     <th>المهنة</th>
-                                    <th>المدة المتبقية</th>
+                                    <th>متبقي فترة التجربة</th>
+                                    <th>تاريخ نقل الكفالة</th>
                                     <th>الحالة</th>
                                     <th>خيارات</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($contracts as $index=>$contract)
+                                @foreach ($bails as $index=>$bail)
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
-                                        <td>{{ $contract->updated_at->format('Y-m-d') }}</td>
-                                        <td>{{ $contract->getCustomerName() }}</td>
-                                        <td>{{ $contract->getOfficeName() }}</td>
-                                        <td>{{ $contract->getCvName() }}</td>
-                                        <td>{{ $contract->getCvPassport() }}</td>
-                                        <td>{{ $contract->visa }}</td>
-                                        <td>{{ $contract->getProfessionName() }}</td>
+                                        <td>{{ $bail->updated_at->format('Y-m-d') }}</td>
+                                        <td>{{ $bail->getCustomerName() }}</td>
+                                        <td>{{ $bail->getOfficeName() }}</td>
+                                        <td>{{ $bail->getCvName() }}</td>
+                                        <td>{{ $bail->getCvPassport() }}</td>
+                                        <td>{{ $bail->visa }}</td>
+                                        <td>{{ $bail->getProfessionName() }}</td>
                                         <td>
-                                            @if (!$contract->isCanceled())
-                                                {{ $contract->getApplicationDays(true, true) }}
+                                            @if (!$bail->isCanceled())
+                                                {{ $bail->getApplicationDays(true, true) }}
                                             @else 
                                                 
                                             @endif
                                         </td>
-                                        <td>{{ $contract->displayStatus() }}</td>
+                                        <td>{{ $bail->displayStatus() }}</td>
                                         <td>
                                             <div class="dropdown d-inline-block">
                                                 <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
@@ -145,48 +135,48 @@
                                                     <span class="caret"></span>
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    @permission('contracts-read')
-                                                    <a class="dropdown-item text-info" href="{{ route('contracts.show', $contract) }}">
+                                                    @permission('bails-read')
+                                                    <a class="dropdown-item text-info" href="{{ route('bails.show', $bail) }}">
                                                         <i class="fa fa-eye"></i>
                                                         <span>عرض</span>
                                                     </a>
                                                     @endpermission
-                                                    @permission('contracts-update')
-                                                    <a class="dropdown-item text-primary" href="{{ route('contracts.edit', $contract->id) }}"><i class="fa fa-edit"></i> تعديل</a>
+                                                    @permission('bails-update')
+                                                    <a class="dropdown-item text-primary" href="{{ route('bails.edit', $bail->id) }}"><i class="fa fa-edit"></i> تعديل</a>
                                                     @endpermission
-                                                    @if (!$contract->isCanceled())
-                                                        @permission('contracts-delete')
+                                                    @if (!$bail->isCanceled())
+                                                        @permission('bails-delete')
                                                             <a href="#" class="dropdown-item text-warning"
-                                                                data-toggle="confirm" data-form="#cancel-form-{{ $contract->id }}"
-                                                                data-title="إلغاء العقد"
-                                                                data-text="سوف يتم إلغاء العقد وفسخ الارتباط مع ال cv إستمرار"
+                                                                data-toggle="confirm" data-form="#cancel-form-{{ $bail->id }}"
+                                                                data-title="إلغاء الكفالة"
+                                                                data-text="سوف يتم إلغاء الكفالة وفسخ الارتباط مع ال cv إستمرار"
                                                                 >
                                                                 <i class="fa fa-times"></i>
-                                                                <span>إلغاء العقد</span>
+                                                                <span>إلغاء الكفالة</span>
                                                             </a>
                                                         @endpermission
                                                     @endif
-                                                    @permission('contracts-delete')
+                                                    @permission('bails-delete')
                                                         <a href="#" class="dropdown-item text-danger"
-                                                            data-toggle="confirm" data-form="#delete-form-{{ $contract->id }}"
-                                                            data-title="حذف العقد"
-                                                            data-text="سوف يتم حذف العقد نهائيا من النظام استمرار؟"
+                                                            data-toggle="confirm" data-form="#delete-form-{{ $bail->id }}"
+                                                            data-title="حذف الكفالة"
+                                                            data-text="سوف يتم حذف الكفالة نهائيا من النظام استمرار؟"
                                                             >
                                                             <i class="fa fa-trash"></i>
                                                             <span>حذف</span>
                                                         </a>
                                                     @endpermission
-                                                    @if (!$contract->isCanceled())
-                                                        @permission('contracts-delete')
-                                                        <form id="cancel-form-{{ $contract->id }}" style="display: none" action="{{ route('contracts.destroy', $contract->id) }}" method="post">
+                                                    @if (!$bail->isCanceled())
+                                                        @permission('bails-delete')
+                                                        <form id="cancel-form-{{ $bail->id }}" style="display: none" action="{{ route('bails.destroy', $bail->id) }}" method="post">
                                                             @csrf 
                                                             @method('DELETE')
                                                             <input type="hidden" name="operation" value="cancel"/>
                                                         </form>
                                                         @endpermission
                                                     @endif
-                                                    @permission('contracts-delete')
-                                                    <form id="delete-form-{{ $contract->id }}" style="display: none" action="{{ route('contracts.destroy', $contract->id) }}" method="post">
+                                                    @permission('bails-delete')
+                                                    <form id="delete-form-{{ $bail->id }}" style="display: none" action="{{ route('bails.destroy', $bail->id) }}" method="post">
                                                         @csrf 
                                                         @method('DELETE')
                                                         <input type="hidden" name="operation" value="delete"/>

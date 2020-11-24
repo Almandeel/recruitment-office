@@ -1,10 +1,10 @@
 @php
     $view = isset($view) ?: 'viewer';
+    // dd($voucherable->vouchers);
     $voucherable = isset($voucherable) ? $voucherable : null;
     $type = isset($type) ? $type : 'all';
     $vouchers = isset($vouchers) ? $vouchers : null; 
     $vouchers = isset($voucherable) && is_null($vouchers) ? $voucherable->vouchers : $vouchers;
-    // dd($voucherable->vouchers);
     $vouchers_type = request()->has('vouchers_type') ? request('vouchers_type') : 'all';
     $vouchers_status = request()->has('vouchers_status') ? request('vouchers_status') : 'all';
     $vouchers_from_date = request()->has('vouchers_from_date') ? request('vouchers_from_date') : date('Y-m-d');

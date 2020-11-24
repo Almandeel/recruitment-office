@@ -76,6 +76,7 @@ class ContractController extends Controller
                 return $contract->checkStatus($status);
             });
         }
+        // dd($contracts, $status);
         
         return view('services::contracts.index', compact('contracts', 'from_date', 'to_date', 'status', 'gender', 'office_id', 'country_id', 'profession_id', 'countries', 'offices', 'professions'));
     }
@@ -204,7 +205,7 @@ class ContractController extends Controller
         }else {
             $request->validate([
             'phones' => 'unique:customers',
-            'customer_id_number' => [ 'required',Rule::unique('customers', 'id_number')],
+            'customer_id_number' => [Rule::unique('customers', 'id_number')],
             'visa' => 'nullable|numeric',
             'details' => 'nullable|string',
             'cv_id' => 'required|numeric',
@@ -278,7 +279,7 @@ class ContractController extends Controller
     */
     public function show(Contract $contract)
     {
-        // dd($contract->all_vouchers, $contract->cvs_vouchers);
+        // dd($contract->vouchers->count());
         return view('services::contracts.show', compact('contract'));
     }
     

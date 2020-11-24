@@ -11,11 +11,15 @@ class Bail extends Model
     public const STATUS_CONFIRMED = 'confirmed';
     public const STATUS_CANCELED = 'canceled';
     public const STATUSES = [
-        STATUS_TRAIL, STATUS_CONFIRMED, STATUS_CANCELED
+        self::STATUS_TRAIL, self::STATUS_CONFIRMED, self::STATUS_CANCELED
     ];
 
     protected $fillable = ['status', 'trail_date', 'trail_period', 'contract_id', 'cv_id', 'customer_id', 'x_customer_id', 'x_contract_id'];
     
+    public function getDisplayStatusAttribute()
+    {
+        return __('bails.statuses.' . $this->status);
+    }
     public function getStatusAttribute($status)
     {
         $period = $this->period_in_days;
@@ -24,7 +28,13 @@ class Bail extends Model
                 $status = self::STATUS_CANCELED;
             }
         }
-        return __('bails.statuses.' . $status);
+
+        return $status;
+    }
+
+    function checkStatus($status)
+    {
+        return $this->status == $status;
     }
 
     public function getPeriodInDaysAttribute()
@@ -37,9 +47,23 @@ class Bail extends Model
     public function getDisplayPeriodAttribute()
     {
         $period = $this->period_in_days;
-        if ($period) {
-            
+        $period_text = 'منتهية';
+        if ($period > 0) {
+            if ($period == 1) {
+                $period_text = 'يوم';
+            }
+            elseif ($period == 2) {
+                $period_text = 'يومان';
+            }
+            elseif ($period > 2 && $period < 11) {
+                $period_text = $period . ' ايام';
+            }
+            elseif ($period > 10) {
+                $period_text = $period . ' يوم';
+            }
         }
+
+        return $period_text;
     }
 
     public function cv()
