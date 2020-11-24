@@ -108,9 +108,9 @@ public static function bootAccountable(){
     });
 
     static::creating(function($model){
-        // if (auth()->check()) {
-        //     return;
-        // }
+        if (!auth()->check()) {
+            return;
+        }
 
         if(is_null($model->id)){
             $model->createAccount();

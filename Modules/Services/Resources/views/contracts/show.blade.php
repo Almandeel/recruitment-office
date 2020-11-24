@@ -1,8 +1,8 @@
-@extends('layouts.master', 
+@extends('layouts.master',
 [
-    'datatable' => true, 
-    'confirm_status' => true, 
-    'title' => 'عقد رقم: ' . $contract->id, 
+    'datatable' => true,
+    'confirm_status' => true,
+    'title' => 'عقد رقم: ' . $contract->id,
     'modals' => ['position', 'employee', 'attachment', 'show_customer', 'show_cv'],
     'crumbs' => [
         [route('contracts.index'), 'العقود'],
@@ -51,7 +51,7 @@
                 @permission('accounts-read')
                     @component('components.tab-item')
                         @slot('id', 'customerAccount')
-                        @slot('title', 'كشف حساب العميل')
+                        @slot('title', 'كشف حساب العقد')
                     @endcomponent
                 @endpermission
             @endslot
@@ -107,7 +107,7 @@
                                     </th>
                                     <td>{{ $contract->visa }}</td>
                                     <th>
-                                        الحالة الإجتماعية 
+                                        الحالة الإجتماعية
                                     </th>
                                     <td>{{ $contract->cv->nationality ?? '-' }}</td>
                                 </tr>
@@ -116,8 +116,8 @@
                                         اسم العميل
                                     </th>
                                     <td>
-                                        <a href="#" class="show-customer" data-toggle="modal" data-target="#showModal" 
-                                        data-name="{{ $contract->customer->name }}" 
+                                        <a href="#" class="show-customer" data-toggle="modal" data-target="#showModal"
+                                        data-name="{{ $contract->customer->name }}"
                                         data-phone="{{ $contract->customer->phones }}"
                                         data-address="{{ $contract->customer->address }}"
                                         data-description="{{ $contract->customer->description }}"
@@ -170,7 +170,7 @@
                                         @else
                                             <form action="{{ route('vouchers.store') }}" method="post" class="form-inline">
                                                 @csrf
-                                                <input type="hidden" name="marketer_id" value="{{ $marketer->id }}">
+                                                <input type="hidden" name="marketer_id" value="{{ $marketer->id ?? null }}">
                                                 <input type="hidden" name="voucherable_id" value="{{ $contract->id }}">
                                                 <input type="hidden" name="voucherable_type" value="{{ get_class($contract) }}">
                                                 <input type="hidden" name="currency" value="ريال">
@@ -217,7 +217,7 @@
                                     </th>
                                     <td colspan="3">{{ $contract->details  }}</td>
                                 </tr>  --}}
-                                {{-- 
+                                {{--
                                     <tr>
                                         <tr>
                                             <th>تاريخ العقد</th>
@@ -338,7 +338,7 @@
             @endslot
         @endcomponent
     </section>
-    <!-- /.content -->    
+    <!-- /.content -->
 @endsection
 
 
