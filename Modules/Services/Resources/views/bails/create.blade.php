@@ -165,7 +165,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="trail_period">مدة التجربة</label>
-                            <input type="number" class="form-control" name="trail_period" placeholder="مدة التجربة">
+                            <input type="number" class="form-control" name="trail_period" max="1000" placeholder="مدة التجربة">
                         </div>
                     </div>
                 </div>

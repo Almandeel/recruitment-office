@@ -336,6 +336,8 @@ class Contract extends BaseModel
 
     public function delete(){
         $this->cv->cancel();
+        $bail = $this->bail;
+        if($bail) $bail->delete();
         $result = parent::delete();
         return $result;
     }

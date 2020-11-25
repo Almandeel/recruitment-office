@@ -35,10 +35,10 @@ class CreateBailsTable extends Migration
             $table->index('x_customer_id');
 
             $table->foreign('contract_id')->references('id')->on('contracts')->onDelete('no action');
-            $table->foreign('cv_id')->references('id')->on('cvs')->onDelete('no action');
-            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('no action');
-            $table->foreign('x_contract_id')->references('id')->on('contracts')->onDelete('no action');
-            $table->foreign('x_customer_id')->references('id')->on('customers')->onDelete('no action');
+            // $table->foreign('cv_id')->references('id')->on('cvs')->onDelete('no action');
+            // $table->foreign('customer_id')->references('id')->on('customers')->onDelete('no action');
+            // $table->foreign('x_contract_id')->references('id')->on('contracts')->onDelete('no action');
+            // $table->foreign('x_customer_id')->references('id')->on('customers')->onDelete('no action');
 
             $table->timestamps();
         });

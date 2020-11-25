@@ -77,7 +77,7 @@ class ContractController extends Controller
             });
         }
         $contracts = $contracts->filter(function($contract){
-            return is_null($contract->x_bail);
+            return is_null($contract->bail);
         });
         // dd($contracts, $status);
 
