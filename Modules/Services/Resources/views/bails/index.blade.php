@@ -65,7 +65,7 @@
                                     <label for="status">@lang('global.status')</label>
                                     <select name="status" id="status" class="form-control">
                                         <option value="all" {{ $status == 'all' ? 'selected' : ''}}>@lang('global.all')</option>
-                                        <option value="trail_pending">قيد القيد / لم يتم النقل</option>
+                                        <option value="trail_pending" {{ $status == 'trail_pending' ? 'selected' : ''}}>قيد القيد / لم يتم النقل</option>
                                         @foreach (__('bails.statuses') as $key => $value)
                                             <option value="{{ $key }}" {{ $status == $key ? 'selected' : ''}}>{{ $value }}</option>
                                         @endforeach
