@@ -35,7 +35,7 @@
                                 <div class="form-group">
                                     <label for="title">CV</label>
                                     <select id="cvs" class="form-control" name="cv_id" placeholder="CV">
-                                        
+
                                     </select>
                                 </div>
                             </div>
@@ -78,6 +78,9 @@
             }).done(function(cvs) {
                 $('#cvs').html('')
                 cvs.forEach(cv => {
+                    if (cv.id === undefined) {
+                        return;
+                    }
                     $('#cvs').append(`<option value="${cv.id}">${cv.name}  | ${cv.passport}</option>`)
                 });
             });
