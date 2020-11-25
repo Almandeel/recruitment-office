@@ -10,7 +10,7 @@ use Modules\Accounting\Traits\Safeable;
 use App\Traits\{Attachable, Backupable};
 use App\Traits\Statusable;
 use Modules\ExternalOffice\Models\{Bill, Cv, Advance};
-use Modules\Services\Models\{Marketer, Contract};
+use Modules\Services\Models\{Marketer, Contract, Tafweed};
 
 class Voucher extends BaseModel
 {

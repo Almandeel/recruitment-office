@@ -18,7 +18,7 @@ class CreateTafweedsTable extends Migration
             $table->date('contract_date'); 
             $table->integer('contract_id'); 
             $table->integer('customer_id'); 
-            $table->integer('visa');   
+            $table->text('visa');   
             $table->string('phone')->length(50); 
             $table->string('gender')->length(50);  
             $table->text('addr')->nullable(); 
