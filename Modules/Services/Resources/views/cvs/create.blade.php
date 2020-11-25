@@ -155,13 +155,13 @@
                          <div class="col-md-1">
                          <div class="form-group">
                              <label for="passport"> الوزن</label>
-                             <input type="number" class="form-control" name="weight" placeholder="الوزن " required="">
+                             <input type="number" class="form-control" name="weight" step="0.01" placeholder="الوزن " required="">
                          </div>
                      </div>
                          <div class="col-md-1">
                          <div class="form-group">
                              <label for="passport"> الطول</label>
-                             <input type="number" class="form-control" name="height" placeholder="الطول " required="">
+                             <input type="number" class="form-control" name="height" step="0.01" placeholder="الطول " required="">
                          </div>
                      </div>
                       <div class="col-md-1">
