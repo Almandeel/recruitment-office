@@ -38,109 +38,90 @@
                 @slot('id', 'details')
                 @slot('content')
                     <div class="row">
-                        <div class="col-md-12 row">
-                    
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <span> الدولة : @foreach($countries as $country)
-                                        @if($country->id==$tafweed->country_id )
-                                        {{$country->name}}
-                                        @endif
-                                        @endforeach </span>
-                    
-                                </div>
-                    
-                    
-                                <div class="col-md-3">
-                                    <span> اسم العميل : {{ $tafweed->customer->name ?? '' }} </span>
-                    
-                    
-                                </div>
-                                <div class="col-md-3">
-                    
-                                    <span> رقم التاشيرة : {{ $tafweed->visa }} </span>
-                    
-                    
-                                </div>
-                                <div class="col-md-3">
-                                    <span> رقم الهوية : {{ $tafweed->identification_num }} </span>
-                    
-                    
-                                </div>
-                                <div class="col-md-3">
-                                    <span> رقم الجوال : {{ $tafweed->phone }} </span>
-                    
-                    
-                    
-                                </div>
-                                <div class="col-md-12">
-                                    <span> العنوان : {{ $tafweed->addr }} </span>
-                    
-                                </div>
-                    
-                                <div class="col-md-3">
-                                    <span> اسم العامل : {{ $tafweed->recruitment_cv_name }} </span>
-                    
-                    
-                                </div>
-                                <div class="col-md-3">
-                                    <span> رقم الجواز : {{ $tafweed->recruitment_cv_passport }} </span>
-                    
-                    
-                                </div>
-                                <div class="col-md-6">
-                                    <span> المكتب الخارجي : {{$tafweed->office}} </span>
-                    
-                    
-                                </div>
-                    
-                                <div class="col-md-3">
-                                    <span> قيمة العقد : {{ $tafweed->salary }} </span>
-                    
-                    
-                                </div>
-                                <div class="col-md-3">
-                                    <span> المسوق : {{ $tafweed->marketer }} </span>
-                    
-                    
-                                </div>
-                                <div class="col-md-3">
-                                    <span> نسبة المسوق : {{ $tafweed->comm }} </span>
-                    
-                    
-                                </div>
-                    
-                    
-                    
-                                <div class="col-md-4">
-                                    <span> رقم عقد مساند ادارة المكاتب : {{ $tafweed->contract_num }} </span>
-                    
-                    
-                                </div>
-                                <div class="col-md-3">
-                                    <span> رقم تفويض انجاز : {{ $tafweed->injaz_num }} </span>
-                    
-                    
-                                </div>
-                                <div class="col-md-3">
-                                    <span> تكلفة تفويض انجاز : {{ $tafweed->injaz_cost }} </span>
-                    
-                    
-                                </div>
-                                <div class="col-md-12">
-                                    <span> ملاحظة </span>
-                                    <br>
-                                    <p>
-                                        {{ $tafweed->note }}
-                                    </p>
-                    
-                                </div>
-                            </div>
-                    
-                    
+                        <div class="col">
+                            <strong>الدولة: </strong><span>{{ $tafweed->country->name ?? '' }}</span>
+            
                         </div>
-                    
-                    
+                        <div class="col">
+                            <strong>المكتب الخارجي: </strong><span>{{$tafweed->office}} </span>
+                        </div>
+                        <div class="col">
+                            <strong>اسم العميل: </strong><span>{{ $tafweed->customer->name ?? '' }} </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <strong>رقم التاشيرة: </strong><span>{{ $tafweed->visa }} </span>
+                        </div>
+                        <div class="col">
+                            <strong>رقم الهوية: </strong><span>{{ $tafweed->identification_num }} </span>
+                        </div>
+                        <div class="col">
+                            <strong>رقم الجوال: </strong><span>{{ $tafweed->phone }} </span>
+                        </div>
+                        {{--  <div class="col">
+                            <strong>العنوان: </strong><span>{{ $tafweed->addr }} </span>
+                        </div>  --}}
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <strong>اسم العامل: </strong><span>{{ $tafweed->recruitment_cv_name }} </span>
+                        </div>
+                        <div class="col">
+                            <strong>رقم الجواز: </strong><span>{{ $tafweed->recruitment_cv_passport }} </span>
+                        </div>
+                        <div class="col">
+                            <strong>قيمة العقد: </strong><span>{{ $tafweed->salary }} </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <strong>المسوق: </strong><span>{{ $tafweed->marketer->name ?? '' }} </span>
+                        </div>
+                        <div class="col">
+                            <strong>نسبة المسوق: </strong>
+                            <span>
+                                @php
+                                    $marketer = $tafweed->marketer;
+                                    $voucher = $tafweed->marketer_voucher;
+                                @endphp
+                                @if ($voucher)
+                                    {{ number_format($tafweed->comm, 2) }}
+                                @else
+                                    <form action="{{ route('vouchers.store') }}" method="post" class="form-inline">
+                                        @csrf
+                                        <input type="hidden" name="marketer_id" value="{{ $marketer->id ?? null }}">
+                                        <input type="hidden" name="voucherable_id" value="{{ $tafweed->id }}">
+                                        <input type="hidden" name="voucherable_type" value="{{ get_class($tafweed) }}">
+                                        <input type="hidden" name="currency" value="ريال">
+                                        <input type="hidden" name="contract_id" value="{{ $tafweed->id }}">
+                                        <div class="input-group">
+                                            <input type="number" name="amount" class="form-control" value="{{ $tafweed->comm }}" min="1">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary">
+                                                    <span>إنشاء سند</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                @endif
+                            </span>
+            
+                        </div>
+                        <div class="col">
+                            <strong>رقم عقد مساند ادارة المكاتب: </strong><span>{{ $tafweed->contract_num }} </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <strong>رقم تفويض انجاز: </strong><span>{{ $tafweed->injaz_num }} </span>
+                        </div>
+                        <div class="col">
+                            <strong>تكلفة تفويض انجاز: </strong><span>{{ $tafweed->injaz_cost }} </span>
+                        </div>
+                        <div class="col">
+                            <strong>ملاحظة: </strong><span>{{ $tafweed->note }}</span>
+                        </div>
                     </div>
                 @endslot
             @endcomponent

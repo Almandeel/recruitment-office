@@ -99,9 +99,9 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <label for="marketer">المسوق</label>
-                                            <select required name="marketer" class="form-control option editable" style="padding-top:0px;"> 
-                                                @foreach(Modules\Services\Models\Marketer::all() as $marketer) 
+                                            <label for="marketer_id">المسوق</label>
+                                            <select id="marketer_id" required name="marketer_id" class="form-control option editable" style="padding-top:0px;"> 
+                                                @foreach($marketers as $marketer) 
                                                     <option value="{{ $marketer->name }}"> {{ $marketer->name }}</option>
                                                 @endforeach
                                             </select>  

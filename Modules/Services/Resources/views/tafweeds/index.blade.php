@@ -82,76 +82,76 @@
 
 
                             </div>
-                        <table id="datatable" class="table datatable table-bordered table-striped">
-                                                <thead>
-                                                    <tr role="row">
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 10px;">#</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 187px;">اسم العميل   </th>
-                                                          <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 88px;">رقم التأشيرة</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 62px;">رقم الهوية</th>
-                                                          <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 62px;">الدوله</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 105px;">المكتب الخارجي</th>
+                                <table id="datatable" class="table datatable table-bordered table-striped">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 10px;">#</th>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 187px;">اسم العميل   </th>
+                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 88px;">رقم التأشيرة</th>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 62px;">رقم الهوية</th>
+                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 62px;">الدوله</th>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 105px;">المكتب الخارجي</th>
 
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 103px;">العامل \ العاملة</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 69px;">رقم الجواز</th>
-
-
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 290px;">خيارات</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                @foreach($tafweeds as $tafweed)
-                                                    <tr role="row" class="odd">
-                                                        <td> {{ $tafweed->id }}</td>
-                                                        <td> @foreach(\Modules\Services\Models\Customer::all() as $customer)
-                                                        @if($customer->id==$tafweed->customer_id )
-                                                             {{$customer->name}}
-                                                        @endif
-                                                            @endforeach</td>
-
-                                                        <td> {{ $tafweed->visa }}</td>
-                                                        <td> {{ $tafweed->identification_num }}</td>
-
-                                                        <td> @foreach(\Modules\ExternalOffice\Models\Country::all() as $country)
-                                                        @if($country->id==$tafweed->country_id )
-                                                             {{$country->name}}
-                                                        @endif
-                                                            @endforeach</td>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 103px;">العامل \ العاملة</th>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 69px;">رقم الجواز</th>
 
 
-                                                        <td>  {{$tafweed->office}} </td>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 290px;">خيارات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                                                        <td> {{ $tafweed->recruitment_cv_name }}</td>
-                                                        <td> {{ $tafweed->recruitment_cv_passport }}</td>
-                                                        <td>
-                                                            <div class="btn-group">
-                                                                @permission('delegations-read')
-                                                                <a class="btn btn-info" href="{{route('tafweed.show',[$tafweed->id])}}"><i class="fa fa-eye"></i> عرض</a>
-                                                                @endpermission
-                                                                @permission('delegations-update')
-                                                                <a class="btn btn-primary contracts update" href="{{route('tafweed.edit',[$tafweed->id])}}"><i class="fa fa-edit"></i> تعديل</a>
-                                                                @endpermission
-                                                                @permission('delegations-delete')
-                                                                <form method="POST" action="{{route('tafweed.destroy',[$tafweed->id])}}">
-                                                                  @csrf
-                                                                  @method('DELETE')
-                                                                  <button type="submit" class="btn btn-danger" data-toggle="confirm"
-                                                                  data-title="حذف  الوكالة"
-                                                                  data-text="سوف يتم حذف   الوكالة  نهائيا من النظام استمرار؟"
-                                                                  style="border-radius: 0;font-size: 1rem;">
-                                                                    <i class="fa fa-trash"></i>
-                                                                    <span>حذف</span>
-                                                                  </button>
-                                                                </form>
-                                                                @endpermission
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                    @foreach($tafweeds as $tafweed)
+                                        <tr role="row" class="odd">
+                                            <td> {{ $tafweed->id }}</td>
+                                            <td> @foreach(\Modules\Services\Models\Customer::all() as $customer)
+                                            @if($customer->id==$tafweed->customer_id )
+                                                    {{$customer->name}}
+                                            @endif
+                                                @endforeach</td>
 
-                                                </tbody>
-                                                @endforeach
-                                            </table>
+                                            <td> {{ $tafweed->visa }}</td>
+                                            <td> {{ $tafweed->identification_num }}</td>
+
+                                            <td> @foreach(\Modules\ExternalOffice\Models\Country::all() as $country)
+                                            @if($country->id==$tafweed->country_id )
+                                                    {{$country->name}}
+                                            @endif
+                                                @endforeach</td>
+
+
+                                            <td>  {{$tafweed->office}} </td>
+
+                                            <td> {{ $tafweed->recruitment_cv_name }}</td>
+                                            <td> {{ $tafweed->recruitment_cv_passport }}</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    @permission('delegations-read')
+                                                    <a class="btn btn-info" href="{{route('tafweed.show',[$tafweed->id])}}"><i class="fa fa-eye"></i> عرض</a>
+                                                    @endpermission
+                                                    @permission('delegations-update')
+                                                    <a class="btn btn-primary contracts update" href="{{route('tafweed.edit',[$tafweed->id])}}"><i class="fa fa-edit"></i> تعديل</a>
+                                                    @endpermission
+                                                    @permission('delegations-delete')
+                                                    <form method="POST" action="{{route('tafweed.destroy',[$tafweed->id])}}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger" data-toggle="confirm"
+                                                        data-title="حذف  الوكالة"
+                                                        data-text="سوف يتم حذف   الوكالة  نهائيا من النظام استمرار؟"
+                                                        style="border-radius: 0;font-size: 1rem;">
+                                                        <i class="fa fa-trash"></i>
+                                                        <span>حذف</span>
+                                                        </button>
+                                                    </form>
+                                                    @endpermission
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                    @endforeach
+                                </table>
 
 
                                         </div>

@@ -77,16 +77,24 @@ class VoucherController extends Controller
             $request['status'] = Statusable::$STATUS_APPROVED;
         }
         // dd($request->only(['debts_accounts', 'credits_accounts', 'debts_amounts', 'credits_amounts']));
-        if (!$request->has('type') && $request->has('contract_id') && $request->has('marketer_id')) {
+        if (!$request->has('type') && ($request->has('contract_id') || $request->has('tafweed_id')) && $request->has('marketer_id')) {
             // $contract = Contract::findOrFail($request->contract_id);
             // if ($request->amount != $contract->marketing_ratio) {
             //     $contract->update(['marketing_ratio' => $request->amount]);
             // }
+            $msg = 'سند صرف للمسوق رقم: ' . $request->marketer_id;
+            if ($request->has('contract_id')) {
+                $msg .= ' عن العقد رقم: ' . $request->contract_id;
+            }
+            elseif ($request->has('tafweed_id')) {
+                $msg .= ' عن الوكالة رقم: ' . $request->tafweed_id;
+            }
+            
             $data = array_merge($request->except(['_token']),
             [
             'amount' => $request->amount,
             'type' => Voucher::TYPE_PAYMENT,
-            'details' => 'سند صرف للمسوق رقم: ' . $request->marketer_id . ' عن العقد رقم: ' . $request->contract_id,
+            'details' =>  $msg,
             'voucher_date' => date('Y-m-d'),
             ]);
             $voucher = Voucher::create($data);

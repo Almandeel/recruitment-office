@@ -20,7 +20,11 @@ class Marketer extends BaseModel
     }
     
     public function contracts() {
-        return $this->hasMany('Modules\Services\Models\Contract');
+        return $this->hasMany(Contract::class);
+    }
+    
+    public function tafweeds() {
+        return $this->hasMany(Tafweed::class);
     }
 
     public function getName()

@@ -144,6 +144,9 @@ class TafweedController extends Controller
         $request['identification_num'] = $customer->id_number;
         $request['addr'] = $customer->address;
         $request['phone'] = $customer->phones;
+
+        $marketer = Marketer::firstOrCreate(['name' => $request->marketer_id]);
+        $request['marketer_id'] = $marketer->id;
         // $tafweed = Tafweed::create($request->Except('_token'));
 
 
@@ -163,7 +166,7 @@ class TafweedController extends Controller
         $tafweed->visa = $request->visa;
         $tafweed->gender = $request->gender;
         $tafweed->salary = $request->salary;
-        $tafweed->marketer = $request->marketer;
+        $tafweed->marketer_id = $request->marketer_id;
         $tafweed->comm = $request->comm;
         
         
@@ -216,7 +219,7 @@ class TafweedController extends Controller
     {
         $tafweed = Tafweed::find($id);
         
-        if ($request->input('contract_date') == $tafweed->contract_date) {
+        if ($request->contract_date == $tafweed->contract_date) {
             $this->validate($request, array(
             //  'contract_date'         => 'required|max:255'
             ));
@@ -226,36 +229,39 @@ class TafweedController extends Controller
             ));
         }
         
+        $marketer = Marketer::firstOrCreate(['name' => $request->marketer_id]);
+        $request['marketer_id'] = $marketer->id;
+        
         // Save the data to the database
         $tafweed = Tafweed::find($id);
         
-        $tafweed->contract_id = $request->input('contract_id');
-        $tafweed->customer_id = $request->input('customer_id');
+        $tafweed->contract_id = $request->contract_id;
+        $tafweed->customer_id = $request->customer_id;
         
-        $i = $request->input('customer_id');
+        $i = $request->customer_id;
         $customer = Customer::find($i);
         $tafweed->identification_num = $customer->id_number;
         $tafweed->addr = $customer->address;
         $tafweed->phone = $customer->phones;
         
         
-        $tafweed->visa = $request->input('visa');
-        $tafweed->phone = $request->input('phone');
-        $tafweed->gender = $request->input('gender');
-        $tafweed->addr = $request->input('addr');
-        $tafweed->salary = $request->input('salary');
-        $tafweed->marketer = $request->input('marketer');
-        $tafweed->comm = $request->input('comm');
-        $tafweed->identification_num = $request->input('identification_num');
-        $tafweed->country_id = $request->input('country_id');
-        $tafweed->office = $request->input('office');
-        $tafweed->recruitment_cv_name = $request->input('recruitment_cv_name');
-        $tafweed->recruitment_cv_passport = $request->input('recruitment_cv_passport');
-        $tafweed->injaz_num = $request->input('injaz_num');
-        $tafweed->injaz_cost = $request->input('injaz_cost');
-        $tafweed->contract_num = $request->input('contract_num');
-        // $tafweed->attach = $request->input('attach');
-        $tafweed->notes = $request->input('notes');
+        $tafweed->visa = $request->visa;
+        $tafweed->phone = $request->phone;
+        $tafweed->gender = $request->gender;
+        $tafweed->addr = $request->addr;
+        $tafweed->salary = $request->salary;
+        $tafweed->marketer_id = $request->marketer_id;
+        $tafweed->comm = $request->comm;
+        $tafweed->identification_num = $request->identification_num;
+        $tafweed->country_id = $request->country_id;
+        $tafweed->office = $request->office;
+        $tafweed->recruitment_cv_name = $request->recruitment_cv_name;
+        $tafweed->recruitment_cv_passport = $request->recruitment_cv_passport;
+        $tafweed->injaz_num = $request->injaz_num;
+        $tafweed->injaz_cost = $request->injaz_cost;
+        $tafweed->contract_num = $request->contract_num;
+        // $tafweed->attach = $request->attach;
+        $tafweed->notes = $request->notes;
         
         $tafweed->save();
         

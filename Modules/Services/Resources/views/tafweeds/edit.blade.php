@@ -135,7 +135,7 @@
                                         </div>
                                         <div class="col">
                                             <label for="marketer">المسوق</label>
-                                                <select name="marketer" class="form-control option" style="padding-top:0px;">
+                                                <select id="marketer_id" name="marketer_id" class="form-control option" style="padding-top:0px;">
                                                 <option value="{{$tafweed->marketer}}"> {{$tafweed->marketer}} </option>
                                                 <option>    المسوق     </option>
                                                          @foreach($marketers as $marketer)

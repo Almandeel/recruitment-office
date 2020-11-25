@@ -23,7 +23,7 @@ class CreateTafweedsTable extends Migration
             $table->string('gender')->length(50);  
             $table->text('addr')->nullable(); 
             $table->float('salary');
-            $table->string('marketer')->length(200); 
+            $table->unsignedInteger('marketer_id')->nullable();
             $table->float('comm'); 
             $table->string('identification_num'); 
             $table->integer('country_id'); 

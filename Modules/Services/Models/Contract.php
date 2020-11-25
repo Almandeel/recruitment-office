@@ -193,7 +193,7 @@ class Contract extends BaseModel
 
     public function marketer()
     {
-        return $this->belongsTo('Modules\ExternalOffice\Models\Marketer');
+        return $this->belongsTo(Marketer::class);
     }
 
     public function office()
