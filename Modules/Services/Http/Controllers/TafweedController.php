@@ -16,6 +16,19 @@ use Modules\Services\Models\Marketer;
 
 class TafweedController extends Controller
 {
+    public function __construct()
+    {
+        // $super = \App\Role::where('name', 'super')->first();
+        // foreach (['create', 'update', 'delete', 'read'] as $permission) {
+        //     $p = \App\Permission::firstOrCreate(['name' => 'bails-'. $permission]);
+        //     $super->permissions()->sync($p);
+        // }
+
+        $this->middleware('permission:delegations-create')->only(['create', 'store']);
+        $this->middleware('permission:delegations-read')->only(['index', 'show']);
+        $this->middleware('permission:delegations-update')->only(['edit', 'update']);
+        $this->middleware('permission:delegations-delete')->only('destroy');
+    }
 
     public function index(Request $request)
     {

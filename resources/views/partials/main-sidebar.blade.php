@@ -353,9 +353,9 @@
                 @endpermission
 
 
-                @permission('marketers-read')
+                @permission('delegations-read')
                     <li class="nav-item">
-                        <a href="{{ route('tafweed.index') }}" class="nav-link {{ (request()->segment(2) == 'servicesmarketers') ? 'active' : '' }}">
+                        <a href="{{ route('tafweed.index') }}" class="nav-link {{ (request()->segment(2) == 'tafweeds') ? 'active' : '' }}">
                             <i class="fa fa-home nav-icon"></i>
                             <p>الوكالات</p>
                         </a>
