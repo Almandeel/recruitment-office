@@ -68,9 +68,9 @@
                                     <th>المشرف</th>
                                 </tr>
                                 <tr>
-                                    <td>{{ $office->country->name }}</td>
-                                    <td>{{ $office->name }}</td>
-                                    <td>{{ $office->admin->name }}</td>
+                                    <td>{{ $office->country->name ?? '' }}</td>
+                                    <td>{{ $office->name ?? '' }}</td>
+                                    <td>{{ $office->admin->name ?? '' }}</td>
                                 </tr>
                                 <tr>
                                     <th>الإيميل</th>

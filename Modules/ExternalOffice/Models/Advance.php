@@ -9,6 +9,7 @@ use Modules\Accounting\Models\Voucher;
 
 class Advance extends BaseModel
 {
+    // use Logable;
     use Attachable;
     public const STATUS_WAITING = 0;
     public const STATUS_PAYED = 1;

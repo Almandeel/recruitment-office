@@ -67,61 +67,63 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>{{ $voucher->id }}</td>
-                                {{--  <td>{{ $voucher->displayType() }}</td>  --}}
-                                <td>{{ $voucher->money('amount', false) }}</td>
-                                <td>{{ $voucher->voucher_date ? date('Y/m/d', strtotime($voucher->voucher_date)) : '...' }}</td>
-                                <td>{{ $voucher->displayStatus() }}
-                                </td>
-                                <td>{{ is_object($voucher->auth()) ? $voucher->auth()->name : '...' }}</td>
-                                <td>
-                                    <div class="btn-group">
-                                        @permission('vouchers-read')
-                                        <a href="{{ route('home.voucher', ['voucher' => $voucher, 'layout' => 'print']) }}"
-                                            class="btn btn-default">
-                                            <i class="fa fa-print"></i>
-                                            <span>طباعة</span>
-                                        </a></li>
-                                        @endpermission
-                                        @if(auth()->user()->isAbleTo('vouchers-update') && $voucher->statusIsWaiting())
-                                        <button type="button" class="btn btn-success" data-toggle="status" data-id="{{ $voucher->id }}"
-                                            data-type="{{ get_class($voucher) }}" data-status="approve">
-                                            <i class="fa fa-check"></i>
-                                            <span>@lang('global.approve')</span>
-                                        </button>
-                                        <button type="button" class="btn btn-danger" data-toggle="status" data-id="{{ $voucher->id }}"
-                                            data-type="{{ get_class($voucher) }}" data-status="reject">
-                                            <i class="fa fa-times"></i>
-                                            <span>@lang('global.reject')</span>
-                                        </button>
-                                        @endif
-                                        @permission('vouchers-read')
-                                        <a href="{{ route('home.voucher', $voucher) }}" class="btn btn-info">
-                                            <i class="fa fa-eye"></i>
-                                            <span>@lang('accounting::global.show')</span>
-                                        </a>
-                                        @endpermission
+                            @if ($voucher)
+                                <tr>
+                                    <td>{{ $voucher->id }}</td>
+                                    {{--  <td>{{ $voucher->displayType() }}</td>  --}}
+                                    <td>{{ $voucher->money('amount', false) }}</td>
+                                    <td>{{ $voucher->voucher_date ? date('Y/m/d', strtotime($voucher->voucher_date)) : '...' }}</td>
+                                    <td>{{ $voucher->displayStatus() }}
+                                    </td>
+                                    <td>{{ is_object($voucher->auth()) ? $voucher->auth()->name : '...' }}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            @permission('vouchers-read')
+                                            <a href="{{ route('home.voucher', ['voucher' => $voucher, 'layout' => 'print']) }}"
+                                                class="btn btn-default">
+                                                <i class="fa fa-print"></i>
+                                                <span>طباعة</span>
+                                            </a></li>
+                                            @endpermission
+                                            @if(auth()->user()->isAbleTo('vouchers-update') && $voucher->statusIsWaiting())
+                                            <button type="button" class="btn btn-success" data-toggle="status" data-id="{{ $voucher->id }}"
+                                                data-type="{{ get_class($voucher) }}" data-status="approve">
+                                                <i class="fa fa-check"></i>
+                                                <span>@lang('global.approve')</span>
+                                            </button>
+                                            <button type="button" class="btn btn-danger" data-toggle="status" data-id="{{ $voucher->id }}"
+                                                data-type="{{ get_class($voucher) }}" data-status="reject">
+                                                <i class="fa fa-times"></i>
+                                                <span>@lang('global.reject')</span>
+                                            </button>
+                                            @endif
+                                            @permission('vouchers-read')
+                                            <a href="{{ route('home.voucher', $voucher) }}" class="btn btn-info">
+                                                <i class="fa fa-eye"></i>
+                                                <span>@lang('accounting::global.show')</span>
+                                            </a>
+                                            @endpermission
+                                            @if ($voucher->isEditable())
+                                            @permission('vouchers-delete')
+                                            <a href="#" class="btn btn-danger delete" data-form="#deleteForm-{{ $voucher->id }}">
+                                                <i class="fa fa-trash"></i>
+                                                <span>@lang('accounting::global.delete')</span>
+                                            </a>
+                                            @endpermission
+                                            @endif
+                                        </div>
                                         @if ($voucher->isEditable())
                                         @permission('vouchers-delete')
-                                        <a href="#" class="btn btn-danger delete" data-form="#deleteForm-{{ $voucher->id }}">
-                                            <i class="fa fa-trash"></i>
-                                            <span>@lang('accounting::global.delete')</span>
-                                        </a>
-                                        @endpermission
+                                        <form id="deleteForm-{{ $voucher->id }}" style="display:none;"
+                                            action="{{ route('vouchers.destroy', $voucher->id) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
                                         @endif
-                                    </div>
-                                    @if ($voucher->isEditable())
-                                    @permission('vouchers-delete')
-                                    <form id="deleteForm-{{ $voucher->id }}" style="display:none;"
-                                        action="{{ route('vouchers.destroy', $voucher->id) }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
-                                    @endif
-                                    @endpermission
-                                </td>
-                            </tr>
+                                        @endpermission
+                                    </td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                     <h3>المدفوعات</h3>
