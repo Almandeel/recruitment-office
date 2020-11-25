@@ -38,7 +38,7 @@ class ContractController extends Controller
         $first_contract = Contract::first();
         $from_date = is_null($request->from_date) ? (is_null($first_contract) ? date('Y-m-d') : $first_contract->created_at->format('Y-m-d')) : $request->from_date;
         $to_date = is_null($request->to_date) ? date('Y-m-d') : $request->to_date;
-        $status = !is_null($request->status) ? $request->status : 'initial';
+        $status = !is_null($request->status) ? $request->status : 'all';
 
         $from_date_time = $from_date . ' 00:00:00';
         $to_date_time = $to_date . ' 23:59:59';
