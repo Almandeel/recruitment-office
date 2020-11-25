@@ -31,7 +31,7 @@ class RoleController extends Controller
         $permissions = Permission::enternal();
         $modules = [
             'employee'      => ['attendance', 'vacations', 'departments', 'employees', 'lines', 'phones', 'vacations', 'positions', 'custodies'],
-            'accounting'    => ['accounts', 'centers', 'entries', 'expenses', 'salaries', 'transfers', 'vouchers', 'years', 'transactions', 'safes', 'statements'],
+            'accounting'    => ['accounts', 'centers', 'entries', 'expenses', 'salaries', 'transfers', 'vouchers', 'years', 'transactions', 'safes', 'statements', 'attachments'],
             'user'         => ['logs', 'notes', 'permissions', 'roles', 'suggestions', 'tasks', 'users', 'sms'],
             'service'      => ['complaints', 'contracts', 'customers', 'cv', 'marketers', 'services', 'flights', 'delegations', 'bails'],
             'warehouse'     => ['warehouses', 'warehousecvs'],
@@ -94,7 +94,7 @@ class RoleController extends Controller
         $permissions = Permission::enternal();
         $modules = [
             'employee'      => ['attendance', 'vacations', 'departments', 'employees', 'lines', 'phones', 'vacations', 'positions', 'custodies'],
-            'accounting'    => ['accounts', 'centers', 'entries', 'expenses', 'salaries', 'transfers', 'vouchers', 'years', 'transactions', 'safes', 'statements'],
+            'accounting'    => ['accounts', 'centers', 'entries', 'expenses', 'salaries', 'transfers', 'vouchers', 'years', 'transactions', 'safes', 'statements', 'attachments'],
             'user'         => ['logs', 'notes', 'permissions', 'roles', 'suggestions', 'tasks', 'users', 'sms'],
             'service'      => ['complaints', 'contracts', 'customers', 'cv', 'marketers', 'services', 'flights', 'delegations', 'bails'],
             'warehouse'     => ['warehouses', 'warehousecvs'],
