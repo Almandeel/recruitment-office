@@ -101,9 +101,9 @@
                     @foreach ($customer->complaints as $index=>$complaint)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
-                                <td>{{ $complaint->customer->name ?? '' }}</td>
-                                <td>{{ $complaint->customer->phones ?? '' }}</td>
-                                <td>{{ $complaint->cv->name ?? '' }}</td>
+                                <td>{{ $complaint->customer->name ?? 'لا يوجد' }}</td>
+                                <td>{{ $complaint->customer->phones ?? 'لا يوجد' }}</td>
+                                <td>{{ $complaint->cv->name ?? 'لا يوجد' }}</td>
                                 <td class="{{ $complaint->status ? 'text-success' : 'text-warning' }}">{{ $complaint->status ? 'تم التعامل' : 'جاري التعامل' }}</td>
                                 <td>{{ $complaint->created_at->format('Y-m-d') }}</td>
                                 <td>
