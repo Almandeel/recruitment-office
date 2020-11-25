@@ -138,13 +138,13 @@
                         <div class="col-md-1">
                             <div class="form-group">
                                 <label for="weight"> WEIGHT</label>
-                                <input type="number" class="form-control" name="weight" placeholder="WEIGHT " required="" value="{{ $cv->weight }}"/>
+                                <input type="number" class="form-control" name="weight" placeholder="WEIGHT " step="0.01" required="" value="{{ $cv->weight }}"/>
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="form-group">
                                 <label for="height"> HEIGHT</label>
-                                <input type="number" class="form-control" name="height" placeholder="HEIGHT " required="" value="{{ $cv->height }}"/>
+                                <input type="number" class="form-control" name="height" placeholder="HEIGHT " step="0.01" required="" value="{{ $cv->height }}"/>
                             </div>
                         </div>
                         <div class="col-md-1">
@@ -312,5 +312,5 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
-</script>    
+</script>
 @endpush

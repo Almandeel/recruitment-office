@@ -43,8 +43,8 @@ class CreateCvTable extends Migration
             $table->string('qualification')->nullable();
             $table->string('english_speaking_level')->nullable();
             $table->string('experince')->nullable();
-            $table->integer('weight')->nullable();
-            $table->integer('height')->nullable();
+            $table->float('weight')->nullable();
+            $table->float('height')->nullable();
 
             $table->boolean('sewing')->default(false);
             $table->boolean('decor')->default(false);
@@ -52,7 +52,7 @@ class CreateCvTable extends Migration
             $table->boolean('washing')->default(false);
             $table->boolean('cooking')->default(false);
             $table->boolean('babysitting')->default(false);
-            
+
             $table->string('passport_place_of_issue')->nullable();
             $table->date('passport_issuing_date')->nullable();
             $table->date('passport_expiration_date')->nullable();

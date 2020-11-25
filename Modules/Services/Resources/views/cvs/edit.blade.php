@@ -152,13 +152,13 @@
                             <div class="col-md-1">
                             <div class="form-group">
                                 <label for="passport"> الوزن</label>
-                                <input type="number" class="form-control" name="weight" placeholder="الوزن " required="" value="{{ $cv->weight }}">
+                                <input type="number" class="form-control" name="weight" step="0.01" placeholder="الوزن " required="" value="{{ $cv->weight }}">
                             </div>
                         </div>
                             <div class="col-md-1">
                             <div class="form-group">
                                 <label for="passport"> الطول</label>
-                                <input type="number" class="form-control" name="height" placeholder="الطول " required="" value="{{ $cv->height }}">
+                                <input type="number" class="form-control" name="height" step="0.01" placeholder="الطول " required="" value="{{ $cv->height }}">
                             </div>
                         </div>
                         <div class="col-md-1">
