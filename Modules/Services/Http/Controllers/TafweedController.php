@@ -108,10 +108,14 @@ class TafweedController extends Controller
     public function store(Request $request)
     {
         // $request['customer_id_number'] = 59376;
-        $this->validate($request, array(
-        // 'identification_num' => 'required|max:255'
-            'customer_id_number' => 'unique:customers,id_number',
-        ));
+        $rules = [];
+        if (is_null($request->customer_id)) {
+            $rules['customer_id_number'] = 'unique:customers,id_number';
+        }
+
+        if (count($rules)) {
+            $request->validate($rules);
+        }
         
         
         if (is_null($request->customer_id)) {
