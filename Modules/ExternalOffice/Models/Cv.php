@@ -218,15 +218,12 @@ class Cv extends BaseModel
         return $this->belongsTo(Profession::class);
     }
 
-    public function contract()
-    {
-        return $this->contracts->where('pivot.status', Contract::STATUS_WORKING)->sortByDesc('pivot.updated_at')->first();
-        // return $this->belongsTo('Modules\Services\Models\Contract');
-    }
-
     public function getContractAttribute()
     {
-        return $this->contracts->where('pivot.status', Contract::STATUS_WORKING)->sortByDesc('pivot.updated_at')->first();
+        if ($this->contract_id) {
+            return $this->belongsTo(Contract::class);
+        }
+        return $this->contracts->where('status', Contract::STATUS_WORKING)->sortByDesc('updated_at')->first();
 
     }
 
@@ -286,17 +283,11 @@ class Cv extends BaseModel
         return $this->belongsTo('Modules\Main\Models\Office');
     }
 
-    public function contracting($contract_id, $status = Contract::STATUS_WAITING){
-        $this->update(['status' => Cv::STATUS_CONTRACTED]);
-        $this->contracts()->attach($contract_id, [
-        'status' => $status ?? Contract::STATUS_WAITING,
-        ]);
-    }
-
 
     public function contracts()
     {
-        return $this->belongsToMany(Contract::class)->withPivot(['status', 'created_at', 'updated_at']);
+        return $this->hasToMany(Contract::class);
+        // return $this->belongsToMany(Contract::class)->withPivot(['status', 'created_at', 'updated_at']);
     }
 
     public function billPivot($bill_id)

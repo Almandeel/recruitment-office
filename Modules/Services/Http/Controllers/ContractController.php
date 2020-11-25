@@ -203,8 +203,8 @@ class ContractController extends Controller
             $data['status'] = Contract::STATUS_INITIAL;
             // dd($data);
             $contract = Contract::create($data);
-            $cv->contracting($contract->id, Contract::STATUS_INITIAL);
             if ($contract) {
+                if($cv) $cv->update(['status' => Cv::STATUS_CONTRACTED, 'contract_id' => $contract->id]);
                 return redirect()->route('contracts.create', ['view' => 'initial', 'contract_id' => $contract->id])->withSuccess('تم إنشاء العقد بنجاح');
             }
             return back()->withError('حدث خطأ اثناء إنشاء العقد');
@@ -212,7 +212,7 @@ class ContractController extends Controller
             $request->validate([
                 'phones' => 'unique:customers',
                 'customer_id_number' => [Rule::unique('customers', 'id_number')],
-                'visa' => 'nullable|numeric|digits_between:8,15',
+                // 'visa' => 'nullable|numeric|digits_between:8,15',
                 'details' => 'nullable|string',
                 'cv_id' => 'required|numeric',
                 'profession_id' => 'required',
@@ -273,11 +273,9 @@ class ContractController extends Controller
 
             $contract = Contract::create($data);
 
-
-            // $cv->contracting($contract->id, $request->status);
-
             if ($contract) {
-                $cv->update(['status' => Cv::STATUS_CONTRACTED]);
+                if($cv) $cv->update(['status' => Cv::STATUS_CONTRACTED, 'contract_id' => $contract->id]);
+                // $cv->update(['status' => Cv::STATUS_CONTRACTED]);
                 $contract->attach();
             }
             return redirect()->route('contracts.show', $contract->id)->with('success', __('global.operation_success'));
