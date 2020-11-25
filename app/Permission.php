@@ -59,6 +59,8 @@ class Permission extends LaratrustPermission
     'categories' => 'الاقسام | نظام مركز المعرفة',
     'services' => 'خدمات العملاء | نظام خدمات العملاء',
     'flights' => ' الرحلات | نظام خدمات العملاء',
+    'delegations' => 'الوكالات | نظام خدمات العملاء',
+    'bails' => 'الكفالات | نظام خدمات العملاء',
     'tutorials' => 'مركز المعرفة | نظام مركز المعرفة',
     'sms' => 'الرسائل النصية | نظام المستخدمين',
     'mail' => 'المراسلات | نظام المراسلات',
@@ -73,22 +75,22 @@ class Permission extends LaratrustPermission
     public static function external(){
         return self::whereIn('display_name', ['x', 'ex'])->get();
     }
-    
+
     public function getPermission(){
         return self::NAMES[$this->permission()];
     }
-    
+
     public function permission(){
         $index = strpos($this->name, '-') + 1;
         return substr($this->name, $index,strlen($this->name));
     }
-    
+
     public function getGroup(){
         if(isset(self::GROUPS[$this->group()])) {
             return self::GROUPS[$this->group()];
         }
     }
-    
+
     public function group(){
         $index = strpos($this->name, '-');
         return substr($this->name, 0, $index);

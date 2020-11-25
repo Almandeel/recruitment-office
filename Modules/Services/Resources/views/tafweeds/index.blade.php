@@ -12,9 +12,9 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h3 class="card-title">قائمة الوكالات - التفاويض</h3>
-
-
+                                        @permission('delegations-create')
                                         <a class="card-title float-right btn btn-primary" href="{{url('services/tafweed/create')}}"><i class="fa fa-plus"></i> اضافة </a>
+                                        @endpermission
                                     </div>
                                     <!-- /.card-header -->
                     <div class="card-extra clearfix">
@@ -126,10 +126,13 @@
                                                         <td> {{ $tafweed->recruitment_cv_passport }}</td>
                                                         <td>
                                                             <div class="btn-group">
+                                                                @permission('delegations-read')
                                                                 <a class="btn btn-info" href="{{route('tafweed.show',[$tafweed->id])}}"><i class="fa fa-eye"></i> عرض</a>
+                                                                @endpermission
+                                                                @permission('delegations-update')
                                                                 <a class="btn btn-primary contracts update" href="{{route('tafweed.edit',[$tafweed->id])}}"><i class="fa fa-edit"></i> تعديل</a>
-
-
+                                                                @endpermission
+                                                                @permission('delegations-delete')
                                                                 <form method="POST" action="{{route('tafweed.destroy',[$tafweed->id])}}">
                                                                   @csrf
                                                                   @method('DELETE')
@@ -139,9 +142,9 @@
                                                                   style="border-radius: 0;font-size: 1rem;">
                                                                     <i class="fa fa-trash"></i>
                                                                     <span>حذف</span>
-                                                                </button>
-
+                                                                  </button>
                                                                 </form>
+                                                                @endpermission
                                                             </div>
                                                         </td>
                                                     </tr>
