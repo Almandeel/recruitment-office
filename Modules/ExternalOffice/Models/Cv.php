@@ -286,7 +286,7 @@ class Cv extends BaseModel
 
     public function contracts()
     {
-        return $this->hasToMany(Contract::class);
+        return $this->hasMany(Contract::class);
         // return $this->belongsToMany(Contract::class)->withPivot(['status', 'created_at', 'updated_at']);
     }
 

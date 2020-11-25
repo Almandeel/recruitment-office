@@ -33,97 +33,74 @@
                                 </div>
                                 <!-- /.card-extra -->
                                 <div class="card-body ">
-                                    <div class="row">
-                                        <div class="col"> 
-                                        <div class="col-md-3">
-                                            <div class="form-group">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col"> 
                                                 <label for="country_id">الدولة</label>
                                                 <select name="country_id" class="form-control option" style="padding: 0px;">  
-                                                
-                                                           @foreach(Modules\ExternalOffice\Models\Country::all() as $country) 
-                                                <option value="{{ $country->id }}"> {{ $country->name }}</option>
-                                                         @endforeach
-                                            </select> 
+                                                    @foreach(Modules\ExternalOffice\Models\Country::all() as $country) 
+                                                        <option value="{{ $country->id }}"> {{ $country->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col">
+                                                <label for="customers">
+                                                    <span>بيانات العميل</span>
+                                                </label>
+                                                <select class="form-control select2 custom-select" id="customers">
+                                                    <option value="create">إنشاء عميل</option>
+                                                    @foreach($customers as $customer)
+                                                        <option value="{{ $customer->id }}" data-id="{{ $customer->id }}" data-name="{{ $customer->name }}" data-id-number="{{ $customer->id_number }}" data-phones="{{ $customer->phones }}" data-address="{{ $customer->address }}">{{ $customer->name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
-                                    </div>
-
-                                    <div class="row">
- 
-
-                                        <br><br>
- 
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="customer_id"> اسم العميل</label>
-       
-                                        <select class="form-control select2 custom-select" name="customer_id" id="customers" style="height: 38px;">
-                                            <option value="create">إنشاء عميل</option>
-                                            @foreach($customers as $customer)
-                                            <option value="{{ $customer->id }}"  data-id="{{ $customer->id }}" data-name="{{ $customer->name }}" data-identification_num="{{ $customer->id_number }}" data-phone="{{ $customer->phones }}" data-addr="{{ $customer->address }}">{{ $customer->name }}</option>
-                                            @endforeach
-                                        </select> 
-
-
+                                        <div class="form-group row">
+                                            <div class="col">
+                                                <label>الإسم</label>
+                                                <input type="text" class="form-control" required name="customer_name" required placeholder="الإسم">
+                                            </div>
+                                            <div class="col">
+                                                <label>رقم الهوية</label>
+                                                <input type="text" class="form-control" required name="customer_id_number" placeholder="رقم الهوية">
+                                                <input type="hidden" required name="customer_id">
+                                            </div>
+                                            <div class="col">
+                                                <label>رقم التأشيرة</label>
+                                                <input type="text" class="form-control" required name="visa" placeholder="رقم التأشيرة">
+                                                <input type="hidden" required name="customer_id">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="name">  الاسم </label>
-                                                <input type="text" class="form-control" name="name" placeholder="الاسم   "  >
- 
+                                        <div class="form-group row">
+                                            <div class="col">
+                                                <label>رقم الهاتف</label>
+                                                <input type="number" class="form-control" required name="customer_phones" placeholder="رقم الهاتف">
+                                            </div>
+                                            <div class="col">
+                                                <label>العنوان</label>
+                                                <input type="text" class="form-control" required name="customer_address" placeholder="العنوان">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="addr"> العنوان </label>
-                                                <input type="text" class="form-control" name="addr" placeholder="العنوان   "  >
- 
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="identification_num"> رقم الهوية </label>
-
-                                                <input type="text" style="border-radius: 0;" class="form-control" name="identification_num" placeholder="رقم الهوية"  >
-                                                 
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="phone"> رقم الجوال </label>
-
-                                                <input type="text" style="border-radius: 0;" class="form-control" name="phone" placeholder="رقم الجوال">
-                                            </div>
-                                        </div> 
-
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="visa"> رقم التاشيرة </label>
-
-                                                <input type="text" style="border-radius: 0;" class="form-control" name="visa" placeholder="التأشيرة">
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {{--  </div>  --}}
 
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="salary">قيمة العقد</label>
-                                                <input  type="number" class="form-control" name="salary" placeholder="Amount" >
+                                                <input  type="number" class="form-control" required name="salary" placeholder="Amount" >
                                             </div>
                                         </div>
 
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="comm">نسبة المسوق</label>
-                                                <input type="number" class="form-control" name="comm" placeholder="نسبة المسوق">
+                                                <input type="number" class="form-control" required name="comm" placeholder="نسبة المسوق">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <label for="marketer">المسوق</label>
-                                            <select name="marketer" class="form-control option" style="padding-top:0px;"> 
+                                            <select required name="marketer" class="form-control option" style="padding-top:0px;"> 
                                                 <option>    المسوق      </option>
                                                           @foreach(Modules\Services\Models\Marketer::all() as $marketer) 
                                                 <option value="{{ $marketer->name }}"> {{ $marketer->name }}</option>
@@ -135,20 +112,20 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="recruitment_cv_name"> اسم العامل</label> 
-                                                <input type="text" class="form-control" name="recruitment_cv_name" placeholder="اسم العامل  ">
+                                                <input type="text" class="form-control" required name="recruitment_cv_name" placeholder="اسم العامل  ">
                                             </div>
                                         </div>
 
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="recruitment_cv_passport"> رقم الجواز</label>
-                                                <input type="text" class="form-control" name="recruitment_cv_passport" placeholder="رقم الجواز  ">
+                                                <input type="text" class="form-control" required name="recruitment_cv_passport" placeholder="رقم الجواز  ">
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="office">المكتب الخارجي </label> 
-                                                <input type="text" class="form-control" name="office"> 
+                                                <input type="text" class="form-control" required name="office"> 
                                             </div>
                                         </div>
                                     </div>
@@ -160,37 +137,34 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="contract_num"> رقم عقد مساند ادارة المكاتب </label>
-                                                <input type="number" class="form-control" name="contract_num" placeholder="   ">
+                                                <input type="number" class="form-control" required name="contract_num" placeholder="   ">
                                             </div>
                                         </div>
 
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="injaz_num"> رقم تفويض انجاز</label>
-                                                <input type="number" class="form-control" name="injaz_num" placeholder="   ">
+                                                <input type="number" class="form-control" required name="injaz_num" placeholder="   ">
                                             </div>
                                         </div>
 
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="injaz_cost"> تكلفة تفويض انجاز</label>
-                                                <input type="number" class="form-control" name="injaz_cost" placeholder=" تكلفة تفويض انجاز ">
+                                                <input type="number" class="form-control" required name="injaz_cost" placeholder=" تكلفة تفويض انجاز ">
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col col-md-12">
                                             <div class="form-group">
                                                 <label for="notes">ملاحظات </label>
                                                 <br>
-                                                <textarea name="notes" rows="4" cols="100">
-
-                                                </textarea>
+                                                <textarea required name="notes" rows="4" class="form-control"></textarea>
                                             </div>
                                         </div>
 
                                     </div>
                                  
-                                   @component('components.attachments-uploader')
-                @endcomponent
+                                   @component('components.attachments-uploader')@endcomponent
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">
@@ -229,41 +203,52 @@
         })
         function selectCustomer(){
             let selected_option = $('select#customers option:selected');
-            let field_customer_name = $('input[name=name]');
-            let field_customer_id_number = $('input[name=identification_num]');
-            let field_customer_address = $('input[name=addr]');
-            let field_customer_phones = $('input[name=phone]');
-            let field_customer_id = $('input[name=id]');
+            let field_customer_name = $('input[name=customer_name]');
+            let field_customer_id_number = $('input[name=customer_id_number]');
+            let field_customer_id = $('input[name=customer_id]');
+            let field_customer_phones = $('input[name=customer_phones]');
+            let field_customer_address = $('input[name=customer_address]');
             if(selected_option.val() == 'create'){
+                field_customer_phones.val('')
+                field_customer_address.val('')
                 field_customer_name.val('')
                 field_customer_id_number.val('')
-                field_customer_address.val('')
-                field_customer_phones.val('')
+
                 field_customer_id.removeAttr('value')
-                field_customer_name.removeAttr('disabled')
-                field_customer_id_number.removeAttr('disabled')
-                field_customer_address.removeAttr('disabled')
-                field_customer_phones.removeAttr('disabled')
+                field_customer_name.removeAttr('readonly')
+                field_customer_id_number.removeAttr('readonly')
+                field_customer_phones.removeAttr('readonly')
+                field_customer_address.removeAttr('readonly')
+
                 field_customer_name.attr('required', true)
-                field_customer_id.attr('disabled', true)
+                field_customer_id_number.attr('required', true)
+                field_customer_phones.attr('required', true)
+                field_customer_address.attr('required', true)
+                field_customer_id.attr('readonly', true)
             }else{
                 field_customer_name.val(selected_option.data('name'))
                 field_customer_id.val(selected_option.data('id'))
+                field_customer_phones.val(selected_option.data('phones'))
+                field_customer_address.val(selected_option.data('address'))
                 field_customer_id.attr('value', selected_option.data('id'))
-                field_customer_id_number.val(selected_option.data('identification_num'))
-                field_customer_address.val(selected_option.data('addr'))
-                field_customer_phones.val(selected_option.data('phone'))
-                field_customer_name.attr('disabled', true)
-                field_customer_id_number.attr('disabled', true)
-                field_customer_address.attr('disabled', true)
-                field_customer_phones.attr('disabled', true)
-                field_customer_id.removeAttr('disabled')
+                field_customer_id_number.val(selected_option.data('id-number'))
+
+                field_customer_name.attr('readonly', true)
+                field_customer_id_number.attr('readonly', true)
+                field_customer_phones.attr('readonly', true)
+                field_customer_address.attr('readonly', true)
+                
+                field_customer_id.removeAttr('readonly')
                 field_customer_name.removeAttr('required')
+                field_customer_id_number.removeAttr('required')
+                field_customer_phones.removeAttr('required')
+                field_customer_address.removeAttr('required')
+
                 $('input.parsley-error[name="customer_name"]')
                     .siblings('ul.parsley-errors-list').remove()
                 $('input[name="customer_name"]').removeClass('parsley-error')
             }
-        } 
+        }
     </script>
 
     <style type="text/css">

@@ -99,6 +99,28 @@ class TafweedController extends Controller
 
         $tafweed = new Tafweed;
 
+        if (is_null($request->customer_id)) {
+            $customer_data = [];
+            if (!is_null($request->customer_name)) {
+                $customer_data['name'] = $request->customer_name;
+            }
+            if (!is_null($request->customer_id_number)) {
+                $customer_data['id_number'] = $request->customer_id_number;
+            }
+            if (!is_null($request->customer_phones)) {
+                $customer_data['phones'] = $request->customer_phones;
+            }
+            if (!is_null($request->customer_address)) {
+                $customer_data['address'] = $request->customer_address;
+            }
+            if (count($customer_data)) {
+                $customer = Customer::firstOrCreate($customer_data);
+                if ($customer) {
+                    $data['customer_id'] = $customer->id;
+                }
+            }
+        }
+        
         $tafweed->customer_id = $request->customer_id;
         $i = $request->customer_id;
 
