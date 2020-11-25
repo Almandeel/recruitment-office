@@ -33,7 +33,7 @@
                             <td>{{ $role->name }}</td>
                                 <td>
                                     <a class="btn btn-info btn-xs" href="{{ route('roles.show', $role->id) }}"><i class="fa fa-eye"></i> عرض  </a>
-                                    @if($role->id != 1 && $role->name != 'office')
+                                    @if($role->id != 1 || $role->name != 'office' || $role->name != 'business')
                                     @permission('roles-update')
                                     <a class="btn btn-warning btn-xs" href="{{ route('roles.edit', $role->id) }}"><i class="fa fa-edit"></i> تعديل </a>
                                     @endpermission
