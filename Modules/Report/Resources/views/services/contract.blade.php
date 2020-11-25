@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @push('head')
-    
+
 @endpush
 
 
@@ -10,7 +10,7 @@
         <div class="card">
             <div class="card-header">
                 <form action="{{ route('report.contracts') }}" method="get">
-                    @csrf 
+                    @csrf
                     <div class="row">
                         <div class="col-md-4">
                             <div class="input-group">
@@ -29,7 +29,7 @@
 
                             </div>
                         </div>
-                        
+
                         <div class="col-md-2">
                             <button class="btn btn-primary btn-sm btn-block"><i class="fa fa-search"></i> بحث</button>
                         </div>
@@ -55,7 +55,7 @@
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $contract->cv->name }}</td>
-                                <td>{{ $contract->customer()->name }}</td>
+                                <td>{{ $contract->customer->name }}</td>
                                 <td>{{ $contract->profession->name }}</td>
                                 <td>{{ $contract->visa }}</td>
                                 <td>{{ $contract->office->name?? '' }}</td>
@@ -88,7 +88,7 @@
                 </div>
             `)
         }
-        
+
         if(content == 'country') {
             $('#search-content').append(`
                 <div id="country">
