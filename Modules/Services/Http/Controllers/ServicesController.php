@@ -134,8 +134,9 @@ class ServicesController extends Controller
                 'country_id' =>$cv->country_id,
                 'profession_id' =>$cv->profession_id,
                 'customer_id' =>$customer->id,
+                'status' => Contract::STATUS_INITIAL,
             ]);
-            $cv->contracting($contract->id, Contract::STATUS_INITIAL);
+            if($cv) $cv->update(['status' => Cv::STATUS_CONTRACTED, 'contract_id' => $contract->id]);
             return back()->with('success', __('global.operation_success'));
         }else {
             $customer = Customer::create([
@@ -150,8 +151,9 @@ class ServicesController extends Controller
                 'country_id' =>$cv->country_id,
                 'profession_id' =>$cv->profession_id,
                 'customer_id' =>$customer->id,
+                'status' => Contract::STATUS_INITIAL,
             ]);
-            $cv->contracting($contract->id, Contract::STATUS_INITIAL);
+            if($cv) $cv->update(['status' => Cv::STATUS_CONTRACTED, 'contract_id' => $contract->id]);
             return back()->with('success', __('global.operation_success'));
         }
     }

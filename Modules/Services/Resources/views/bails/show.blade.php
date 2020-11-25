@@ -231,6 +231,28 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group mt-3 text-center">
+                            @permission('bails-update')
+                                <a class="btn btn-warning" href="{{ route('bails.edit', $bail->id) }}"><i class="fa fa-edit"></i> تعديل</a>
+                            @endpermission
+                            @permission('bails-delete')
+                                <button type="button" class="btn btn-danger"
+                                    data-toggle="confirm" data-form="#delete-form-{{ $bail->id }}"
+                                    data-title="حذف الكفالة"
+                                    data-text="سوف يتم حذف الكفالة نهائيا من النظام استمرار؟"
+                                    >
+                                    <i class="fa fa-trash"></i>
+                                    <span>حذف</span>
+                                </button>
+                            @endpermission
+                            @permission('bails-delete')
+                            <form id="delete-form-{{ $bail->id }}" style="display: none" action="{{ route('bails.destroy', $bail) }}" method="post">
+                                @csrf 
+                                @method('DELETE')
+                                <input type="hidden" name="operation" value="delete"/>
+                            </form>
+                            @endpermission
+                        </div>
                     @endslot
                 @endcomponent
                 @component('components.tab-content')

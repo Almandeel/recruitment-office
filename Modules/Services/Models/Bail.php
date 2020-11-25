@@ -120,5 +120,16 @@ class Bail extends Model
     {
         return $this->belongsTo(Contract::class, 'x_contract_id');
     }
+
+    public function delete()
+    {
+        $cv = $this->cv;
+        $contract = $this->contract;
+        $cv->cancel();
+        $result = parent::delete();
+        $contract->delete();
+
+        return $result;
+    }
     
 }
