@@ -125,7 +125,7 @@ class TafweedController extends Controller
         $tafweed->injaz_num = $request->injaz_num;
         $tafweed->injaz_cost = $request->injaz_cost;
         $tafweed->contract_num = $request->contract_num;
-        $tafweed->attach = $request->attach;
+        // $tafweed->attach = $request->attach;
         $tafweed->notes = $request->notes;
 
         $tafweed->save();
@@ -203,7 +203,7 @@ class TafweedController extends Controller
         $tafweed->injaz_num = $request->input('injaz_num');
         $tafweed->injaz_cost = $request->input('injaz_cost');
         $tafweed->contract_num = $request->input('contract_num');
-        $tafweed->attach = $request->input('attach');
+        // $tafweed->attach = $request->input('attach');
         $tafweed->notes = $request->input('notes');
 
         $tafweed->save();
