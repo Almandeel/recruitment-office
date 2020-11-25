@@ -100,11 +100,10 @@
                                         </div>
                                         <div class="col-md-4">
                                             <label for="marketer">المسوق</label>
-                                            <select required name="marketer" class="form-control option" style="padding-top:0px;"> 
-                                                <option>    المسوق      </option>
-                                                          @foreach(Modules\Services\Models\Marketer::all() as $marketer) 
-                                                <option value="{{ $marketer->name }}"> {{ $marketer->name }}</option>
-                                                         @endforeach
+                                            <select required name="marketer" class="form-control option editable" style="padding-top:0px;"> 
+                                                @foreach(Modules\Services\Models\Marketer::all() as $marketer) 
+                                                    <option value="{{ $marketer->name }}"> {{ $marketer->name }}</option>
+                                                @endforeach
                                             </select>  
                                         </div>
                                     </div>

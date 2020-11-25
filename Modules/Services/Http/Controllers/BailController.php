@@ -119,7 +119,7 @@ class BailController extends Controller
     public function store(Request $request)
     {
         // $request->validate([
-        //     'customer_phones' => 'unique:customers.phones',
+        //     'customer_phones' => 'unique:customers,phones',
         //     'visa' => 'nullable|numeric',
         //     'details' => 'nullable|string',
         //     'cv_id' => 'required|numeric',
@@ -128,9 +128,8 @@ class BailController extends Controller
         //     'amount' => 'required|numeric|min:0',
         //     'marketer_id' => 'nullable',
         //     'marketing_ratio' => 'nullable|numeric',
-        //     'customer_id_number'   => 'string|nullable|unique:customers.id_number',
+        //     'customer_id_number'   => 'string|nullable|unique:customers,id_number',
         // ]);
-        // dd($request->all());
         
         $data = $request->except(['_token', 'marketer_id']);
         $cv = Cv::findOrFail($request->cv_id);

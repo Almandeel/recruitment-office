@@ -200,10 +200,6 @@
                                                 </textarea>
                                             </div>
                                         </div>
-
-                @component('components.attachments-uploader')
-                @endcomponent
-
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
