@@ -22,7 +22,7 @@ class BailController extends Controller
         //     $p = \App\Permission::firstOrCreate(['name' => 'bails-'. $permission]);
         //     $super->permissions()->sync($p);
         // }
-
+        
         $this->middleware('permission:bails-create')->only(['create', 'store']);
         $this->middleware('permission:bails-read')->only(['index', 'show']);
         $this->middleware('permission:bails-update')->only(['edit', 'update']);
@@ -42,7 +42,7 @@ class BailController extends Controller
         $first_bail = Bail::first();
         $from_date = is_null($request->from_date) ? (is_null($first_bail) ? date('Y-m-d') : $first_bail->created_at->format('Y-m-d')) : $request->from_date;
         $to_date = is_null($request->to_date) ? date('Y-m-d') : $request->to_date;
-        $status = !is_null($request->status) ? $request->status : 'trail';
+        $status = !is_null($request->status) ? $request->status : 'trail_pending';
         $from_date_time = $from_date . ' 00:00:00';
         $to_date_time = $to_date . ' 23:59:59';
         $bails = $bails->whereBetween('created_at', [$from_date_time, $to_date_time]);
@@ -75,6 +75,9 @@ class BailController extends Controller
         
         if ($status != 'all') {
             $bails = $bails->filter(function($bail) use($status){
+                if ($status == 'trail_pending') {
+                    return $bail->checkStatus('trail') || $bail->checkStatus('pending');
+                }
                 return $bail->checkStatus($status);
             });
         }
@@ -128,7 +131,7 @@ class BailController extends Controller
         //     'customer_id_number'   => 'string|nullable|unique:customers.id_number',
         // ]);
         // dd($request->all());
-
+        
         $data = $request->except(['_token', 'marketer_id']);
         $cv = Cv::findOrFail($request->cv_id);
         if ($request->country_id == 'all' || $request->country_id != $cv->country_id) {
@@ -218,7 +221,7 @@ class BailController extends Controller
         $cv = $x_contract->cv;
         $customers = Customer::all();
         $marketers = Marketer::all();
-
+        
         return view('services::bails.edit', compact('bail', 'cv', 'contract', 'x_contract', 'customer', 'x_customer', 'customers', 'marketers'));
     }
     
