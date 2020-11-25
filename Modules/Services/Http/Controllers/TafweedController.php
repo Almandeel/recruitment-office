@@ -24,7 +24,7 @@ class TafweedController extends Controller
         //     $super->permissions()->attach([$p->id]);
         // }
         // dd(\App\Permission::where('name', 'like', '%delegations%')->get());
-
+        
         $this->middleware('permission:delegations-create')->only(['create', 'store']);
         $this->middleware('permission:delegations-read')->only(['index', 'show']);
         $this->middleware('permission:delegations-update')->only(['edit', 'update']);
@@ -102,7 +102,8 @@ class TafweedController extends Controller
         $countries = Country::all();
         $offices = Office::all();
         $professions = Profession::all();
-        return view('services::tafweeds.create')->withtafweed($tafweed)->withcustomers($customers)->withcountries($countries)->withoffices($offices)->withprofessions($professions);
+        $marketers = Marketer::all();
+        return view('services::tafweeds.create', compact('marketers'))->withtafweed($tafweed)->withcustomers($customers)->withcountries($countries)->withoffices($offices)->withprofessions($professions);
     }
     
     public function store(Request $request)
@@ -112,7 +113,7 @@ class TafweedController extends Controller
         if (is_null($request->customer_id)) {
             $rules['customer_id_number'] = 'unique:customers,id_number';
         }
-
+        
         if (count($rules)) {
             $request->validate($rules);
         }
@@ -144,12 +145,12 @@ class TafweedController extends Controller
         $request['identification_num'] = $customer->id_number;
         $request['addr'] = $customer->address;
         $request['phone'] = $customer->phones;
-
+        
         $marketer = Marketer::firstOrCreate(['name' => $request->marketer_id]);
         $request['marketer_id'] = $marketer->id;
         // $tafweed = Tafweed::create($request->Except('_token'));
-
-
+        
+        
         $tafweed = new Tafweed;
         $tafweed->customer_id = $request->customer_id;
         $i = $request->customer_id;

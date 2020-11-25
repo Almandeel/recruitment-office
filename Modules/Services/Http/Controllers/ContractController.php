@@ -205,6 +205,7 @@ class ContractController extends Controller
             $contract = Contract::create($data);
             if ($contract) {
                 if($cv) $cv->update(['status' => Cv::STATUS_CONTRACTED, 'contract_id' => $contract->id]);
+                $contract->attach();
                 return redirect()->route('contracts.create', ['view' => 'initial', 'contract_id' => $contract->id])->withSuccess('تم إنشاء العقد بنجاح');
             }
             return back()->withError('حدث خطأ اثناء إنشاء العقد');
