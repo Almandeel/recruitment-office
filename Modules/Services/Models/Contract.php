@@ -335,6 +335,7 @@ class Contract extends BaseModel
     }
 
     public function delete(){
+        $this->cv->cancel();
         $result = parent::delete();
         return $result;
     }

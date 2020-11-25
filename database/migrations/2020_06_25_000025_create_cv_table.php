@@ -82,10 +82,10 @@ class CreateCvTable extends Migration
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('contract_id', 'fk_cv_contracts1_idx')
-                ->references('id')->on('contracts')
-                ->onDelete('no action')
-                ->onUpdate('no action');
+            // $table->foreign('contract_id', 'fk_cv_contracts1_idx')
+            //     ->references('id')->on('contracts')
+            //     ->onDelete('no action')
+            //     ->onUpdate('no action');
 
             $table->foreign('country_id')
                 ->references('id')->on('countries')
