@@ -1,6 +1,6 @@
 @extends('layouts.master', [
     'title' => 'تعديل مكتب خارجي',
-    'datatable' => true, 
+    'datatable' => true,
     'modals' => ['country'],
     'crumbs' => [
         [route('offices.index'), 'المكاتب الخارجية'],
@@ -64,31 +64,31 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-6">
                             <label>مشرف المكتب الخارجي</label>
                             <div class="input-group">
                                 <select class="custom-select" name="office_admin_id">
                                     @foreach($office->users as $user)
-                                        <option value="{{ $user->id }}" @if($office->admin->id == $user->id) selected @endif>{{ $user->name }}</option>
+                                        <option value="{{ $user->id }}" @if($office->admin_id && $office->admin->id == $user->id) selected @endif>{{ $user->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-                        
+
                         <hr>
                         <p class="col-md-12 text-center mt-4">مشرف المكتب الخارجي</p>
                         <div class="form-group col-md-6">
                             <label for="name">إسم مشرف المكتب الخارجي</label>
-                            <input type="text" class="form-control" name="name" placeholder="الإسم" value="{{ $office->admin->name }}">
+                            <input type="text" class="form-control" name="name" placeholder="الإسم" value="{{ $office->admin->name ?? '-' }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="username">إسم المستخدم</label>
-                            <input type="text" class="form-control" name="username" placeholder="إسم المستخدم" value="{{ $office->admin->username }}">
+                            <input type="text" class="form-control" name="username" placeholder="إسم المستخدم" value="{{ $office->admin->username ?? '-' }}">
                         </div>
                         <div class="form-group col-md-12">
                             <label for="phone">رقم الهاتف</label>
-                            <input type="number" class="form-control" name="phone" placeholder="رقم الهاتف" value="{{ $office->admin->phone  }}">
+                            <input type="number" class="form-control" name="phone" placeholder="رقم الهاتف" value="{{ $office->admin->phone ?? '-'  }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="password">كلمة المرور</label>
@@ -96,7 +96,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="password">إعادة كلمة المرور</label>
-                            <input class="form-control" type="password" name="password_confirmation" placeholder="إعادة كلمة المرور" 
+                            <input class="form-control" type="password" name="password_confirmation" placeholder="إعادة كلمة المرور"
                             data-parsley-equalto="#password" data-parsley-equalto-message="كلمة المرور غير متطابقة">
                         </div>
 
