@@ -301,13 +301,17 @@ class VoucherController extends Controller
             }
             $entry = Entry::create($entry_data);
             
-            if($voucher->isReceipt()){
-                $from = $request->credit_id;
-                $to = $request->debt_id;
-            }else{
-                $from = $request->debt_id;
-                $to = $request->credit_id;
-            }
+            // if($voucher->isReceipt()){
+            //     $from = $request->credit_id;
+            //     $to = $request->debt_id;
+            // }else{
+            //     $from = $request->debt_id;
+            //     $to = $request->credit_id;
+            // }
+
+            $from = $request->debt_id;
+            $to = $request->credit_id;
+            
             $entry->accounts()->attach($from, [
             'amount' => $entry->amount,
             'side' => Entry::SIDE_DEBTS,
