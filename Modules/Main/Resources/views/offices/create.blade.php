@@ -1,6 +1,6 @@
 @extends('layouts.master', [
     'title' => 'إضافة مكتب خارجي',
-    'datatable' => true, 
+    'datatable' => true,
     'modals' => ['country'],
     'crumbs' => [
         [route('offices.index'), 'المكاتب الخارجية'],
@@ -69,30 +69,30 @@
 
                         <div class="form-group col-md-6">
                             <label for="name">إسم مشرف المكتب الخارجي</label>
-                            <input type="text" class="form-control" name="name" placeholder="الإسم" value="{{ old('name') }}">
+                            <input type="text" class="form-control" name="name" placeholder="الإسم" value="{{ old('name') }}" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="username">إسم المستخدم</label>
-                            <input type="text" class="form-control" name="username" placeholder="إسم المستخدم" value="{{ old('username') }}">
+                            <input type="text" class="form-control" name="username" placeholder="إسم المستخدم" value="{{ old('username') }}" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="password">كلمة المرور</label>
-                            <input class="form-control" type="password" name="password" id="password" placeholder="كلمة المرور">
+                            <input class="form-control" type="password" name="password" id="password" placeholder="كلمة المرور" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="phone">رقم الهاتف</label>
-                            <input type="number" class="form-control" name="phone" placeholder="رقم الهاتف" value="{{ old('phone') }}">
+                            <input type="number" class="form-control" name="phone" placeholder="رقم الهاتف" value="{{ old('phone') }}" required>
                         </div>
 
                         <div class="form-group col-md-6">
                             <label for="password">إعادة كلمة المرور</label>
-                            <input class="form-control" type="password" name="password_confirmation" placeholder="إعادة كلمة المرور" 
-                            data-parsley-equalto="#password" data-parsley-equalto-message="كلمة المرور غير متطابقة">
+                            <input class="form-control" type="password" name="password_confirmation" placeholder="إعادة كلمة المرور"
+                            data-parsley-equalto="#password" data-parsley-equalto-message="كلمة المرور غير متطابقة" required>
                         </div>
-            
+
                         <div class="form-group col-md-6">
                             <label for="status">الحالة</label>
-                            <select class="custom-select" name="status" id="status">
+                            <select class="custom-select" name="status" id="status" required>
                                 <option value="1">نشط</option>
                                 <option value="0">غير نشط</option>
                             </select>
